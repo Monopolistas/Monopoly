@@ -67,8 +67,6 @@ public class GameStateMachine : IMonopolyCore
 
     public void ThrowDice(int playerId, int die1, int die2)
     {
-        Debug.Log("playerId: " + playerId);
-        Debug.Log("playerOnTurn.Id: " + playerOnTurn.Id);
         if (CheckCanThrowDice(playerId))
         {
             ((StateOnPlayerTurn)currentState).ThrowDice(die1, die2);
@@ -154,7 +152,6 @@ public class GameStateMachine : IMonopolyCore
 
     public bool CheckCanThrowDice(int playerId)
     {
-        Debug.Log("State: " + currentState.GetType().Name);
         return (playerOnTurn.Id == playerId && currentState is StateOnPlayerTurn);
     }
 
