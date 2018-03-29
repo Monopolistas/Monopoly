@@ -10,7 +10,7 @@ public class GameStateMachineTest
     GameStateMachine gameStateMachine;
     ResourcesLoader resourcesLoader;
 
-    [OneTimeSetUp]
+    [SetUp]
     public void SetUp()
     {
         gameStateMachine = new GameStateMachine();

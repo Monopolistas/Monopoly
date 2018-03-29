@@ -27,7 +27,7 @@ public class StateOnPlayerTurnTest
         return idNoPlayerOnTurn;
     }
 
-    [OneTimeSetUp]
+    [SetUp]
     public void SetUp()
     {
         gameStateMachine = new GameStateMachine();
@@ -48,6 +48,7 @@ public class StateOnPlayerTurnTest
     [Test]
     public void ThrowDiceTest()
     {
+        Debug.Log("ThrowDiceTest");
         gameStateMachine.ThrowDice(idPlayerOnTurn);
 
         Assert.AreEqual(StateOnPlayerTurn.StateEnum.ON_MOVE, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
@@ -57,6 +58,7 @@ public class StateOnPlayerTurnTest
     [Test]
     public void ThrowDiceDoubleTest()
     {
+        Debug.Log("ThrowDiceDoubleTest");
         gameStateMachine.ThrowDice(idPlayerOnTurn, 5, 5);
 
         Assert.AreEqual(StateOnPlayerTurn.StateEnum.ON_MOVE, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
@@ -67,17 +69,23 @@ public class StateOnPlayerTurnTest
     [Test]
     public void ThrowDiceNoPlayerOnTurnTest()
     {
+        Debug.Log("ThrowDiceNoPlayerOnTurnTest");
         Assert.Throws<MonopolyAlertException>(delegate { gameStateMachine.ThrowDice(idNoPlayerOnTurn); });
     }
 
     [Test]
     public void ExecuteGameLogicAfterDiceThrownTest()
     {
+        Debug.Log("ExecuteGameLogicAfterDiceThrownTest");
         gameStateMachine.ThrowDice(idPlayerOnTurn, 3, 5);
 
         gameStateMachine.ExecuteGameLogic();
 
         Assert.AreEqual(8, gameStateMachine.GetPlayerPositionOnBoard(idPlayerOnTurn));
+
+        gameStateMachine.ExecuteGameLogic();
+
+        Assert.IsTrue(gameStateMachine.CheckInState("StateOnBoardSlotAction"));
     }
 
 }
