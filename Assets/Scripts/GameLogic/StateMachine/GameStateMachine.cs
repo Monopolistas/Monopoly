@@ -225,6 +225,32 @@ public class GameStateMachine : IMonopolyCore
         return board.FindIndexWherePlayerIs(virtualDatabase.FindPlayerById(playerId));
     }
 
+    public int GetNumberOfHousesWithBank()
+    {
+        int counter = 0;
+        foreach (Building building in board.Bank.BuildingList)
+        {
+            if (building.BuildingType.Equals(BuildingType.HOUSE))
+            {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public int GetNumberOfHotelsWithBank()
+    {
+        int counter = 0;
+        foreach (Building building in board.Bank.BuildingList)
+        {
+            if (building.BuildingType.Equals(BuildingType.HOTEL))
+            {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
     #endregion
 
     #region Getters and Setters

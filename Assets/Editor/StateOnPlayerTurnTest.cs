@@ -62,6 +62,8 @@ public class StateOnPlayerTurnTest
         Assert.AreEqual(StateOnPlayerTurn.StateEnum.ON_MOVE, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
         Assert.NotNull(((StateOnPlayerTurn)gameStateMachine.CurrentState).PlayerTurn);
         Assert.AreEqual(1, ((StateOnPlayerTurn)gameStateMachine.CurrentState).PlayerTurn.DiceThrowList.Count);
+
+        // TODO: test if the player keeps playing
     }
 
     [Test]

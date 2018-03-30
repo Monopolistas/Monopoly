@@ -3,7 +3,7 @@
 public class BuildingType
 {
     public static readonly BuildingType HOUSE = new BuildingType(1, "HOUSE");
-    public static readonly BuildingType HOTEL = new BuildingType(1, "HOTEL");
+    public static readonly BuildingType HOTEL = new BuildingType(2, "HOTEL");
 
     int code;
     string name;
@@ -35,6 +35,7 @@ public class BuildingType
         }
         return type;
     }
+
     public int Code
     {
         get
@@ -60,4 +61,17 @@ public class BuildingType
             name = value;
         }
     }
+
+    public override bool Equals(object obj)
+    {
+        var type = obj as BuildingType;
+        return type != null &&
+               code == type.code;
+    }
+
+    public override int GetHashCode()
+    {
+        return -1021610220 + code.GetHashCode();
+    }
+
 }

@@ -10,6 +10,7 @@ public class BoardSlotActionJail : BoardSlotAction
 
     public override void ExecuteAction()
     {
-        throw new System.NotImplementedException();
+        // TODO: Implement logic
+        // Nothing to do at all...
     }
 }

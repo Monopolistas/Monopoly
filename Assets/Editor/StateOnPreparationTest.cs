@@ -43,6 +43,8 @@ public class StateOnPreparationTest
 
         Assert.AreEqual(Constants.BANK_INITIAL_CASH - playersCash, gameStateMachine.Board.Bank.Cash);
         Assert.AreEqual(3, gameStateMachine.GetNumberOfPlayersInBoardSlot(0));
+        Assert.AreEqual(Constants.INITIAL_NUMBER_OF_HOUSES, gameStateMachine.GetNumberOfHousesWithBank());
+        Assert.AreEqual(Constants.INITIAL_NUMBER_OF_HOTELS, gameStateMachine.GetNumberOfHotelsWithBank());
 
         Assert.IsTrue(gameStateMachine.CheckInState("StateOnPlayerTurn"));
     }

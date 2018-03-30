@@ -10,6 +10,8 @@ public class BoardSlotActionTax : BoardSlotAction
 
     public override void ExecuteAction()
     {
-        throw new System.NotImplementedException();
+        // TODO: Implement logic
+        // Create a debt transaction between the player and the bank
+        // Execute the transaction
     }
 }

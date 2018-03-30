@@ -10,6 +10,8 @@ public class BoardSlotActionGo : BoardSlotAction
 
     public override void ExecuteAction()
     {
-        throw new System.NotImplementedException();
+        // TODO: Implement logic
+        // Create a credit transaction between the bank and the player
+        // Execute the transaction
     }
 }

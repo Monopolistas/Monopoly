@@ -10,6 +10,7 @@ public class BoardSlotActionChance : BoardSlotAction
 
     public override void ExecuteAction()
     {
-        throw new System.NotImplementedException();
+        // TODO: Implement logic
+        // Change the state of the machine to OnCardAction
     }
 }
