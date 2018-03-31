@@ -3,6 +3,7 @@
 public class GameStateMachine : IMonopolyCore
 {
 
+    StateOnStart stateOnStart;
     StateOnPreparation stateOnPreparation;
     StateOnPlayerTurn stateOnPlayerTurn;
     StateOnBoardSlotAction stateOnBoardSlotAction;
@@ -23,11 +24,12 @@ public class GameStateMachine : IMonopolyCore
 
         virtualDatabase = new VirtualDatabase();
 
-        this.currentState = stateOnPreparation;
+        this.currentState = stateOnStart;
     }
 
     void InitializeStates()
     {
+        stateOnStart = new StateOnStart(this);
         stateOnPreparation = new StateOnPreparation(this);
         stateOnPlayerTurn = new StateOnPlayerTurn(this);
         stateOnBoardSlotAction = new StateOnBoardSlotAction(this);

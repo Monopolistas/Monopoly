@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    GameStateMachine gameStateMachine;
+    public GameStateMachine gameStateMachine;
 
     // Use this for initialization
     void Start()
