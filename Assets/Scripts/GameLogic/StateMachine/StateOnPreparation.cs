@@ -25,7 +25,7 @@ public class StateOnPreparation : State
 
     void FillBoardWithPlayers()
     {
-        foreach (Player item in GameStateMachine.Database.FindAllPlayers())
+        foreach (Player item in GameStateMachine.Database.PlayerDictionary.Values)
         {
             Board.PlayerList.Add(item);
         }
@@ -33,7 +33,7 @@ public class StateOnPreparation : State
 
     void FillBoardWithBoardSlots()
     {
-        foreach (BoardSlot item in GameStateMachine.Database.FindAllBoardSlots())
+        foreach (BoardSlot item in GameStateMachine.Database.BoardSlotDictionary.Values)
         {
             Board.BoardSlotList.Add(item);
         }
@@ -41,7 +41,15 @@ public class StateOnPreparation : State
 
     void FillBankWithLotCards()
     {
-        foreach (LotCard item in GameStateMachine.Database.FindAllLotCards())
+        foreach (LotCard item in GameStateMachine.Database.TitleDeedCardList)
+        {
+            Board.Bank.LotCardList.Add(item);
+        }
+        foreach (LotCard item in GameStateMachine.Database.RailroadCardList)
+        {
+            Board.Bank.LotCardList.Add(item);
+        }
+        foreach (LotCard item in GameStateMachine.Database.UtilityCardList)
         {
             Board.Bank.LotCardList.Add(item);
         }
@@ -63,7 +71,7 @@ public class StateOnPreparation : State
 
     void ShuffleCards()
     {
-        List<ChanceCard> chanceCardList = GameStateMachine.Database.FindAllChanceCards();
+        List<ChanceCard> chanceCardList = new List<ChanceCard>(GameStateMachine.Database.ChanceCardList);
 
         ShuffleList<ChanceCard>.Shuffle(chanceCardList);
 
@@ -72,7 +80,7 @@ public class StateOnPreparation : State
             Board.ChanceCardQueue.Enqueue(item);
         }
 
-        List<CommunityChestCard> communityChestCardList = GameStateMachine.Database.FindAllCommunityChestCards();
+        List<CommunityChestCard> communityChestCardList = new List<CommunityChestCard>(GameStateMachine.Database.CommunityChestCardList);
 
         ShuffleList<CommunityChestCard>.Shuffle(communityChestCardList);
 

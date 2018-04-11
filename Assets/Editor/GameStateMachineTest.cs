@@ -15,53 +15,67 @@ public class GameStateMachineTest
     {
         gameStateMachine = new GameStateMachine();
         resourcesLoader = new ResourcesLoader();
-        gameStateMachine.AddPlayer(1, "Player1", PlayerColor.BLACK.Name);
-        gameStateMachine.AddPlayer(2, "Player2", PlayerColor.WHITE.Name);
-        gameStateMachine.AddPlayer(3, "Player3", PlayerColor.RED.Name);
+        gameStateMachine.AddLocalPlayer(1);
+        gameStateMachine.AddLocalPlayer(2);
+        gameStateMachine.AddLocalPlayer(3);
         resourcesLoader.GameStateMachine = gameStateMachine;
         resourcesLoader.FillDatabase();
     }
 
     [Test]
-    public void CheckOnPreparationTest()
+    public void CheckOnStartTest()
     {
-        Assert.IsTrue(gameStateMachine.CheckInState("StateOnPreparation"));
+        Assert.IsTrue(gameStateMachine.CheckInState("StateOnStart"));
     }
 
     [Test]
     public void CheckNumberOfPlayersTest()
     {
-        Assert.AreEqual(3, gameStateMachine.GetNumberOfPlayers());
+        Assert.AreEqual(3, gameStateMachine.Database.PlayerDictionary.Count);
     }
 
     [Test]
     public void CheckNumberOfBoardSlotsTest()
     {
-        Assert.AreEqual(40, gameStateMachine.GetNumberOfBoardSlots());
+        Assert.AreEqual(40, gameStateMachine.Database.BoardSlotDictionary.Count);
     }
 
     [Test]
     public void CheckNumberOfTitleDeedCardsTest()
     {
-        Assert.AreEqual(22, gameStateMachine.GetNumberOfTitleDeedCards());
+        Assert.AreEqual(22, gameStateMachine.Database.TitleDeedCardList.Count);
     }
 
     [Test]
     public void CheckNumberOfRailroadCardsTest()
     {
-        Assert.AreEqual(4, gameStateMachine.GetNumberOfRailroadCards());
+        Assert.AreEqual(4, gameStateMachine.Database.RailroadCardList.Count);
     }
 
     [Test]
     public void CheckNumberOfUtilityCardsTest()
     {
-        Assert.AreEqual(2, gameStateMachine.GetNumberOfUtilityCards());
+        Assert.AreEqual(2, gameStateMachine.Database.UtilityCardList.Count);
     }
 
     [Test]
     public void CheckNumberOfLotsTest()
     {
-        Assert.AreEqual(28, gameStateMachine.GetNumberOfLots());
+        Assert.AreEqual(28, gameStateMachine.Database.LotDictionary.Count);
+    }
+
+    [Test]
+    public void AddLocalPlayerTest()
+    {
+        Assert.AreEqual(Player.PLAYER_1.Name, gameStateMachine.Database.PlayerDictionary[1].Name);
+        Assert.AreEqual(Player.PLAYER_2.Name, gameStateMachine.Database.PlayerDictionary[2].Name);
+        Assert.AreEqual(Player.PLAYER_3.Name, gameStateMachine.Database.PlayerDictionary[3].Name);
+        Assert.AreEqual(PlayerColor.BLACK.Name, gameStateMachine.Database.PlayerDictionary[1].PlayerColor.Name);
+        Assert.AreEqual(PlayerColor.WHITE.Name, gameStateMachine.Database.PlayerDictionary[2].PlayerColor.Name);
+        Assert.AreEqual(PlayerColor.RED.Name, gameStateMachine.Database.PlayerDictionary[3].PlayerColor.Name);
+        Assert.AreEqual(3, gameStateMachine.Database.PlayerQueue.Count);
+        Assert.AreEqual(3, gameStateMachine.Database.PlayerColorQueue.Count);
+        Assert.AreEqual(3, gameStateMachine.Database.PlayerDictionary.Count);
     }
 
 }

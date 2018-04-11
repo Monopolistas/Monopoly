@@ -14,11 +14,12 @@ public class StateOnPreparationTest
     {
         gameStateMachine = new GameStateMachine();
         resourcesLoader = new ResourcesLoader();
-        gameStateMachine.AddPlayer(1, "Player1", PlayerColor.BLACK.Name);
-        gameStateMachine.AddPlayer(2, "Player2", PlayerColor.WHITE.Name);
-        gameStateMachine.AddPlayer(3, "Player3", PlayerColor.RED.Name);
+        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.BLACK));
+        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.WHITE));
+        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.RED));
         resourcesLoader.GameStateMachine = gameStateMachine;
         resourcesLoader.FillDatabase();
+        gameStateMachine.ChangeState(new StateOnPreparation(gameStateMachine));
     }
 
     [Test]
@@ -26,10 +27,10 @@ public class StateOnPreparationTest
     {
         gameStateMachine.ExecuteGameLogic();
 
-        Assert.AreEqual(16, gameStateMachine.GetNumberOfEnqueuedChanceCards());
-        Assert.AreEqual(16, gameStateMachine.GetNumberOfEnqueuedCommunityChestCards());
-        Assert.AreEqual(3, gameStateMachine.GetNumberOfPlayersInGame());
-        Assert.AreEqual(40, gameStateMachine.GetNumberOfBoardSlotsInBoard());
+        Assert.AreEqual(16, gameStateMachine.Board.ChanceCardQueue.Count);
+        Assert.AreEqual(16, gameStateMachine.Board.CommunityChestCardQueue.Count);
+        Assert.AreEqual(3, gameStateMachine.Board.PlayerList.Count);
+        Assert.AreEqual(40, gameStateMachine.Board.BoardSlotList.Count);
         Assert.NotNull(gameStateMachine.PlayerOnTurn);
         Assert.NotNull(gameStateMachine.Board);
 
@@ -42,7 +43,7 @@ public class StateOnPreparationTest
         }
 
         Assert.AreEqual(Constants.BANK_INITIAL_CASH - playersCash, gameStateMachine.Board.Bank.Cash);
-        Assert.AreEqual(3, gameStateMachine.GetNumberOfPlayersInBoardSlot(0));
+        Assert.AreEqual(3, gameStateMachine.Board.BoardSlotList[0].PlayerList.Count);
         Assert.AreEqual(Constants.INITIAL_NUMBER_OF_HOUSES, gameStateMachine.GetNumberOfHousesWithBank());
         Assert.AreEqual(Constants.INITIAL_NUMBER_OF_HOTELS, gameStateMachine.GetNumberOfHotelsWithBank());
 

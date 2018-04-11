@@ -32,11 +32,13 @@ public class StateOnPlayerTurnTest
     {
         gameStateMachine = new GameStateMachine();
         resourcesLoader = new ResourcesLoader();
-        gameStateMachine.AddPlayer(1, "Player1", PlayerColor.BLACK.Name);
-        gameStateMachine.AddPlayer(2, "Player2", PlayerColor.WHITE.Name);
-        gameStateMachine.AddPlayer(3, "Player3", PlayerColor.RED.Name);
+        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.BLACK));
+        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.WHITE));
+        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.RED));
         resourcesLoader.GameStateMachine = gameStateMachine;
         resourcesLoader.FillDatabase();
+
+        gameStateMachine.ChangeState(new StateOnPreparation(gameStateMachine));
 
         // Execute onPreparation and enters OnPlayerTurn
         gameStateMachine.ExecuteGameLogic();

@@ -27,36 +27,41 @@ public class ResourcesLoader
 
         foreach (BoardSlotScriptableObject item in boardSlotUnityArray)
         {
-            gameStateMachine.AddBoardSlot((BoardSlot) item);
+            gameStateMachine.Database.BoardSlotDictionary.Add(item.id, (BoardSlot)item);
         }
 
         foreach (ChanceCardScriptableObject item in chanceCardUnityArray)
         {
-            gameStateMachine.AddChanceCard((ChanceCard) item);
+            gameStateMachine.Database.CardDictionary.Add(item.id, (ChanceCard)item);
+            gameStateMachine.Database.ChanceCardList.Add((ChanceCard)item);
         }
 
         foreach (CommunityChestCardScriptableObject item in communityChestCardUnityArray)
         {
-            gameStateMachine.AddCommunityChestCard((CommunityChestCard) item);
+            gameStateMachine.Database.CardDictionary.Add(item.id, (CommunityChestCard)item);
+            gameStateMachine.Database.CommunityChestCardList.Add((CommunityChestCard)item);
         }
 
         foreach (RailroadCardScriptableObject item in railroadCardUnityArray)
         {
-            gameStateMachine.AddRailroadCard((RailroadCard) item);
-            gameStateMachine.AddLot((Lot) item);
+            gameStateMachine.Database.CardDictionary.Add(item.id, (RailroadCard)item);
+            gameStateMachine.Database.RailroadCardList.Add((RailroadCard)item);
+            gameStateMachine.Database.LotDictionary.Add(item.id, (Lot)item);
         }
 
         foreach (TitleDeedCardScriptableObject item in titleDeedCardUnityArray)
         {
-            gameStateMachine.AddTitleDeedCard((TitleDeedCard) item);
-            gameStateMachine.AddLot((Lot) item);
+            gameStateMachine.Database.CardDictionary.Add(item.id, (TitleDeedCard)item);
+            gameStateMachine.Database.TitleDeedCardList.Add((TitleDeedCard)item);
+            gameStateMachine.Database.LotDictionary.Add(item.id, (Lot)item);
         }
 
 
         foreach (UtilityCardScriptableObject item in utilityCardUnityArray)
         {
-            gameStateMachine.AddUtilityCard((UtilityCard) item);
-            gameStateMachine.AddLot((Lot)item);
+            gameStateMachine.Database.CardDictionary.Add(item.id, (UtilityCard)item);
+            gameStateMachine.Database.UtilityCardList.Add((UtilityCard)item);
+            gameStateMachine.Database.LotDictionary.Add(item.id, (Lot)item);
         }
     }
 

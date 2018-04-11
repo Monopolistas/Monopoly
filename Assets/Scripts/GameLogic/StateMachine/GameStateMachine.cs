@@ -16,6 +16,8 @@ public class GameStateMachine : IMonopolyCore
 
     VirtualDatabase virtualDatabase;
 
+    Player owner;
+
     public GameStateMachine()
     {
         board = new Board();
@@ -79,68 +81,16 @@ public class GameStateMachine : IMonopolyCore
         }
     }
 
-    #endregion
-
-    #region Database methods
-
-    public void AddBoardSlot(BoardSlot boardSlot)
+    public Player AddLocalPlayer(int id)
     {
-        virtualDatabase.AddBoardSlot(boardSlot);
-    }
-
-    public void AddChanceCard(ChanceCard chanceCard)
-    {
-        chanceCard.BoardSlot = chanceCard.BoardSlotId == 0 ? null : virtualDatabase.FindBoardSlotById(chanceCard.BoardSlotId);
-        virtualDatabase.AddChanceCard(chanceCard);
-    }
-
-    public void AddCommunityChestCard(CommunityChestCard communityChestCard)
-    {
-        communityChestCard.BoardSlot = communityChestCard.BoardSlotId == 0 ? null : virtualDatabase.FindBoardSlotById(communityChestCard.BoardSlotId);
-        virtualDatabase.AddCommunityChestCard(communityChestCard);
-    }
-
-    public void AddTitleDeedCard(TitleDeedCard titleDeedCard)
-    {
-        virtualDatabase.AddTitleDeedCard(titleDeedCard);
-    }
-
-    public void AddLot(Lot lot)
-    {
-        Card card = virtualDatabase.FindCardById(lot.LotCardId);
-        lot.LotCard = lot.LotCardId == 0 ? null : (LotCard)card;
-        virtualDatabase.AddLot(lot);
-        if (card is TitleDeedCard)
-        {
-            ((TitleDeedCard)card).Lot = lot;
-        }
-        if (card is RailroadCard)
-        {
-            ((RailroadCard)card).Lot = lot;
-        }
-        if (card is UtilityCard)
-        {
-            ((UtilityCard)card).Lot = lot;
-        }
-    }
-
-    public void AddRailroadCard(RailroadCard railroadCard)
-    {
-        virtualDatabase.AddRailroadCard(railroadCard);
-    }
-
-    public void AddUtilityCard(UtilityCard utilityCard)
-    {
-        virtualDatabase.AddUtilityCard(utilityCard);
-    }
-
-    public void AddPlayer(int id, string name, string playerColor)
-    {
+        // Instantiate local player on master and clients
         Player player = new Player();
         player.Id = id;
-        player.Name = name;
-        player.PlayerColor = PlayerColor.FindByName(playerColor);
-        virtualDatabase.AddPlayer(player);
+        player.Name = virtualDatabase.PlayerQueue.Dequeue().Name;
+        player.PlayerColor = virtualDatabase.PlayerColorQueue.Dequeue();
+        virtualDatabase.PlayerDictionary.Add(id, player);
+        owner = player;
+        return player;
     }
 
     #endregion
@@ -157,74 +107,9 @@ public class GameStateMachine : IMonopolyCore
         return (playerOnTurn.Id == playerId && currentState is StateOnPlayerTurn);
     }
 
-    public int GetNumberOfPlayers()
-    {
-        return this.Database.GetNumberOfPlayers();
-    }
-
-    public int GetNumberOfBoardSlots()
-    {
-        return this.Database.GetNumberOfBoardSlots();
-    }
-
-    public int GetNumberOfChanceCards()
-    {
-        return this.Database.GetNumberOfChanceCards();
-    }
-
-    public int GetNumberOfCommunityChestCards()
-    {
-        return this.Database.GetNumberOfCommunityChestCards();
-    }
-
-    public int GetNumberOfTitleDeedCards()
-    {
-        return this.Database.GetNumberOfTitleDeedCards();
-    }
-
-    public int GetNumberOfRailroadCards()
-    {
-        return this.Database.GetNumberOfRailroadCards();
-    }
-
-    public int GetNumberOfUtilityCards()
-    {
-        return this.Database.GetNumberOfUtilityCards();
-    }
-
-    public int GetNumberOfLots()
-    {
-        return this.Database.GetNumberOfLots();
-    }
-
-    public int GetNumberOfEnqueuedChanceCards()
-    {
-        return board.ChanceCardQueue.Count;
-    }
-
-    public int GetNumberOfEnqueuedCommunityChestCards()
-    {
-        return board.CommunityChestCardQueue.Count;
-    }
-
-    public int GetNumberOfPlayersInGame()
-    {
-        return board.PlayerList.Count;
-    }
-
-    public int GetNumberOfBoardSlotsInBoard()
-    {
-        return board.BoardSlotList.Count;
-    }
-
-    public int GetNumberOfPlayersInBoardSlot(int index)
-    {
-        return board.BoardSlotList[index].PlayerList.Count;
-    }
-
     public int GetPlayerPositionOnBoard(int playerId)
     {
-        return board.FindIndexWherePlayerIs(virtualDatabase.FindPlayerById(playerId));
+        return board.FindIndexWherePlayerIs(virtualDatabase.PlayerDictionary[playerId]);
     }
 
     public int GetNumberOfHousesWithBank()
@@ -262,6 +147,10 @@ public class GameStateMachine : IMonopolyCore
         get
         {
             return this.virtualDatabase;
+        }
+        set
+        {
+            virtualDatabase = value;
         }
     }
 
@@ -340,6 +229,18 @@ public class GameStateMachine : IMonopolyCore
         set
         {
             stateOnBoardSlotAction = value;
+        }
+    }
+
+    public Player Owner
+    {
+        get
+        {
+            return owner;
+        }
+        set
+        {
+            this.owner = value;
         }
     }
 

@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class VirtualDatabase
 {
+    // Immutable collections
     Dictionary<int, Card> cardDictionary;
-
-    Dictionary<int, Player> playerDictionary;
 
     Dictionary<int, BoardSlot> boardSlotDictionary;
 
     Dictionary<int, Lot> lotDictionary;
+
+    Queue<Player> playerQueue;
+
+    Queue<PlayerColor> playerColorQueue;
+
+    List<TitleDeedCard> titleDeedCardList;
+
+    List<ChanceCard> chanceCardList;
+
+    List<CommunityChestCard> communityChestCardList;
+
+    List<RailroadCard> railroadCardList;
+
+    List<UtilityCard> utilityCardList;
+
+    // Mutable
+    Dictionary<int, Player> playerDictionary;
 
     public VirtualDatabase()
     {
@@ -18,220 +34,156 @@ public class VirtualDatabase
         this.playerDictionary = new Dictionary<int, Player>();
         this.boardSlotDictionary = new Dictionary<int, BoardSlot>();
         this.lotDictionary = new Dictionary<int, Lot>();
+        this.playerQueue = new Queue<Player>(Player.Values);
+        this.playerColorQueue = new Queue<PlayerColor>(PlayerColor.Values);
+        this.titleDeedCardList = new List<TitleDeedCard>();
+        this.chanceCardList = new List<ChanceCard>();
+        this.communityChestCardList = new List<CommunityChestCard>();
+        this.railroadCardList = new List<RailroadCard>();
+        this.utilityCardList = new List<UtilityCard>();
     }
 
-    public void AddBoardSlot(BoardSlot boardSlot)
-    {
-        this.boardSlotDictionary.Add(boardSlot.Id, boardSlot);
-    }
+    #region Getters and Setters
 
-    public void AddChanceCard(ChanceCard chanceCard)
+    public Queue<Player> PlayerQueue
     {
-        this.cardDictionary.Add(chanceCard.Id, chanceCard);
-    }
-
-    public void AddCommunityChestCard(CommunityChestCard communityChestCard)
-    {
-        this.cardDictionary.Add(communityChestCard.Id, communityChestCard);
-    }
-
-    public void AddTitleDeedCard(TitleDeedCard titleDeedCard)
-    {
-        this.cardDictionary.Add(titleDeedCard.Id, titleDeedCard);
-    }
-
-    public void AddRailroadCard(RailroadCard railroadCard)
-    {
-        this.cardDictionary.Add(railroadCard.Id, railroadCard);
-    }
-
-    public void AddUtilityCard(UtilityCard utilityCard)
-    {
-        this.cardDictionary.Add(utilityCard.Id, utilityCard);
-    }
-
-    public void AddPlayer(Player player)
-    {
-        this.playerDictionary.Add(player.Id, player);
-    }
-
-    public void AddLot(Lot lot)
-    {
-        this.lotDictionary.Add(lot.LotCard.Id, lot);
-    }
-
-    public Card FindCardById(int id)
-    {
-        return this.cardDictionary[id];
-    }
-
-    public BoardSlot FindBoardSlotById(int id)
-    {
-        return this.boardSlotDictionary[id];
-    }
-
-    public Player FindPlayerById(int id)
-    {
-        return this.playerDictionary[id];
-    }
-
-    public int GetNumberOfPlayers()
-    {
-        return this.playerDictionary.Count;
-    }
-
-    public int GetNumberOfBoardSlots()
-    {
-        return this.boardSlotDictionary.Count;
-    }
-
-    public int GetNumberOfLots()
-    {
-        return this.lotDictionary.Count;
-    }
-
-    public int GetNumberOfChanceCards()
-    {
-        int numberOfChanceCards = 0;
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is ChanceCard)
-            {
-                numberOfChanceCards++;
-            }
+            return playerQueue;
+        }
+        set
+        {
+            playerQueue = value;
+        }
+    }
+
+    public Queue<PlayerColor> PlayerColorQueue
+    {
+        get
+        {
+            return playerColorQueue;
+        }
+        set
+        {
+            playerColorQueue = value;
+        }
+    }
+
+    public Dictionary<int, Player> PlayerDictionary
+    {
+        get
+        {
+            return playerDictionary;
+        }
+        set
+        {
+            playerDictionary = value;
+        }
+    }
+
+    public Dictionary<int, Card> CardDictionary
+    {
+        get
+        {
+            return cardDictionary;
         }
 
-        return numberOfChanceCards;
+        set
+        {
+            cardDictionary = value;
+        }
     }
 
-    public int GetNumberOfCommunityChestCards()
+    public Dictionary<int, BoardSlot> BoardSlotDictionary
     {
-        int numberOfCommunityChestCards = 0;
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is CommunityChestCard)
-            {
-                numberOfCommunityChestCards++;
-            }
+            return boardSlotDictionary;
         }
 
-        return numberOfCommunityChestCards;
+        set
+        {
+            boardSlotDictionary = value;
+        }
     }
 
-    public int GetNumberOfTitleDeedCards()
+    public Dictionary<int, Lot> LotDictionary
     {
-        int numberOfTitleDeedCards = 0;
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is TitleDeedCard)
-            {
-                numberOfTitleDeedCards++;
-            }
+            return lotDictionary;
         }
 
-        return numberOfTitleDeedCards;
+        set
+        {
+            lotDictionary = value;
+        }
     }
 
-    public int GetNumberOfRailroadCards()
+    public List<TitleDeedCard> TitleDeedCardList
     {
-        int numberOfRailroadCards = 0;
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is RailroadCard)
-            {
-                numberOfRailroadCards++;
-            }
+            return titleDeedCardList;
         }
 
-        return numberOfRailroadCards;
+        set
+        {
+            titleDeedCardList = value;
+        }
     }
 
-    public int GetNumberOfUtilityCards()
+    public List<ChanceCard> ChanceCardList
     {
-        int numberOfUtilityCards = 0;
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is UtilityCard)
-            {
-                numberOfUtilityCards++;
-            }
+            return chanceCardList;
         }
 
-        return numberOfUtilityCards;
+        set
+        {
+            chanceCardList = value;
+        }
     }
 
-    public List<ChanceCard> FindAllChanceCards()
+    public List<CommunityChestCard> CommunityChestCardList
     {
-        List<ChanceCard> chanceCardList = new List<ChanceCard>();
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is ChanceCard)
-            {
-                chanceCardList.Add((ChanceCard)item);
-            }
+            return communityChestCardList;
         }
 
-        return chanceCardList;
+        set
+        {
+            communityChestCardList = value;
+        }
     }
 
-    public List<CommunityChestCard> FindAllCommunityChestCards()
+    public List<RailroadCard> RailroadCardList
     {
-        List<CommunityChestCard> communityChestCardList = new List<CommunityChestCard>();
-
-        foreach (Card item in this.cardDictionary.Values)
+        get
         {
-            if (item is CommunityChestCard)
-            {
-                communityChestCardList.Add((CommunityChestCard)item);
-            }
+            return railroadCardList;
         }
 
-        return communityChestCardList;
+        set
+        {
+            railroadCardList = value;
+        }
     }
 
-    public List<Player> FindAllPlayers()
+    public List<UtilityCard> UtilityCardList
     {
-        List<Player> playerList = new List<Player>();
-
-        foreach (Player item in this.playerDictionary.Values)
+        get
         {
-            playerList.Add(item);
+            return utilityCardList;
         }
 
-        return playerList;
-    }
-
-    public List<BoardSlot> FindAllBoardSlots()
-    {
-        List<BoardSlot> boardSlotList = new List<BoardSlot>();
-
-        foreach (BoardSlot item in this.boardSlotDictionary.Values)
+        set
         {
-            boardSlotList.Add(item);
+            utilityCardList = value;
         }
-
-        return boardSlotList;
     }
 
-    public List<LotCard> FindAllLotCards()
-    {
-        List<LotCard> lotCardList = new List<LotCard>();
-
-        foreach (Card item in this.cardDictionary.Values)
-        {
-            if (item is LotCard)
-            {
-                lotCardList.Add((LotCard)item);
-            }
-        }
-
-        return lotCardList;
-    }
-
+    #endregion
 }
