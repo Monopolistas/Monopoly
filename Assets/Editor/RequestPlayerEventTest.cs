@@ -32,19 +32,27 @@ public class RequestPlayerEventTest
         resourcesLoader.RailroadCardArray = RailroadCardXml.Deserialize(railroadCardXml).ToArray();
         resourcesLoader.UtilityCardArray = UtilityCardXml.Deserialize(utilityCardXml).ToArray();
 
-        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "PLAYER 1", PlayerColor.BLACK));
-        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "PLAYER 2", PlayerColor.WHITE));
-        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "PLAYER 3", PlayerColor.RED));
+        Player p1 = gameStateMachine.Database.PlayerQueue.Dequeue();
+        Player p2 = gameStateMachine.Database.PlayerQueue.Dequeue();
+        Player p3 = gameStateMachine.Database.PlayerQueue.Dequeue();
+        PlayerColor pc1 = gameStateMachine.Database.PlayerColorQueue.Dequeue();
+        PlayerColor pc2 = gameStateMachine.Database.PlayerColorQueue.Dequeue();
+        PlayerColor pc3 = gameStateMachine.Database.PlayerColorQueue.Dequeue();
+
+        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, p1.Name, pc1));
+        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, p2.Name, pc2));
+        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, p3.Name, pc3));
         resourcesLoader.GameStateMachine = gameStateMachine;
         resourcesLoader.FillDatabase();
         gameStateMachine.ChangeState(new StateOnPreparation(gameStateMachine));
+
+        requestPlayerEvent = new RequestPlayerEvent();
+        requestPlayerEvent.SenderId = 4;
     }
 
     [Test]
     public void ExecuteTest()
     {
-        requestPlayerEvent.SenderId = 4;
-
         requestPlayerEvent.Execute(gameStateMachine);
         Assert.AreEqual(4, gameStateMachine.Database.PlayerDictionary.Count);
         Assert.AreEqual(4, gameStateMachine.Database.PlayerDictionary[4].Id);
@@ -56,7 +64,6 @@ public class RequestPlayerEventTest
     [Test]
     public void BuildPlayersArrayTest()
     {
-        requestPlayerEvent = new RequestPlayerEvent();
         Player[] players = requestPlayerEvent.BuildPlayersArray(gameStateMachine);
         Assert.AreEqual(3, players.Length);
     }

@@ -7,11 +7,15 @@ public class RequestThrowEvent : NetworkEvent
 
     public RequestThrowEvent()
     {
-        this.Code = NetworkEvent.REQUEST_THROW_ID;
     }
 
     public RequestThrowEvent(int code) : base(code)
     {
+    }
+
+    public override void Broadcast(GameStateMachine gameStateMachine)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void Execute(GameStateMachine gameStateMachine)

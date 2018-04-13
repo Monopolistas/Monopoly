@@ -7,11 +7,15 @@ public class BroadcastStartEvent : NetworkEvent
 
     public BroadcastStartEvent()
     {
-        this.Code = NetworkEvent.BROADCAST_START_ID;
     }
 
     public BroadcastStartEvent(int code) : base(code)
     {
+    }
+
+    public override void Broadcast(GameStateMachine gameStateMachine)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void Execute(GameStateMachine gameStateMachine)

@@ -2,7 +2,6 @@
 {
     public RequestPlayerEvent()
     {
-        this.Code = NetworkEvent.REQUEST_PLAYER_ID;
     }
 
     public RequestPlayerEvent(int code) : base(code)
@@ -17,11 +16,9 @@
         sender.Name = gameStateMachine.Database.PlayerQueue.Dequeue().Name;
         sender.PlayerColor = gameStateMachine.Database.PlayerColorQueue.Dequeue();
         gameStateMachine.Database.PlayerDictionary.Add(SenderId, sender);
-
-        BroadcastPlayers(gameStateMachine);
     }
 
-    private void BroadcastPlayers(GameStateMachine gameStateMachine)
+    public void BroadcastPlayers(GameStateMachine gameStateMachine)
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
         raiseEventOptions.Receivers = ReceiverGroup.Others;
@@ -33,5 +30,10 @@
         Player[] players = new Player[gameStateMachine.Database.PlayerDictionary.Count];
         gameStateMachine.Database.PlayerDictionary.Values.CopyTo(players, 0);
         return players;
+    }
+
+    public override void Broadcast(GameStateMachine gameStateMachine)
+    {
+        BroadcastPlayers(gameStateMachine);
     }
 }

@@ -78,5 +78,6 @@ public class GameNetwork : Photon.PunBehaviour
         networkEvent.Content = content;
         networkEvent.SenderId = senderid;
         networkEvent.Execute(gameStateMachine);
+        networkEvent.Broadcast(gameStateMachine);
     }
 }

@@ -7,11 +7,15 @@ public class BroadcastMovementEvent : NetworkEvent
 
     public BroadcastMovementEvent()
     {
-        this.Code = NetworkEvent.BROADCAST_MOVEMENT_ID;
     }
 
     public BroadcastMovementEvent(int code) : base(code)
     {
+    }
+
+    public override void Broadcast(GameStateMachine gameStateMachine)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void Execute(GameStateMachine gameStateMachine)

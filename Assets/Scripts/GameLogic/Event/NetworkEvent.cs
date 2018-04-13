@@ -10,12 +10,12 @@ public abstract class NetworkEvent
     public static int BROADCAST_MOVEMENT_ID = 5;
     public static int BROADCAST_GAME_OVER_ID = 6;
 
-    public static NetworkEvent REQUEST_PLAYER = new RequestPlayerEvent();
-    public static NetworkEvent BROADCAST_PLAYER = new BroadcastPlayerEvent();
-    public static NetworkEvent BROADCAST_START = new BroadcastStartEvent();
-    public static NetworkEvent REQUEST_THROW = new RequestThrowEvent();
-    public static NetworkEvent BROADCAST_MOVEMENT = new BroadcastMovementEvent();
-    public static NetworkEvent BROADCAST_GAME_OVER = new BroadcastGameOverEvent();
+    public static NetworkEvent REQUEST_PLAYER = new RequestPlayerEvent(REQUEST_PLAYER_ID);
+    public static NetworkEvent BROADCAST_PLAYER = new BroadcastPlayerEvent(BROADCAST_PLAYER_ID);
+    public static NetworkEvent BROADCAST_START = new BroadcastStartEvent(BROADCAST_START_ID);
+    public static NetworkEvent REQUEST_THROW = new RequestThrowEvent(REQUEST_THROW_ID);
+    public static NetworkEvent BROADCAST_MOVEMENT = new BroadcastMovementEvent(BROADCAST_MOVEMENT_ID);
+    public static NetworkEvent BROADCAST_GAME_OVER = new BroadcastGameOverEvent(BROADCAST_GAME_OVER_ID);
 
     int code;
     int senderId;
@@ -60,6 +60,8 @@ public abstract class NetworkEvent
     }
 
     public abstract void Execute(GameStateMachine gameStateMachine);
+
+    public abstract void Broadcast(GameStateMachine gameStateMachine);
 
     public byte CodeToByte()
     {
