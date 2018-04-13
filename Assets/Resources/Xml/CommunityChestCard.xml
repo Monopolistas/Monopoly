@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<community-chest-cards>
+  <community-chest-card id="45">
+    <text>Advance to Go</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GT</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="46">
+    <text>Bank error in your favor - Collect $200</text>
+    <value>200</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="47">
+    <text>Doctor's fee - Pay $50</text>
+    <value>50</value>
+    <transaction>DEBT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="48">
+    <text>From sale of stock you get $50</text>
+    <value>50</value>
+    <transaction>DEBT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="49">
+    <text>Get Out of Jail Free</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>JF</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="50">
+    <text>Go to Jail</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GJ</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="51">
+    <text>Grand Opera Night - Collect $50 from every player for opening night seats</text>
+    <value>50</value>
+    <transaction>CREDIT</transaction>
+    <card-action>AP</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="52">
+    <text>Holiday Fund matures - Receive $100</text>
+    <value>100</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="53">
+    <text>Income tax refund - Collect $20</text>
+    <value>20</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="54">
+    <text>Life insurance matures - Collect $100</text>
+    <value>100</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="55">
+    <text>Pay hospital fees of $100</text>
+    <value>100</value>
+    <transaction>DEBT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="56">
+    <text>Pay school fees of $150</text>
+    <value>150</value>
+    <transaction>DEBT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="57">
+    <text>Receive $25 consultancy fee</text>
+    <value>25</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="58">
+    <text>You are assessed for street repairs - $40 per house - $115 per hotel</text>
+    <value>0</value>
+    <transaction>DEBT</transaction>
+    <card-action>AB</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>40</value-per-house>
+    <value-per-hotel>115</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="59">
+    <text>You have won second prize in beauty contest - Collect $10</text>
+    <value>10</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+  <community-chest-card id="60">
+    <text>You inherit $100</text>
+    <value>100</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </community-chest-card>
+</community-chest-cards>

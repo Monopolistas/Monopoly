@@ -2,68 +2,63 @@
 
 public class ResourcesLoader
 {
-    BoardSlotScriptableObject[] boardSlotUnityArray;
+    BoardSlot[] boardSlotArray;
 
-    ChanceCardScriptableObject[] chanceCardUnityArray;
+    ChanceCard[] chanceCardArray;
 
-    CommunityChestCardScriptableObject[] communityChestCardUnityArray;
+    CommunityChestCard[] communityChestCardArray;
 
-    RailroadCardScriptableObject[] railroadCardUnityArray;
+    RailroadCard[] railroadCardArray;
 
-    TitleDeedCardScriptableObject[] titleDeedCardUnityArray;
+    TitleDeedCard[] titleDeedCardArray;
 
-    UtilityCardScriptableObject[] utilityCardUnityArray;
+    UtilityCard[] utilityCardArray;
 
     GameStateMachine gameStateMachine;
 
     public void FillDatabase()
     {
-        boardSlotUnityArray = Resources.LoadAll<BoardSlotScriptableObject>("BoardSlots");
-        chanceCardUnityArray = Resources.LoadAll<ChanceCardScriptableObject>("ChanceCards");
-        communityChestCardUnityArray = Resources.LoadAll<CommunityChestCardScriptableObject>("CommunityChestCards");
-        railroadCardUnityArray = Resources.LoadAll<RailroadCardScriptableObject>("RailroadCards");
-        titleDeedCardUnityArray = Resources.LoadAll<TitleDeedCardScriptableObject>("TitleDeedCards");
-        utilityCardUnityArray = Resources.LoadAll<UtilityCardScriptableObject>("UtilityCards");
-
-        foreach (BoardSlotScriptableObject item in boardSlotUnityArray)
+        foreach (BoardSlot item in boardSlotArray)
         {
-            gameStateMachine.Database.BoardSlotDictionary.Add(item.id, (BoardSlot)item);
+            gameStateMachine.Database.BoardSlotDictionary.Add(item.Id, item);
         }
 
-        foreach (ChanceCardScriptableObject item in chanceCardUnityArray)
+        foreach (ChanceCard item in chanceCardArray)
         {
-            gameStateMachine.Database.CardDictionary.Add(item.id, (ChanceCard)item);
-            gameStateMachine.Database.ChanceCardList.Add((ChanceCard)item);
+            gameStateMachine.Database.CardDictionary.Add(item.Id, item);
+            gameStateMachine.Database.ChanceCardList.Add(item);
         }
 
-        foreach (CommunityChestCardScriptableObject item in communityChestCardUnityArray)
+        foreach (CommunityChestCard item in communityChestCardArray)
         {
-            gameStateMachine.Database.CardDictionary.Add(item.id, (CommunityChestCard)item);
-            gameStateMachine.Database.CommunityChestCardList.Add((CommunityChestCard)item);
+            gameStateMachine.Database.CardDictionary.Add(item.Id, item);
+            gameStateMachine.Database.CommunityChestCardList.Add(item);
         }
 
-        foreach (RailroadCardScriptableObject item in railroadCardUnityArray)
+        foreach (RailroadCard item in railroadCardArray)
         {
-            gameStateMachine.Database.CardDictionary.Add(item.id, (RailroadCard)item);
-            gameStateMachine.Database.RailroadCardList.Add((RailroadCard)item);
-            gameStateMachine.Database.LotDictionary.Add(item.id, (Lot)item);
+            gameStateMachine.Database.CardDictionary.Add(item.Id, item);
+            gameStateMachine.Database.RailroadCardList.Add(item);
+            gameStateMachine.Database.LotDictionary.Add(item.Id, (Lot)item);
         }
 
-        foreach (TitleDeedCardScriptableObject item in titleDeedCardUnityArray)
+        foreach (TitleDeedCard item in titleDeedCardArray)
         {
-            gameStateMachine.Database.CardDictionary.Add(item.id, (TitleDeedCard)item);
-            gameStateMachine.Database.TitleDeedCardList.Add((TitleDeedCard)item);
-            gameStateMachine.Database.LotDictionary.Add(item.id, (Lot)item);
+            gameStateMachine.Database.CardDictionary.Add(item.Id, item);
+            gameStateMachine.Database.TitleDeedCardList.Add(item);
+            gameStateMachine.Database.LotDictionary.Add(item.Id, (Lot)item);
         }
 
 
-        foreach (UtilityCardScriptableObject item in utilityCardUnityArray)
+        foreach (UtilityCard item in utilityCardArray)
         {
-            gameStateMachine.Database.CardDictionary.Add(item.id, (UtilityCard)item);
-            gameStateMachine.Database.UtilityCardList.Add((UtilityCard)item);
-            gameStateMachine.Database.LotDictionary.Add(item.id, (Lot)item);
+            gameStateMachine.Database.CardDictionary.Add(item.Id, item);
+            gameStateMachine.Database.UtilityCardList.Add(item);
+            gameStateMachine.Database.LotDictionary.Add(item.Id, (Lot)item);
         }
     }
+
+    #region Getters and Setters
 
     public GameStateMachine GameStateMachine
     {
@@ -77,4 +72,84 @@ public class ResourcesLoader
             gameStateMachine = value;
         }
     }
+
+    public ChanceCard[] ChanceCardArray
+    {
+        get
+        {
+            return chanceCardArray;
+        }
+
+        set
+        {
+            chanceCardArray = value;
+        }
+    }
+
+    public CommunityChestCard[] CommunityChestCardArray
+    {
+        get
+        {
+            return communityChestCardArray;
+        }
+
+        set
+        {
+            communityChestCardArray = value;
+        }
+    }
+
+    public RailroadCard[] RailroadCardArray
+    {
+        get
+        {
+            return railroadCardArray;
+        }
+
+        set
+        {
+            railroadCardArray = value;
+        }
+    }
+
+    public TitleDeedCard[] TitleDeedCardArray
+    {
+        get
+        {
+            return titleDeedCardArray;
+        }
+
+        set
+        {
+            titleDeedCardArray = value;
+        }
+    }
+
+    public UtilityCard[] UtilityCardArray
+    {
+        get
+        {
+            return utilityCardArray;
+        }
+
+        set
+        {
+            utilityCardArray = value;
+        }
+    }
+
+    public BoardSlot[] BoardSlotArray
+    {
+        get
+        {
+            return boardSlotArray;
+        }
+
+        set
+        {
+            boardSlotArray = value;
+        }
+    }
+
+    #endregion
 }

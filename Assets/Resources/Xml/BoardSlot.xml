@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<board-slots>
+    <board-slot id="1" boardSlotType="1" lotId="0"/>
+    <board-slot id="2" boardSlotType="2" lotId="9"/>
+    <board-slot id="3" boardSlotType="8" lotId="0"/>
+    <board-slot id="4" boardSlotType="2" lotId="2"/>
+    <board-slot id="5" boardSlotType="3" lotId="0"/>
+    <board-slot id="6" boardSlotType="4" lotId="25"/>
+    <board-slot id="7" boardSlotType="2" lotId="12"/>
+    <board-slot id="8" boardSlotType="9" lotId="0"/>
+    <board-slot id="9" boardSlotType="2" lotId="21"/>
+    <board-slot id="10" boardSlotType="2" lotId="4"/>
+    <board-slot id="11" boardSlotType="6" lotId="0"/>
+    <board-slot id="12" boardSlotType="2" lotId="16"/>
+    <board-slot id="13" boardSlotType="5" lotId="27"/>
+    <board-slot id="14" boardSlotType="2" lotId="18"/>
+    <board-slot id="15" boardSlotType="2" lotId="22"/>
+    <board-slot id="16" boardSlotType="4" lotId="24"/>
+    <board-slot id="17" boardSlotType="2" lotId="17"/>
+    <board-slot id="18" boardSlotType="8" lotId="0"/>
+    <board-slot id="19" boardSlotType="2" lotId="19"/>
+    <board-slot id="20" boardSlotType="2" lotId="10"/>
+    <board-slot id="21" boardSlotType="7" lotId="0"/>
+    <board-slot id="22" boardSlotType="2" lotId="7"/>
+    <board-slot id="23" boardSlotType="9" lotId="0"/>
+    <board-slot id="24" boardSlotType="2" lotId="6"/>
+    <board-slot id="25" boardSlotType="2" lotId="5"/>
+    <board-slot id="26" boardSlotType="4" lotId="23"/>
+    <board-slot id="27" boardSlotType="2" lotId="1"/>
+    <board-slot id="28" boardSlotType="2" lotId="10"/>
+    <board-slot id="29" boardSlotType="5" lotId="28"/>
+    <board-slot id="30" boardSlotType="2" lotId="8"/>
+    <board-slot id="31" boardSlotType="10" lotId="0"/>
+    <board-slot id="32" boardSlotType="2" lotId="13"/>
+    <board-slot id="33" boardSlotType="2" lotId="11"/>
+    <board-slot id="34" boardSlotType="8" lotId="0"/>
+    <board-slot id="35" boardSlotType="2" lotId="15"/>
+    <board-slot id="36" boardSlotType="4" lotId="26"/>
+    <board-slot id="37" boardSlotType="9" lotId="0"/>
+    <board-slot id="38" boardSlotType="2" lotId="14"/>
+    <board-slot id="39" boardSlotType="3" lotId="0"/>
+    <board-slot id="40" boardSlotType="2" lotId="3"/>
+</board-slots> 

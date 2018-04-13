@@ -9,22 +9,7 @@ public class TitleDeedCard : LotCard
     int threeHousesRent;
     int fourHousesRent;
     int hotelRent;
-
-    public static explicit operator TitleDeedCard(TitleDeedCardScriptableObject v)
-    {
-        TitleDeedCard titleDeedCard = new TitleDeedCard();
-        titleDeedCard.Id = v.id;
-        titleDeedCard.Name = v.name;
-        titleDeedCard.Rent = v.rent;
-        titleDeedCard.OneHouseRent = v.rentOneHouse;
-        titleDeedCard.TwoHousesRent = v.rentTwoHouses;
-        titleDeedCard.ThreeHousesRent = v.rentThreeHouses;
-        titleDeedCard.FourHousesRent = v.rentFourHouses;
-        titleDeedCard.HotelRent = v.rentHotel;
-        titleDeedCard.Mortgage = v.mortgage;
-        titleDeedCard.BuildingPrice = v.buildingPrice;
-        return titleDeedCard;
-    }
+    GroupColor groupColor;
 
     #region Getters and Setters
 
@@ -116,6 +101,19 @@ public class TitleDeedCard : LotCard
         set
         {
             hotelRent = value;
+        }
+    }
+
+    public GroupColor GroupColor
+    {
+        get
+        {
+            return groupColor;
+        }
+
+        set
+        {
+            groupColor = value;
         }
     }
 

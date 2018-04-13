@@ -7,6 +7,7 @@ public class BroadcastMovementEvent : NetworkEvent
 
     public BroadcastMovementEvent()
     {
+        this.Code = NetworkEvent.BROADCAST_MOVEMENT_ID;
     }
 
     public BroadcastMovementEvent(int code) : base(code)

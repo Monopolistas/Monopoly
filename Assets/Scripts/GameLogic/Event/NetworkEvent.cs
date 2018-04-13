@@ -3,8 +3,19 @@ using System.Collections.Generic;
 
 public abstract class NetworkEvent
 {
-    public static NetworkEvent REQUEST_PLAYER = new RequestPlayerEvent(1);
-    public static NetworkEvent BROADCAST_PLAYER = new BroadcastPlayerEvent(2);
+    public static int REQUEST_PLAYER_ID = 1;
+    public static int BROADCAST_PLAYER_ID = 2;
+    public static int BROADCAST_START_ID = 3;
+    public static int REQUEST_THROW_ID = 4;
+    public static int BROADCAST_MOVEMENT_ID = 5;
+    public static int BROADCAST_GAME_OVER_ID = 6;
+
+    public static NetworkEvent REQUEST_PLAYER = new RequestPlayerEvent();
+    public static NetworkEvent BROADCAST_PLAYER = new BroadcastPlayerEvent();
+    public static NetworkEvent BROADCAST_START = new BroadcastStartEvent();
+    public static NetworkEvent REQUEST_THROW = new RequestThrowEvent();
+    public static NetworkEvent BROADCAST_MOVEMENT = new BroadcastMovementEvent();
+    public static NetworkEvent BROADCAST_GAME_OVER = new BroadcastGameOverEvent();
 
     int code;
     int senderId;
@@ -28,6 +39,10 @@ public abstract class NetworkEvent
         {
             yield return REQUEST_PLAYER;
             yield return BROADCAST_PLAYER;
+            yield return BROADCAST_START;
+            yield return REQUEST_THROW;
+            yield return BROADCAST_MOVEMENT;
+            yield return BROADCAST_GAME_OVER;
         }
     }
 

@@ -13,25 +13,6 @@ public class ChanceCard : Card
     int valuePerHouse;
     int valuePerHotel;
 
-    public static explicit operator ChanceCard(ChanceCardScriptableObject v)
-    {
-        ChanceCard chanceCard = new ChanceCard();
-        chanceCard.Id = v.id;
-        chanceCard.Text = v.text;
-        chanceCard.Value = v.value;
-        if (v.transaction != null)
-        {
-            chanceCard.TransactionType = TransactionType.FindByCode(v.transaction);
-        }
-        chanceCard.CardActionType = CardActionType.FindByCode(v.cardAction);
-        chanceCard.BoardSlotId = v.boardSlot;
-        chanceCard.Multiplier = v.multiplier;
-        chanceCard.BoardSlotType = v.boardSlotType == 0 ? null : BoardSlotType.FindByCode(v.boardSlotType);
-        chanceCard.ValuePerHouse = v.valuePerHouse;
-        chanceCard.ValuePerHotel = v.valuePerHotel;
-        return chanceCard;
-    }
-
     #region Getters and Setters
 
     public string Text

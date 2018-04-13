@@ -10,31 +10,31 @@ public class Lot
     LotCard lotCard;
     int lotCardId;
 
-    public static explicit operator Lot(TitleDeedCardScriptableObject v)
+    public static explicit operator Lot(TitleDeedCard v)
     {
         Lot lot = new Lot();
-        lot.Name = v.name;
-        lot.GroupColor = GroupColor.FindByName(v.groupColor);
-        lot.Price = v.price;
-        lot.LotCardId = v.id;
+        lot.Name = v.Name;
+        lot.GroupColor = v.GroupColor;
+        lot.Price = v.Price;
+        lot.LotCardId = v.Id;
         return lot;
     }
 
-    public static explicit operator Lot(RailroadCardScriptableObject v)
+    public static explicit operator Lot(RailroadCard v)
     {
         Lot lot = new Lot();
-        lot.Name = v.name;
-        lot.Price = v.price;
-        lot.LotCardId = v.id;
+        lot.Name = v.Name;
+        lot.Price = v.Price;
+        lot.LotCardId = v.Id;
         return lot;
     }
 
-    public static explicit operator Lot(UtilityCardScriptableObject v)
+    public static explicit operator Lot(UtilityCard v)
     {
         Lot lot = new Lot();
-        lot.Name = v.name;
-        lot.Price = v.price;
-        lot.LotCardId = v.id;
+        lot.Name = v.Name;
+        lot.Price = v.Price;
+        lot.LotCardId = v.Id;
         return lot;
     }
 

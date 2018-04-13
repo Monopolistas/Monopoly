@@ -5,6 +5,7 @@ public class LotCard : Card
     string name;
     Lot lot;
     int mortgage;
+    int price;
 
     #region Getters and Setters
 
@@ -44,6 +45,19 @@ public class LotCard : Card
         set
         {
             mortgage = value;
+        }
+    }
+
+    public int Price
+    {
+        get
+        {
+            return price;
+        }
+
+        set
+        {
+            price = value;
         }
     }
 

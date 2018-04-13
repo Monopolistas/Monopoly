@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<utility-cards>
+  <utility-card id="27">
+    <name>Electric Company</name>
+    <price>150</price>
+    <rent-with-one>4</rent-with-one>
+    <rent-with-two>10</rent-with-two>
+    <mortgage>75</mortgage>
+  </utility-card>
+  <utility-card id="28">
+    <name>Water Works</name>
+    <price>150</price>
+    <rent-with-one>4</rent-with-one>
+    <rent-with-two>10</rent-with-two>
+    <mortgage>75</mortgage>
+  </utility-card>
+</utility-cards>

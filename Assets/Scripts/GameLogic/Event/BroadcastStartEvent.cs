@@ -7,6 +7,7 @@ public class BroadcastStartEvent : NetworkEvent
 
     public BroadcastStartEvent()
     {
+        this.Code = NetworkEvent.BROADCAST_START_ID;
     }
 
     public BroadcastStartEvent(int code) : base(code)

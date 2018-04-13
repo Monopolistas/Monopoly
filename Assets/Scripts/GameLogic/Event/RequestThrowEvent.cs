@@ -7,6 +7,7 @@ public class RequestThrowEvent : NetworkEvent
 
     public RequestThrowEvent()
     {
+        this.Code = NetworkEvent.REQUEST_THROW_ID;
     }
 
     public RequestThrowEvent(int code) : base(code)

@@ -7,19 +7,6 @@ public class RailroadCard : LotCard
     int threeRailroadsRent;
     int fourRailroadsRent;
 
-    public static explicit operator RailroadCard(RailroadCardScriptableObject v)
-    {
-        RailroadCard railroadCard = new RailroadCard();
-        railroadCard.Id = v.id;
-        railroadCard.Name = v.name;
-        railroadCard.Rent = v.rent;
-        railroadCard.TwoRailroadsRent = v.rentWithTwo;
-        railroadCard.ThreeRailroadsRent = v.rentWithThree;
-        railroadCard.FourRailroadsRent = v.rentWithFour;
-        railroadCard.Mortgage = v.mortgage;
-        return railroadCard;
-    }
-
     #region Getters and Setters 
 
     public int Rent

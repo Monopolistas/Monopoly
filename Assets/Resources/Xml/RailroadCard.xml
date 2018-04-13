@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<railroad-cards>
+  <railroad-card id="23">
+    <name>B. &amp; O. Railroad</name>
+    <price>200</price>
+    <rent>25</rent>
+    <rent-with-two>50</rent-with-two>
+    <rent-with-three>100</rent-with-three>
+    <rent-with-four>200</rent-with-four>
+    <mortgage>100</mortgage>
+  </railroad-card>
+  <railroad-card id="24">
+    <name>Pennsylvania Railroad</name>
+    <price>200</price>
+    <rent>25</rent>
+    <rent-with-two>50</rent-with-two>
+    <rent-with-three>100</rent-with-three>
+    <rent-with-four>200</rent-with-four>
+    <mortgage>100</mortgage>
+  </railroad-card>
+  <railroad-card id="25">
+    <name>Reading Railroad</name>
+    <price>200</price>
+    <rent>25</rent>
+    <rent-with-two>50</rent-with-two>
+    <rent-with-three>100</rent-with-three>
+    <rent-with-four>200</rent-with-four>
+    <mortgage>100</mortgage>
+  </railroad-card>
+  <railroad-card id="26">
+    <name>Short Line</name>
+    <price>200</price>
+    <rent>25</rent>
+    <rent-with-two>50</rent-with-two>
+    <rent-with-three>100</rent-with-three>
+    <rent-with-four>200</rent-with-four>
+    <mortgage>100</mortgage>
+  </railroad-card>
+</railroad-cards>

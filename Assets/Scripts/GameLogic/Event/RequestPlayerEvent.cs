@@ -2,6 +2,7 @@
 {
     public RequestPlayerEvent()
     {
+        this.Code = NetworkEvent.REQUEST_PLAYER_ID;
     }
 
     public RequestPlayerEvent(int code) : base(code)
@@ -17,17 +18,20 @@
         sender.PlayerColor = gameStateMachine.Database.PlayerColorQueue.Dequeue();
         gameStateMachine.Database.PlayerDictionary.Add(SenderId, sender);
 
-        Player[] players = new Player[gameStateMachine.Database.PlayerDictionary.Count];
+        BroadcastPlayers(gameStateMachine);
+    }
 
-        int index = 0;
-        foreach (Player p in gameStateMachine.Database.PlayerDictionary.Values)
-        {
-            players[index] = p;
-            index++;
-        }
-
+    private void BroadcastPlayers(GameStateMachine gameStateMachine)
+    {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
         raiseEventOptions.Receivers = ReceiverGroup.Others;
-        PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_PLAYER.CodeToByte(), players, true, raiseEventOptions);
+        PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_PLAYER.CodeToByte(), BuildPlayersArray(gameStateMachine), true, raiseEventOptions);
+    }
+
+    public Player[] BuildPlayersArray(GameStateMachine gameStateMachine)
+    {
+        Player[] players = new Player[gameStateMachine.Database.PlayerDictionary.Count];
+        gameStateMachine.Database.PlayerDictionary.Values.CopyTo(players, 0);
+        return players;
     }
 }

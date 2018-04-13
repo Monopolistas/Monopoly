@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<title-deed-cards>
+  <title-deed-card id="1">
+    <name>Atlantic Avenue</name>
+    <price>260</price>
+    <rent>22</rent>
+    <rent-one-house>110</rent-one-house>
+    <rent-two-houses>330</rent-two-houses>
+    <rent-three-houses>800</rent-three-houses>
+    <rent-four-houses>975</rent-four-houses>
+    <rent-hotel>1150</rent-hotel>
+    <mortgage>130</mortgage>
+    <building-price>150</building-price>
+    <group-color>YELLOW</group-color>
+  </title-deed-card>
+  <title-deed-card id="2">
+    <name>Baltic Avenue</name>
+    <price>60</price>
+    <rent>4</rent>
+    <rent-one-house>20</rent-one-house>
+    <rent-two-houses>60</rent-two-houses>
+    <rent-three-houses>180</rent-three-houses>
+    <rent-four-houses>320</rent-four-houses>
+    <rent-hotel>450</rent-hotel>
+    <mortgage>30</mortgage>
+    <building-price>50</building-price>
+    <group-color>PURPLE</group-color>
+  </title-deed-card>
+  <title-deed-card id="3">
+    <name>Boardwalk</name>
+    <price>400</price>
+    <rent>50</rent>
+    <rent-one-house>200</rent-one-house>
+    <rent-two-houses>600</rent-two-houses>
+    <rent-three-houses>1400</rent-three-houses>
+    <rent-four-houses>1700</rent-four-houses>
+    <rent-hotel>2000</rent-hotel>
+    <mortgage>200</mortgage>
+    <building-price>200</building-price>
+    <group-color>DARK BLUE</group-color>
+  </title-deed-card>
+  <title-deed-card id="4">
+    <name>Connecticut Avenue</name>
+    <price>120</price>
+    <rent>8</rent>
+    <rent-one-house>40</rent-one-house>
+    <rent-two-houses>100</rent-two-houses>
+    <rent-three-houses>300</rent-three-houses>
+    <rent-four-houses>450</rent-four-houses>
+    <rent-hotel>600</rent-hotel>
+    <mortgage>60</mortgage>
+    <building-price>50</building-price>
+    <group-color>LIGHT BLUE</group-color>
+  </title-deed-card>
+  <title-deed-card id="5">
+    <name>Illinois Avenue</name>
+    <price>240</price>
+    <rent>20</rent>
+    <rent-one-house>100</rent-one-house>
+    <rent-two-houses>300</rent-two-houses>
+    <rent-three-houses>750</rent-three-houses>
+    <rent-four-houses>925</rent-four-houses>
+    <rent-hotel>1100</rent-hotel>
+    <mortgage>120</mortgage>
+    <building-price>150</building-price>
+    <group-color>RED</group-color>
+  </title-deed-card>
+  <title-deed-card id="6">
+    <name>Indiana Avenue</name>
+    <price>220</price>
+    <rent>18</rent>
+    <rent-one-house>90</rent-one-house>
+    <rent-two-houses>250</rent-two-houses>
+    <rent-three-houses>700</rent-three-houses>
+    <rent-four-houses>875</rent-four-houses>
+    <rent-hotel>1050</rent-hotel>
+    <mortgage>110</mortgage>
+    <building-price>150</building-price>
+    <group-color>RED</group-color>
+  </title-deed-card>
+  <title-deed-card id="7">
+    <name>Kentucky Avenue</name>
+    <price>220</price>
+    <rent>18</rent>
+    <rent-one-house>90</rent-one-house>
+    <rent-two-houses>250</rent-two-houses>
+    <rent-three-houses>700</rent-three-houses>
+    <rent-four-houses>875</rent-four-houses>
+    <rent-hotel>1050</rent-hotel>
+    <mortgage>110</mortgage>
+    <building-price>150</building-price>
+    <group-color>RED</group-color>
+  </title-deed-card>
+  <title-deed-card id="8">
+    <name>Marvin Gardens</name>
+    <price>280</price>
+    <rent>24</rent>
+    <rent-one-house>120</rent-one-house>
+    <rent-two-houses>360</rent-two-houses>
+    <rent-three-houses>850</rent-three-houses>
+    <rent-four-houses>1025</rent-four-houses>
+    <rent-hotel>1200</rent-hotel>
+    <mortgage>140</mortgage>
+    <building-price>150</building-price>
+    <group-color>YELLOW</group-color>
+  </title-deed-card>
+  <title-deed-card id="9">
+    <name>Mediterranean Avenue</name>
+    <price>60</price>
+    <rent>2</rent>
+    <rent-one-house>10</rent-one-house>
+    <rent-two-houses>30</rent-two-houses>
+    <rent-three-houses>90</rent-three-houses>
+    <rent-four-houses>160</rent-four-houses>
+    <rent-hotel>250</rent-hotel>
+    <mortgage>30</mortgage>
+    <building-price>50</building-price>
+    <group-color>PURPLE</group-color>
+  </title-deed-card>
+  <title-deed-card id="10">
+    <name>New York Avenue</name>
+    <price>200</price>
+    <rent>16</rent>
+    <rent-one-house>80</rent-one-house>
+    <rent-two-houses>220</rent-two-houses>
+    <rent-three-houses>600</rent-three-houses>
+    <rent-four-houses>800</rent-four-houses>
+    <rent-hotel>1000</rent-hotel>
+    <mortgage>100</mortgage>
+    <building-price>100</building-price>
+    <group-color>ORANGE</group-color>
+  </title-deed-card>
+  <title-deed-card id="11">
+    <name>North Carolina Avenue</name>
+    <price>300</price>
+    <rent>26</rent>
+    <rent-one-house>130</rent-one-house>
+    <rent-two-houses>390</rent-two-houses>
+    <rent-three-houses>900</rent-three-houses>
+    <rent-four-houses>1100</rent-four-houses>
+    <rent-hotel>1275</rent-hotel>
+    <mortgage>150</mortgage>
+    <building-price>200</building-price>
+    <group-color>GREEN</group-color>
+  </title-deed-card>
+  <title-deed-card id="12">
+    <name>Oriental Avenue</name>
+    <price>100</price>
+    <rent>6</rent>
+    <rent-one-house>30</rent-one-house>
+    <rent-two-houses>90</rent-two-houses>
+    <rent-three-houses>270</rent-three-houses>
+    <rent-four-houses>400</rent-four-houses>
+    <rent-hotel>550</rent-hotel>
+    <mortgage>50</mortgage>
+    <building-price>50</building-price>
+    <group-color>LIGHT BLUE</group-color>
+  </title-deed-card>
+  <title-deed-card id="13">
+    <name>Pacific Avenue</name>
+    <price>300</price>
+    <rent>26</rent>
+    <rent-one-house>130</rent-one-house>
+    <rent-two-houses>390</rent-two-houses>
+    <rent-three-houses>900</rent-three-houses>
+    <rent-four-houses>1100</rent-four-houses>
+    <rent-hotel>1275</rent-hotel>
+    <mortgage>150</mortgage>
+    <building-price>200</building-price>
+    <group-color>GREEN</group-color>
+  </title-deed-card>
+  <title-deed-card id="14">
+    <name>Park Place</name>
+    <price>350</price>
+    <rent>35</rent>
+    <rent-one-house>175</rent-one-house>
+    <rent-two-houses>500</rent-two-houses>
+    <rent-three-houses>1100</rent-three-houses>
+    <rent-four-houses>1300</rent-four-houses>
+    <rent-hotel>1500</rent-hotel>
+    <mortgage>175</mortgage>
+    <building-price>200</building-price>
+    <group-color>DARK BLUE</group-color>
+  </title-deed-card>
+  <title-deed-card id="15">
+    <name>Pennsylvania Avenue</name>
+    <price>320</price>
+    <rent>28</rent>
+    <rent-one-house>150</rent-one-house>
+    <rent-two-houses>450</rent-two-houses>
+    <rent-three-houses>1000</rent-three-houses>
+    <rent-four-houses>1200</rent-four-houses>
+    <rent-hotel>1400</rent-hotel>
+    <mortgage>160</mortgage>
+    <building-price>200</building-price>
+    <group-color>GREEN</group-color>
+  </title-deed-card>
+  <title-deed-card id="16">
+    <name>States Avenue</name>
+    <price>140</price>
+    <rent>10</rent>
+    <rent-one-house>50</rent-one-house>
+    <rent-two-houses>150</rent-two-houses>
+    <rent-three-houses>450</rent-three-houses>
+    <rent-four-houses>625</rent-four-houses>
+    <rent-hotel>750</rent-hotel>
+    <mortgage>70</mortgage>
+    <building-price>100</building-price>
+    <group-color>PINK</group-color>
+  </title-deed-card>
+  <title-deed-card id="17">
+    <name>St. Charles Place</name>
+    <price>140</price>
+    <rent>10</rent>
+    <rent-one-house>50</rent-one-house>
+    <rent-two-houses>150</rent-two-houses>
+    <rent-three-houses>450</rent-three-houses>
+    <rent-four-houses>625</rent-four-houses>
+    <rent-hotel>750</rent-hotel>
+    <mortgage>70</mortgage>
+    <building-price>100</building-price>
+    <group-color>PINK</group-color>
+  </title-deed-card>
+  <title-deed-card id="18">
+    <name>St. James Place</name>
+    <price>180</price>
+    <rent>14</rent>
+    <rent-one-house>70</rent-one-house>
+    <rent-two-houses>200</rent-two-houses>
+    <rent-three-houses>550</rent-three-houses>
+    <rent-four-houses>750</rent-four-houses>
+    <rent-hotel>950</rent-hotel>
+    <mortgage>90</mortgage>
+    <building-price>100</building-price>
+    <group-color>ORANGE</group-color>
+  </title-deed-card>
+  <title-deed-card id="19">
+    <name>Tennessee Avenue</name>
+    <price>180</price>
+    <rent>14</rent>
+    <rent-one-house>70</rent-one-house>
+    <rent-two-houses>200</rent-two-houses>
+    <rent-three-houses>550</rent-three-houses>
+    <rent-four-houses>750</rent-four-houses>
+    <rent-hotel>950</rent-hotel>
+    <mortgage>90</mortgage>
+    <building-price>100</building-price>
+    <group-color>ORANGE</group-color>
+  </title-deed-card>
+  <title-deed-card id="20">
+    <name>Ventnor Avenue</name>
+    <price>260</price>
+    <rent>22</rent>
+    <rent-one-house>110</rent-one-house>
+    <rent-two-houses>330</rent-two-houses>
+    <rent-three-houses>800</rent-three-houses>
+    <rent-four-houses>975</rent-four-houses>
+    <rent-hotel>1150</rent-hotel>
+    <mortgage>130</mortgage>
+    <building-price>150</building-price>
+    <group-color>YELLOW</group-color>
+  </title-deed-card>
+  <title-deed-card id="21">
+    <name>Vermont Avenue</name>
+    <price>100</price>
+    <rent>6</rent>
+    <rent-one-house>30</rent-one-house>
+    <rent-two-houses>90</rent-two-houses>
+    <rent-three-houses>270</rent-three-houses>
+    <rent-four-houses>400</rent-four-houses>
+    <rent-hotel>550</rent-hotel>
+    <mortgage>50</mortgage>
+    <building-price>50</building-price>
+    <group-color>LIGHT BLUE</group-color>
+  </title-deed-card>
+  <title-deed-card id="22">
+    <name>Virginia Avenue</name>
+    <price>160</price>
+    <rent>12</rent>
+    <rent-one-house>60</rent-one-house>
+    <rent-two-houses>180</rent-two-houses>
+    <rent-three-houses>500</rent-three-houses>
+    <rent-four-houses>700</rent-four-houses>
+    <rent-hotel>900</rent-hotel>
+    <mortgage>80</mortgage>
+    <building-price>100</building-price>
+    <group-color>PINK</group-color>
+  </title-deed-card>
+</title-deed-cards>

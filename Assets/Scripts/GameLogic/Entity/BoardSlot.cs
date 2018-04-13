@@ -14,15 +14,6 @@ public class BoardSlot
         playerList = new List<Player>();
     }
 
-    public static explicit operator BoardSlot(BoardSlotScriptableObject v)
-    {
-        BoardSlot boardSlot = new BoardSlot();
-        boardSlot.Id = v.id;
-        boardSlot.BoardSlotType = BoardSlotType.FindByCode(v.boardSlotType);
-        boardSlot.LotId = v.lotId;
-        return boardSlot;
-    }
-
     #region Getters and Setters
 
     public BoardSlotType BoardSlotType

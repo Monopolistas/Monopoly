@@ -11,23 +11,6 @@ public class CommunityChestCard : Card
     int valuePerHouse;
     int valuePerHotel;
 
-    public static explicit operator CommunityChestCard(CommunityChestCardScriptableObject v)
-    {
-        CommunityChestCard communityChestCard = new CommunityChestCard();
-        communityChestCard.Id = v.id;
-        communityChestCard.Text = v.text;
-        communityChestCard.Value = v.value;
-        if (v.transaction != null)
-        {
-            communityChestCard.TransactionType = TransactionType.FindByCode(v.transaction);
-        }
-        communityChestCard.CardActionType = CardActionType.FindByCode(v.cardAction);
-        communityChestCard.BoardSlotId = v.boardSlot;
-        communityChestCard.ValuePerHouse = v.valuePerHouse;
-        communityChestCard.ValuePerHotel = v.valuePerHotel;
-        return communityChestCard;
-    }
-
     #region Getters and Setters
 
     public string Text

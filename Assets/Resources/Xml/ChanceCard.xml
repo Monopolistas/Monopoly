@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chance-cards>
+  <chance-card id="29">
+    <text>Advance to Go</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GT</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="30">
+    <text>Advance to Illinois Avenue</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GT</card-action>
+    <board-slot>24</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="31">
+    <text>Advance to St. Charles Place</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GT</card-action>
+    <board-slot>11</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="32">
+    <text>Advance to Nearest Utility</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GN</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>10</multiplier>
+    <board-slot-type>5</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="33">
+    <text>Advance to nearest Railroad</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GN</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>2</multiplier>
+    <board-slot-type>4</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="34">
+    <text>Bank pays you dividend $50</text>
+    <value>50</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="35">
+    <text>Get out of Jail Free</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>JF</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="36">
+    <text>Go back 3 spaces</text>
+    <value>3</value>
+    <transaction></transaction>
+    <card-action>GB</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="37">
+    <text>Go to Jail</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GJ</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="38">
+    <text>Make general repairs on all your property - For each house pay $25 - For each hotel pay $100</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>AB</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>25</value-per-house>
+    <value-per-hotel>100</value-per-hotel>
+  </chance-card>
+  <chance-card id="39">
+    <text>Pay poor tax of $15</text>
+    <value>15</value>
+    <transaction>DEBT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="40">
+    <text>Take a trip to Reading Railroad</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GT</card-action>
+    <board-slot>5</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="41">
+    <text>Take a walk on the Boardwalk</text>
+    <value>0</value>
+    <transaction></transaction>
+    <card-action>GT</card-action>
+    <board-slot>39</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="42">
+    <text>You have been elected Chairman of the Board - Pay each player $50</text>
+    <value>50</value>
+    <transaction>DEBIT</transaction>
+    <card-action>AP</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="43">
+    <text>Your building loan matures - Collect $150</text>
+    <value>150</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+  <chance-card id="44">
+    <text>You have won a crossword competition - Collect $100</text>
+    <value>100</value>
+    <transaction>CREDIT</transaction>
+    <card-action>TR</card-action>
+    <board-slot>0</board-slot>
+    <multiplier>0</multiplier>
+    <board-slot-type>0</board-slot-type>
+    <value-per-house>0</value-per-house>
+    <value-per-hotel>0</value-per-hotel>
+  </chance-card>
+</chance-cards>

@@ -6,6 +6,7 @@ public class BroadcastPlayerEvent : NetworkEvent
 {
     public BroadcastPlayerEvent()
     {
+        this.Code = NetworkEvent.BROADCAST_PLAYER.Code;
     }
 
     public BroadcastPlayerEvent(int code) : base(code)
