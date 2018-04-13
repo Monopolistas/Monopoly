@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 public class ResourcesLoader
 {
@@ -56,6 +57,23 @@ public class ResourcesLoader
             gameStateMachine.Database.UtilityCardList.Add(item);
             gameStateMachine.Database.LotDictionary.Add(item.Id, (Lot)item);
         }
+    }
+
+    public void LoadXmlData()
+    {
+        string boardSlotXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\BoardSlot.xml");
+        string chanceCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\ChanceCard.xml");
+        string communityChestCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\CommunityChestCard.xml");
+        string railroadCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\RailroadCard.xml");
+        string titleDeedCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\TitleDeedCard.xml");
+        string utilityCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\UtilityCard.xml");
+
+        BoardSlotArray = BoardSlotXml.Deserialize(boardSlotXml).ToArray();
+        ChanceCardArray = ChanceCardXml.Deserialize(chanceCardXml).ToArray();
+        CommunityChestCardArray = CommunityChestCardXml.Deserialize(communityChestCardXml).ToArray();
+        TitleDeedCardArray = TitleDeedCardXml.Deserialize(titleDeedCardXml).ToArray();
+        RailroadCardArray = RailroadCardXml.Deserialize(railroadCardXml).ToArray();
+        UtilityCardArray = UtilityCardXml.Deserialize(utilityCardXml).ToArray();
     }
 
     #region Getters and Setters
