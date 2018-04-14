@@ -45,7 +45,7 @@ public class RequestPlayerEventTest
         Assert.AreEqual(4, gameStateMachine.Database.PlayerDictionary.Count);
         Assert.AreEqual(4, gameStateMachine.Database.PlayerDictionary[4].Id);
         Assert.AreEqual("PLAYER 4", gameStateMachine.Database.PlayerDictionary[4].Name);
-        Assert.AreEqual("BLUE", gameStateMachine.Database.PlayerDictionary[4].PlayerColor.Name);
+        Assert.AreEqual("RED", gameStateMachine.Database.PlayerDictionary[4].PlayerColor.Name);
         Assert.IsNull(gameStateMachine.Database.PlayerDictionary[4].BoardSlot);
     }
 

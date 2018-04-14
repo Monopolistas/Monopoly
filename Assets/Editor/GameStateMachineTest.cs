@@ -77,8 +77,8 @@ public class GameStateMachineTest
         Assert.AreEqual(Player.PLAYER_2.Name, gameStateMachine.Database.PlayerDictionary[2].Name);
         Assert.AreEqual(Player.PLAYER_3.Name, gameStateMachine.Database.PlayerDictionary[3].Name);
         Assert.AreEqual(PlayerColor.BLACK.Name, gameStateMachine.Database.PlayerDictionary[1].PlayerColor.Name);
-        Assert.AreEqual(PlayerColor.WHITE.Name, gameStateMachine.Database.PlayerDictionary[2].PlayerColor.Name);
-        Assert.AreEqual(PlayerColor.RED.Name, gameStateMachine.Database.PlayerDictionary[3].PlayerColor.Name);
+        Assert.AreEqual(PlayerColor.BLUE.Name, gameStateMachine.Database.PlayerDictionary[2].PlayerColor.Name);
+        Assert.AreEqual(PlayerColor.GREEN.Name, gameStateMachine.Database.PlayerDictionary[3].PlayerColor.Name);
         Assert.AreEqual(3, gameStateMachine.Database.PlayerQueue.Count);
         Assert.AreEqual(3, gameStateMachine.Database.PlayerColorQueue.Count);
         Assert.AreEqual(3, gameStateMachine.Database.PlayerDictionary.Count);
