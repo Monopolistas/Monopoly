@@ -10,23 +10,25 @@ public class GameNetwork : Photon.PunBehaviour
 
     GameStateMachine gameStateMachine;
 
-    float lastUpdateTime;
+    float updateTime;
 
     void Start()
     {
+        PlayerSerializer.gameStateMachine = gameController.gameStateMachine;
         PhotonPeer.RegisterType(typeof(Player), 255, PlayerSerializer.Serialize, PlayerSerializer.Deserialize);
-        lastUpdateTime = Time.deltaTime;
+        updateTime = 0;
+        gameStateMachine = gameController.gameStateMachine;
     }
 
     void Update()
     {
-        gameStateMachine = gameController.gameStateMachine;
         if (gameStateMachine.IsGameStarted)
         {
-            if ((Time.deltaTime - lastUpdateTime) > Constants.UPDATE_TIME)
+            updateTime += Time.deltaTime;
+            if (updateTime > Constants.UPDATE_TIME)
             {
                 BroadcastGameState();
-                lastUpdateTime = Time.deltaTime;
+                updateTime = 0;
             }
         }
     }
@@ -36,13 +38,20 @@ public class GameNetwork : Photon.PunBehaviour
         PhotonNetwork.ConnectUsingSettings(Constants.MONOPOLY_VERSION);
     }
 
+    public Player[] BuildPlayersOnBoardArray(GameStateMachine gameStateMachine)
+    {
+        Player[] players = new Player[gameStateMachine.Board.PlayerList.Count];
+        gameStateMachine.Board.PlayerList.CopyTo(players, 0);
+        return players;
+    }
+
     public void BroadcastGameState()
     {
         if (PhotonNetwork.isMasterClient)
         {
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
             raiseEventOptions.Receivers = ReceiverGroup.Others;
-            PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_GAME_STATE.CodeToByte(), null, true, raiseEventOptions);
+            PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_GAME_STATE.CodeToByte(), BuildPlayersOnBoardArray(gameStateMachine), true, raiseEventOptions);
         }
     }
 
@@ -63,6 +72,7 @@ public class GameNetwork : Photon.PunBehaviour
         gameStateMachine = gameController.gameStateMachine;
 
         // Dequeue current joined players
+        // Since this method is called once in the client at join phase, we dequeue already joined players
         int length = PhotonNetwork.countOfPlayers - 1;
         for (int i = 0; i < length; i++)
         {

@@ -45,13 +45,13 @@ public class GameGui : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        gameStateMachine = gameController.gameStateMachine;
+
         currentState = StateEnum.ON_START;
     }
 
     private void Update()
     {
-        gameStateMachine = gameController.gameStateMachine;
-
         switch (currentState)
         {
             case StateEnum.ON_START:
@@ -84,6 +84,13 @@ public class GameGui : MonoBehaviour
                 if (PhotonNetwork.isMasterClient)
                 {
                     startGame.interactable = true;
+                }
+                else
+                {
+                    if (gameStateMachine.IsClientPrepared && gameStateMachine.IsGameStarted)
+                    {
+                        ChangeState(StateEnum.ON_PLAYERS_CREATION);
+                    }
                 }
                 break;
             case StateEnum.ON_START_PRESSED:
@@ -172,6 +179,11 @@ public class GameGui : MonoBehaviour
                 GameObject.Instantiate(black);
             }
         }
+    }
+
+    public void ChangeState(StateEnum state)
+    {
+        currentState = state;
     }
 
     public void ChangeState()

@@ -9,5 +9,5 @@ public class Constants
     public static readonly string MONOPOLY_VERSION = "0.1";
     public static readonly byte MAX_PLAYERS = 6;
     public static readonly string ROOM_NAME = "MonopolyRoom";
-    public static readonly float UPDATE_TIME = 2000;
+    public static readonly float UPDATE_TIME = 2F;
 }

@@ -11,10 +11,10 @@ public class StateOnPreparation : State
 
     public override void ExecuteGameLogic()
     {
-        FillBoardWithPlayers();
-        FillBoardWithBoardSlots();
-        FillBankWithLotCards();
-        FillBankWithBuildings();
+        GameStateMachine.FillBoardWithPlayers();
+        GameStateMachine.FillBoardWithBoardSlots();
+        GameStateMachine.FillBankWithLotCards();
+        GameStateMachine.FillBankWithBuildings();
         ShuffleCards();
         GiveInitialCashToPlayers();
         ShufflePlayers();
@@ -22,52 +22,6 @@ public class StateOnPreparation : State
         PutPlayersInFirstBoardSlot();
         GameStateMachine.ChangeToStateOnPlayerTurn();
         GameStateMachine.IsGameStarted = true;
-    }
-
-    void FillBoardWithPlayers()
-    {
-        foreach (Player item in GameStateMachine.Database.PlayerDictionary.Values)
-        {
-            Board.PlayerList.Add(item);
-        }
-    }
-
-    void FillBoardWithBoardSlots()
-    {
-        foreach (BoardSlot item in GameStateMachine.Database.BoardSlotDictionary.Values)
-        {
-            Board.BoardSlotList.Add(item);
-        }
-    }
-
-    void FillBankWithLotCards()
-    {
-        foreach (LotCard item in GameStateMachine.Database.TitleDeedCardList)
-        {
-            Board.Bank.LotCardList.Add(item);
-        }
-        foreach (LotCard item in GameStateMachine.Database.RailroadCardList)
-        {
-            Board.Bank.LotCardList.Add(item);
-        }
-        foreach (LotCard item in GameStateMachine.Database.UtilityCardList)
-        {
-            Board.Bank.LotCardList.Add(item);
-        }
-    }
-
-    void FillBankWithBuildings()
-    {
-        for (int i = 0; i < Constants.INITIAL_NUMBER_OF_HOUSES; i++)
-        {
-            Building house = new Building(BuildingType.HOUSE);
-            Board.Bank.BuildingList.Add(house);
-        }
-        for (int i = 0; i < Constants.INITIAL_NUMBER_OF_HOTELS; i++)
-        {
-            Building hotel = new Building(BuildingType.HOTEL);
-            Board.Bank.BuildingList.Add(hotel);
-        }
     }
 
     void ShuffleCards()

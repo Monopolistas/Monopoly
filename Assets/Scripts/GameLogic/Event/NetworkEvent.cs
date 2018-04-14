@@ -12,7 +12,7 @@ public abstract class NetworkEvent
 
     public static NetworkEvent REQUEST_PLAYER = new RequestPlayerEvent(REQUEST_PLAYER_ID);
     public static NetworkEvent BROADCAST_PLAYER = new BroadcastPlayerEvent(BROADCAST_PLAYER_ID);
-    public static NetworkEvent BROADCAST_GAME_STATE = new BroadcastStartEvent(BROADCAST_GAME_STATE_ID);
+    public static NetworkEvent BROADCAST_GAME_STATE = new BroadcastGameStateEvent(BROADCAST_GAME_STATE_ID);
     public static NetworkEvent REQUEST_THROW = new RequestThrowEvent(REQUEST_THROW_ID);
     public static NetworkEvent BROADCAST_MOVEMENT = new BroadcastMovementEvent(BROADCAST_MOVEMENT_ID);
     public static NetworkEvent BROADCAST_GAME_OVER = new BroadcastGameOverEvent(BROADCAST_GAME_OVER_ID);

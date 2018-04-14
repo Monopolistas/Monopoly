@@ -7,6 +7,7 @@ public class GameStateMachine : IMonopolyCore
     StateOnPreparation stateOnPreparation;
     StateOnPlayerTurn stateOnPlayerTurn;
     StateOnBoardSlotAction stateOnBoardSlotAction;
+    StateOnClientPreparation stateOnClientPreparation;
 
     State currentState;
 
@@ -19,6 +20,7 @@ public class GameStateMachine : IMonopolyCore
     Player owner;
 
     bool isGameStarted;
+    bool isClientPrepared;
 
     public GameStateMachine()
     {
@@ -29,8 +31,6 @@ public class GameStateMachine : IMonopolyCore
         virtualDatabase = new VirtualDatabase();
 
         this.currentState = stateOnStart;
-
-        isGameStarted = false;
     }
 
     void InitializeStates()
@@ -39,6 +39,7 @@ public class GameStateMachine : IMonopolyCore
         stateOnPreparation = new StateOnPreparation(this);
         stateOnPlayerTurn = new StateOnPlayerTurn(this);
         stateOnBoardSlotAction = new StateOnBoardSlotAction(this);
+        stateOnClientPreparation = new StateOnClientPreparation(this);
     }
 
     public void ExecuteGameLogic()
@@ -95,6 +96,52 @@ public class GameStateMachine : IMonopolyCore
         virtualDatabase.PlayerDictionary.Add(id, player);
         owner = player;
         return player;
+    }
+
+    public void FillBoardWithPlayers()
+    {
+        foreach (Player item in Database.PlayerDictionary.Values)
+        {
+            Board.PlayerList.Add(item);
+        }
+    }
+
+    public void FillBoardWithBoardSlots()
+    {
+        foreach (BoardSlot item in Database.BoardSlotDictionary.Values)
+        {
+            Board.BoardSlotList.Add(item);
+        }
+    }
+
+    public void FillBankWithLotCards()
+    {
+        foreach (LotCard item in Database.TitleDeedCardList)
+        {
+            Board.Bank.LotCardList.Add(item);
+        }
+        foreach (LotCard item in Database.RailroadCardList)
+        {
+            Board.Bank.LotCardList.Add(item);
+        }
+        foreach (LotCard item in Database.UtilityCardList)
+        {
+            Board.Bank.LotCardList.Add(item);
+        }
+    }
+
+    public void FillBankWithBuildings()
+    {
+        for (int i = 0; i < Constants.INITIAL_NUMBER_OF_HOUSES; i++)
+        {
+            Building house = new Building(BuildingType.HOUSE);
+            Board.Bank.BuildingList.Add(house);
+        }
+        for (int i = 0; i < Constants.INITIAL_NUMBER_OF_HOTELS; i++)
+        {
+            Building hotel = new Building(BuildingType.HOTEL);
+            Board.Bank.BuildingList.Add(hotel);
+        }
     }
 
     #endregion
@@ -258,6 +305,32 @@ public class GameStateMachine : IMonopolyCore
         set
         {
             isGameStarted = value;
+        }
+    }
+
+    public StateOnClientPreparation StateOnClientPreparation
+    {
+        get
+        {
+            return stateOnClientPreparation;
+        }
+
+        set
+        {
+            stateOnClientPreparation = value;
+        }
+    }
+
+    public bool IsClientPrepared
+    {
+        get
+        {
+            return isClientPrepared;
+        }
+
+        set
+        {
+            isClientPrepared = value;
         }
     }
 

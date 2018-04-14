@@ -7,8 +7,8 @@ public class GameController : MonoBehaviour
 
     public GameStateMachine gameStateMachine;
 
-    // Use this for initialization
-    void Start()
+    // Use this before any start runs
+    void Awake()
     {
         gameStateMachine = new GameStateMachine();
     }
