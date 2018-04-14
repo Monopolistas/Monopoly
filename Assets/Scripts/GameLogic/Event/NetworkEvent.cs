@@ -5,14 +5,14 @@ public abstract class NetworkEvent
 {
     public static int REQUEST_PLAYER_ID = 1;
     public static int BROADCAST_PLAYER_ID = 2;
-    public static int BROADCAST_START_ID = 3;
+    public static int BROADCAST_GAME_STATE_ID = 3;
     public static int REQUEST_THROW_ID = 4;
     public static int BROADCAST_MOVEMENT_ID = 5;
     public static int BROADCAST_GAME_OVER_ID = 6;
 
     public static NetworkEvent REQUEST_PLAYER = new RequestPlayerEvent(REQUEST_PLAYER_ID);
     public static NetworkEvent BROADCAST_PLAYER = new BroadcastPlayerEvent(BROADCAST_PLAYER_ID);
-    public static NetworkEvent BROADCAST_START = new BroadcastStartEvent(BROADCAST_START_ID);
+    public static NetworkEvent BROADCAST_GAME_STATE = new BroadcastStartEvent(BROADCAST_GAME_STATE_ID);
     public static NetworkEvent REQUEST_THROW = new RequestThrowEvent(REQUEST_THROW_ID);
     public static NetworkEvent BROADCAST_MOVEMENT = new BroadcastMovementEvent(BROADCAST_MOVEMENT_ID);
     public static NetworkEvent BROADCAST_GAME_OVER = new BroadcastGameOverEvent(BROADCAST_GAME_OVER_ID);
@@ -39,7 +39,7 @@ public abstract class NetworkEvent
         {
             yield return REQUEST_PLAYER;
             yield return BROADCAST_PLAYER;
-            yield return BROADCAST_START;
+            yield return BROADCAST_GAME_STATE;
             yield return REQUEST_THROW;
             yield return BROADCAST_MOVEMENT;
             yield return BROADCAST_GAME_OVER;

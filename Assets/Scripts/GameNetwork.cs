@@ -10,14 +10,40 @@ public class GameNetwork : Photon.PunBehaviour
 
     GameStateMachine gameStateMachine;
 
+    float lastUpdateTime;
+
     void Start()
     {
         PhotonPeer.RegisterType(typeof(Player), 255, PlayerSerializer.Serialize, PlayerSerializer.Deserialize);
+        lastUpdateTime = Time.deltaTime;
+    }
+
+    void Update()
+    {
+        gameStateMachine = gameController.gameStateMachine;
+        if (gameStateMachine.IsGameStarted)
+        {
+            if ((Time.deltaTime - lastUpdateTime) > Constants.UPDATE_TIME)
+            {
+                BroadcastGameState();
+                lastUpdateTime = Time.deltaTime;
+            }
+        }
     }
 
     public void JoinGame()
     {
         PhotonNetwork.ConnectUsingSettings(Constants.MONOPOLY_VERSION);
+    }
+
+    public void BroadcastGameState()
+    {
+        if (PhotonNetwork.isMasterClient)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
+            raiseEventOptions.Receivers = ReceiverGroup.Others;
+            PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_GAME_STATE.CodeToByte(), null, true, raiseEventOptions);
+        }
     }
 
     public override void OnJoinedLobby()
@@ -80,4 +106,18 @@ public class GameNetwork : Photon.PunBehaviour
         networkEvent.Execute(gameStateMachine);
         networkEvent.Broadcast(gameStateMachine);
     }
+
+    public GameStateMachine GameStateMachine
+    {
+        get
+        {
+            return gameStateMachine;
+        }
+
+        set
+        {
+            gameStateMachine = value;
+        }
+    }
+
 }

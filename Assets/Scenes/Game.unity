@@ -795,7 +795,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 865886259}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1797391253}
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &865886259
@@ -1423,6 +1434,12 @@ MonoBehaviour:
   connectionText: {fileID: 273284630}
   playerNameText: {fileID: 2014737496}
   otherPlayersNameText: {fileID: 50366833}
+  black: {fileID: 1098030701521096, guid: ec4535b9bbf0ec347b7575a5df8f3edd, type: 2}
+  blue: {fileID: 1199943388192790, guid: 757cb53bf4351d847b8e16a0f59f73a6, type: 2}
+  green: {fileID: 1908456882837364, guid: 1d50475664bf6e24a8725d454b665687, type: 2}
+  red: {fileID: 1838855882005482, guid: 555ef03351481f34aa6fe1f080b12e70, type: 2}
+  white: {fileID: 1762446162305714, guid: e4989c9246a5e2545bc7ad8dbeb7c04e, type: 2}
+  yellow: {fileID: 1333685289039866, guid: 968a999c0cad7e447bfac379ebe0dd3e, type: 2}
 --- !u!1 &1835392323
 GameObject:
   m_ObjectHideFlags: 0

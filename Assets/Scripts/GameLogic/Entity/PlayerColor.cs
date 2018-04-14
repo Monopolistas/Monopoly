@@ -3,10 +3,10 @@
 public class PlayerColor
 {
     public static readonly PlayerColor BLACK = new PlayerColor(1, "BLACK", "#000000");
-    public static readonly PlayerColor WHITE = new PlayerColor(2, "WHITE", "#FFFFFF");
-    public static readonly PlayerColor RED = new PlayerColor(3, "RED", "#FF0000");
-    public static readonly PlayerColor BLUE = new PlayerColor(4, "BLUE", "#0000FF");
-    public static readonly PlayerColor GREEN = new PlayerColor(5, "GREEN", "#00FF00");
+    public static readonly PlayerColor BLUE = new PlayerColor(2, "BLUE", "#0000FF");
+    public static readonly PlayerColor GREEN = new PlayerColor(3, "GREEN", "#00FF00");
+    public static readonly PlayerColor RED = new PlayerColor(4, "RED", "#FF0000");
+    public static readonly PlayerColor WHITE = new PlayerColor(5, "WHITE", "#FFFFFF");
     public static readonly PlayerColor YELLOW = new PlayerColor(6, "YELLOW", "#FFFF00");
 
     int code;
@@ -25,10 +25,10 @@ public class PlayerColor
         get
         {
             yield return BLACK;
-            yield return WHITE;
-            yield return RED;
             yield return BLUE;
             yield return GREEN;
+            yield return RED;
+            yield return WHITE;
             yield return YELLOW;
         }
     }

@@ -20,13 +20,23 @@ public class GameGui : MonoBehaviour
     public Text playerNameText;
     public Text otherPlayersNameText;
 
+    public GameObject black;
+    public GameObject blue;
+    public GameObject green;
+    public GameObject red;
+    public GameObject white;
+    public GameObject yellow;
+
     public enum StateEnum
     {
         ON_START = 1,
         ON_JOIN_PRESSED = 2,
         ON_CONNECTING = 3,
         ON_CONNECTED = 4,
-        ON_START_PRESSED = 5
+        ON_START_PRESSED = 5,
+        ON_PLAYERS_CREATION = 6,
+        ON_GAME = 7,
+        ON_GAME_OVER = 8
     }
 
     GameStateMachine gameStateMachine;
@@ -71,6 +81,38 @@ public class GameGui : MonoBehaviour
                     }
                     otherPlayersNameText.text = names;
                 }
+                if (PhotonNetwork.isMasterClient)
+                {
+                    startGame.interactable = true;
+                }
+                break;
+            case StateEnum.ON_START_PRESSED:
+                if (PhotonNetwork.isMasterClient)
+                {
+                    startGame.interactable = false;
+                }
+                ChangeState();
+                break;
+            case StateEnum.ON_PLAYERS_CREATION:
+                if (gameStateMachine.IsGameStarted &&
+                    gameStateMachine.Board != null &&
+                    gameStateMachine.Board.PlayerList != null &&
+                    gameStateMachine.Board.PlayerList.Count > 0)
+                {
+                    InstantiatePlayers();
+                    ChangeState();
+                }
+                break;
+            case StateEnum.ON_GAME:
+                if (gameStateMachine.IsGameStarted &&
+                    gameStateMachine.Board != null &&
+                    gameStateMachine.Board.PlayerList != null &&
+                    gameStateMachine.Board.PlayerList.Count > 0)
+                {
+                    ChangeState();
+                }
+                break;
+            case StateEnum.ON_GAME_OVER:
                 break;
         }
     }
@@ -90,6 +132,48 @@ public class GameGui : MonoBehaviour
 #endif
     }
 
+    public void StartGame()
+    {
+        gameStateMachine.ChangeState(gameStateMachine.StateOnPreparation);
+        ChangeState();
+    }
+
+    public void EndGame()
+    {
+        ChangeState();
+    }
+
+    public void InstantiatePlayers()
+    {
+        foreach (Player p in gameStateMachine.Board.PlayerList)
+        {
+            if (p.PlayerColor.Name.Equals(PlayerColor.BLACK.Name))
+            {
+                GameObject.Instantiate(black);
+            }
+            if (p.PlayerColor.Name.Equals(PlayerColor.BLUE.Name))
+            {
+                GameObject.Instantiate(black);
+            }
+            if (p.PlayerColor.Name.Equals(PlayerColor.GREEN.Name))
+            {
+                GameObject.Instantiate(black);
+            }
+            if (p.PlayerColor.Name.Equals(PlayerColor.RED.Name))
+            {
+                GameObject.Instantiate(black);
+            }
+            if (p.PlayerColor.Name.Equals(PlayerColor.WHITE.Name))
+            {
+                GameObject.Instantiate(black);
+            }
+            if (p.PlayerColor.Name.Equals(PlayerColor.YELLOW.Name))
+            {
+                GameObject.Instantiate(black);
+            }
+        }
+    }
+
     public void ChangeState()
     {
         switch (currentState)
@@ -102,6 +186,18 @@ public class GameGui : MonoBehaviour
                 break;
             case StateEnum.ON_CONNECTING:
                 currentState = StateEnum.ON_CONNECTED;
+                break;
+            case StateEnum.ON_CONNECTED:
+                currentState = StateEnum.ON_START_PRESSED;
+                break;
+            case StateEnum.ON_START_PRESSED:
+                currentState = StateEnum.ON_PLAYERS_CREATION;
+                break;
+            case StateEnum.ON_PLAYERS_CREATION:
+                currentState = StateEnum.ON_GAME;
+                break;
+            case StateEnum.ON_GAME:
+                currentState = StateEnum.ON_GAME_OVER;
                 break;
         }
     }

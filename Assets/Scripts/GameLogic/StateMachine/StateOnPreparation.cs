@@ -21,6 +21,7 @@ public class StateOnPreparation : State
         SetFirstPlayerToPlay();
         PutPlayersInFirstBoardSlot();
         GameStateMachine.ChangeToStateOnPlayerTurn();
+        GameStateMachine.IsGameStarted = true;
     }
 
     void FillBoardWithPlayers()

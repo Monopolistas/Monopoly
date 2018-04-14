@@ -68,6 +68,23 @@ public class ResourcesLoader
         string titleDeedCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\TitleDeedCard.xml");
         string utilityCardXml = File.ReadAllText("C:\\Users\\schif\\Documents\\Unity\\Monopolistas\\Monopoly\\Assets\\Resources\\Xml\\UtilityCard.xml");
 
+        ConvertXmlToArray(boardSlotXml, chanceCardXml, communityChestCardXml, railroadCardXml, titleDeedCardXml, utilityCardXml);
+    }
+
+    public void LoadXmlDataFromUnity()
+    {
+        string boardSlotXml = Resources.Load<TextAsset>("Xml/BoardSlot").text;
+        string chanceCardXml = Resources.Load<TextAsset>("Xml/ChanceCard").text;
+        string communityChestCardXml = Resources.Load<TextAsset>("Xml/CommunityChestCard").text;
+        string railroadCardXml = Resources.Load<TextAsset>("Xml/RailroadCard").text;
+        string titleDeedCardXml = Resources.Load<TextAsset>("Xml/TitleDeedCard").text;
+        string utilityCardXml = Resources.Load<TextAsset>("Xml/UtilityCard").text;
+
+        ConvertXmlToArray(boardSlotXml, chanceCardXml, communityChestCardXml, railroadCardXml, titleDeedCardXml, utilityCardXml);
+    }
+
+    public void ConvertXmlToArray(string boardSlotXml, string chanceCardXml, string communityChestCardXml, string railroadCardXml, string titleDeedCardXml, string utilityCardXml)
+    {
         BoardSlotArray = BoardSlotXml.Deserialize(boardSlotXml).ToArray();
         ChanceCardArray = ChanceCardXml.Deserialize(chanceCardXml).ToArray();
         CommunityChestCardArray = CommunityChestCardXml.Deserialize(communityChestCardXml).ToArray();

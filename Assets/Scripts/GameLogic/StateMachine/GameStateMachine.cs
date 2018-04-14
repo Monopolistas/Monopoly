@@ -18,6 +18,8 @@ public class GameStateMachine : IMonopolyCore
 
     Player owner;
 
+    bool isGameStarted;
+
     public GameStateMachine()
     {
         board = new Board();
@@ -27,6 +29,8 @@ public class GameStateMachine : IMonopolyCore
         virtualDatabase = new VirtualDatabase();
 
         this.currentState = stateOnStart;
+
+        isGameStarted = false;
     }
 
     void InitializeStates()
@@ -241,6 +245,19 @@ public class GameStateMachine : IMonopolyCore
         set
         {
             this.owner = value;
+        }
+    }
+
+    public bool IsGameStarted
+    {
+        get
+        {
+            return isGameStarted;
+        }
+
+        set
+        {
+            isGameStarted = value;
         }
     }
 
