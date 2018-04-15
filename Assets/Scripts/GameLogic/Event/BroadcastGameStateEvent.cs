@@ -21,9 +21,10 @@ public class BroadcastGameStateEvent : NetworkEvent
     {
         if (!IsMasterClient)
         {
-            Player[] players = (Player[])Content;
+            GameState gameState = (GameState)Content;
 
-            gameStateMachine.Board.PlayerList = new List<Player>(players);
+            gameStateMachine.Board.PlayerList = new List<Player>(gameState.Players);
+            gameStateMachine.PlayerOnTurn = gameState.PlayerOnTurn;
 
             if (!gameStateMachine.IsClientPrepared)
             {

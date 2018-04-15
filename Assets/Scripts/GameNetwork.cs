@@ -22,6 +22,7 @@ public class GameNetwork : Photon.PunBehaviour
 
     void Update()
     {
+        // Update clients every 2 secs
         if (gameStateMachine.IsGameStarted)
         {
             updateTime += Time.deltaTime;
@@ -38,11 +39,12 @@ public class GameNetwork : Photon.PunBehaviour
         PhotonNetwork.ConnectUsingSettings(Constants.MONOPOLY_VERSION);
     }
 
-    public Player[] BuildPlayersOnBoardArray(GameStateMachine gameStateMachine)
+    public GameState CreateGameState(GameStateMachine gameStateMachine)
     {
-        Player[] players = new Player[gameStateMachine.Board.PlayerList.Count];
-        gameStateMachine.Board.PlayerList.CopyTo(players, 0);
-        return players;
+        GameState gameState = new GameState();
+        gameState.PlayerOnTurn = gameStateMachine.PlayerOnTurn;
+        gameState.Players = gameStateMachine.Board.PlayerList.ToArray();
+        return gameState;
     }
 
     public void BroadcastGameState()
@@ -51,7 +53,7 @@ public class GameNetwork : Photon.PunBehaviour
         {
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
             raiseEventOptions.Receivers = ReceiverGroup.Others;
-            PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_GAME_STATE.CodeToByte(), BuildPlayersOnBoardArray(gameStateMachine), true, raiseEventOptions);
+            PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_GAME_STATE.CodeToByte(), CreateGameState(gameStateMachine), true, raiseEventOptions);
         }
     }
 
