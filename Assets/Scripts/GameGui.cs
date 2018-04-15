@@ -161,6 +161,11 @@ public class GameGui : MonoBehaviour
         ChangeState();
     }
 
+    public void ThrowDice()
+    {
+
+    }
+
     public void EndGame()
     {
         ChangeState();
