@@ -19,6 +19,5 @@ public class BoardSlotActionUtility : BoardSlotAction
         //     - Execute transaction
         //     - Remove LotCard from bank
         //     - Add LotCard to the player
-        throw new System.NotImplementedException();
     }
 }

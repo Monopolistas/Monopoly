@@ -118,6 +118,7 @@ public class GameGui : MonoBehaviour
                         string names = "";
                         foreach (Player item in gameStateMachine.Board.PlayerList)
                         {
+                            // Write players' names
                             if (item.Id.Equals(gameStateMachine.PlayerOnTurn.Id))
                             {
                                 names += "=> " + item.Name + " <=\n";
@@ -126,6 +127,9 @@ public class GameGui : MonoBehaviour
                             {
                                 names += item.Name + "\n";
                             }
+
+                            // Update players' position
+                            UpdatePlayersPositions(item);
                         }
                         otherPlayersNameText.text = names;
                     }
@@ -137,6 +141,72 @@ public class GameGui : MonoBehaviour
                 break;
             case StateEnum.ON_GAME_OVER:
                 break;
+        }
+    }
+
+    private void UpdatePlayersPositions(Player item)
+    {
+        int index = gameStateMachine.Board.FindIndexWherePlayerIs(item);
+
+        float x = Constants.START_X;
+        float y = Constants.START_Y;
+        if (index >= 0 && index <= 10)
+        {
+            float offsetX = (index * Constants.TILE_BOARD_SIZE);
+            float offsetY = 0;
+            x += offsetX;
+            y += offsetY;
+        }
+        if (index >= 11 && index <= 20)
+        {
+            index -= 10;
+            float offsetX = 10 * Constants.TILE_BOARD_SIZE;
+            float offsetY = index * Constants.TILE_BOARD_SIZE;
+            x += offsetX;
+            y += offsetY;
+        }
+        if (index >= 21 && index <= 30)
+        {
+            index -= 20;
+            index = 10 - index;
+            float offsetX = index * Constants.TILE_BOARD_SIZE;
+            float offsetY = 10 * Constants.TILE_BOARD_SIZE;
+            x += offsetX;
+            y += offsetY;
+        }
+        if (index >= 31)
+        {
+            index -= 30;
+            index = 10 - index;
+            float offsetX = 0;
+            float offsetY = index * Constants.TILE_BOARD_SIZE;
+            x += offsetX;
+            y += offsetY;
+        }
+
+        if (item.PlayerColor.Name.Equals(PlayerColor.BLACK.Name))
+        {
+            black.transform.position = new Vector3(x, y, 0);
+        }
+        if (item.PlayerColor.Name.Equals(PlayerColor.BLUE.Name))
+        {
+            blue.transform.position = new Vector3(x, y, 0);
+        }
+        if (item.PlayerColor.Name.Equals(PlayerColor.GREEN.Name))
+        {
+            green.transform.position = new Vector3(x, y, 0);
+        }
+        if (item.PlayerColor.Name.Equals(PlayerColor.RED.Name))
+        {
+            red.transform.position = new Vector3(x, y, 0);
+        }
+        if (item.PlayerColor.Name.Equals(PlayerColor.WHITE.Name))
+        {
+            white.transform.position = new Vector3(x, y, 0);
+        }
+        if (item.PlayerColor.Name.Equals(PlayerColor.YELLOW.Name))
+        {
+            yellow.transform.position = new Vector3(x, y, 0);
         }
     }
 
@@ -163,7 +233,7 @@ public class GameGui : MonoBehaviour
 
     public void ThrowDice()
     {
-
+        gameStateMachine.ThrowDice(gameStateMachine.Owner.Id);
     }
 
     public void EndGame()
@@ -175,29 +245,37 @@ public class GameGui : MonoBehaviour
     {
         foreach (Player p in gameStateMachine.Board.PlayerList)
         {
+            float x = Constants.START_X;
+            float y = Constants.START_Y;
+            black.transform.position = new Vector3(x, y, 0);
+            blue.transform.position = new Vector3(x, y, 0);
+            green.transform.position = new Vector3(x, y, 0);
+            red.transform.position = new Vector3(x, y, 0);
+            white.transform.position = new Vector3(x, y, 0);
+            yellow.transform.position = new Vector3(x, y, 0);
             if (p.PlayerColor.Name.Equals(PlayerColor.BLACK.Name))
             {
-                GameObject.Instantiate(black);
+                black = GameObject.Instantiate(black);
             }
             if (p.PlayerColor.Name.Equals(PlayerColor.BLUE.Name))
             {
-                GameObject.Instantiate(black);
+                blue = GameObject.Instantiate(black);
             }
             if (p.PlayerColor.Name.Equals(PlayerColor.GREEN.Name))
             {
-                GameObject.Instantiate(black);
+                green = GameObject.Instantiate(black);
             }
             if (p.PlayerColor.Name.Equals(PlayerColor.RED.Name))
             {
-                GameObject.Instantiate(black);
+                red = GameObject.Instantiate(black);
             }
             if (p.PlayerColor.Name.Equals(PlayerColor.WHITE.Name))
             {
-                GameObject.Instantiate(black);
+                white = GameObject.Instantiate(black);
             }
             if (p.PlayerColor.Name.Equals(PlayerColor.YELLOW.Name))
             {
-                GameObject.Instantiate(black);
+                yellow = GameObject.Instantiate(black);
             }
         }
     }

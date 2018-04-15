@@ -10,4 +10,7 @@ public class Constants
     public static readonly byte MAX_PLAYERS = 6;
     public static readonly string ROOM_NAME = "MonopolyRoom";
     public static readonly float UPDATE_TIME = 2F;
+    public static readonly float START_X = -2.909F;
+    public static readonly float START_Y = -2.702F;
+    public static readonly float TILE_BOARD_SIZE = 0.56F;
 }

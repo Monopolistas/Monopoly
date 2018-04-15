@@ -37,31 +37,31 @@ public class StateOnBoardSlotAction : State
         }
         if (BoardSlotType.GO.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionGo();
         }
         if (BoardSlotType.GO_TO_JAIL.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionGoToJail();
         }
         if (BoardSlotType.JAIL.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionJail();
         }
         if (BoardSlotType.LOT.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionLot();
         }
         if (BoardSlotType.RAILROAD.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionRailroad();
         }
         if (BoardSlotType.TAX.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionTax();
         }
         if (BoardSlotType.UTILITY.Equals(boardSlotType))
         {
-            boardSlotAction = new BoardSlotActionChance();
+            boardSlotAction = new BoardSlotActionUtility();
         }
     }
 
@@ -73,7 +73,9 @@ public class StateOnBoardSlotAction : State
                 currentState = StateEnum.ON_ACTION;
                 break;
             case StateEnum.ON_ACTION:
+                GenerateBoardSlotAction(BoardSlotType.CHANCE);
                 boardSlotAction.ExecuteAction();
+                GameStateMachine.EndTurn();
                 break;
         }
     }

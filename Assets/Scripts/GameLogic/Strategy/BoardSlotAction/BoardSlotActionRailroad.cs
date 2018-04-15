@@ -10,6 +10,6 @@ public class BoardSlotActionRailroad : BoardSlotAction
 
     public override void ExecuteAction()
     {
-        throw new System.NotImplementedException();
+        // TODO: Implement logic
     }
 }

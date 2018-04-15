@@ -19,6 +19,8 @@ public class GameStateMachine : IMonopolyCore
 
     Player owner;
 
+    int currentPlayerIndex;
+
     bool isGameStarted;
     bool isClientPrepared;
 
@@ -59,6 +61,7 @@ public class GameStateMachine : IMonopolyCore
         StateOnPlayerTurn.PlayerOnTurn = playerOnTurn;
         StateOnPlayerTurn.PlayerTurn = new PlayerTurn();
         StateOnPlayerTurn.PlayerTurn.Player = playerOnTurn;
+        StateOnPlayerTurn.Reset();
         this.currentState = StateOnPlayerTurn;
     }
 
@@ -84,6 +87,20 @@ public class GameStateMachine : IMonopolyCore
         {
             throw new MonopolyAlertException("Player can't throw dice. Wait player's turn.");
         }
+    }
+
+    public void EndTurn()
+    {
+        currentPlayerIndex++;
+
+        if (currentPlayerIndex > Board.PlayerList.Count - 1)
+        {
+            currentPlayerIndex = 0;
+        }
+
+        playerOnTurn = Board.PlayerList[currentPlayerIndex];
+
+        ChangeToStateOnPlayerTurn();
     }
 
     public Player AddLocalPlayer(int id)
@@ -331,6 +348,19 @@ public class GameStateMachine : IMonopolyCore
         set
         {
             isClientPrepared = value;
+        }
+    }
+
+    public int CurrentPlayerIndex
+    {
+        get
+        {
+            return currentPlayerIndex;
+        }
+
+        set
+        {
+            currentPlayerIndex = value;
         }
     }
 
