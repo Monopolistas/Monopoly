@@ -49,9 +49,11 @@ public class GameStateSerializer
             index += length;
         }
 
+        short isGameOver = (short)(gameState.IsGameOver ? 1 : 0);
+
         // Write the final array of bytes
         // Size of playerOnTurn array (short) + playerOnTurn array of bytes + number of players in array (short) + array of sizes of players (short) + total size of array of players
-        int finalLength = sizeof(short) + playerOnTurnLength + sizeof(short) + (players.Length * sizeof(short)) + playersLength;
+        int finalLength = sizeof(short) + playerOnTurnLength + sizeof(short) + (players.Length * sizeof(short)) + playersLength + sizeof(short);
         byte[] finalBytes = new byte[finalLength];
 
         index = 0;
@@ -64,6 +66,8 @@ public class GameStateSerializer
             Protocol.Serialize(playersLengthArray[i], finalBytes, ref index);
         }
         Array.Copy(playersBytes, 0, finalBytes, index, playersLength);
+        index += playersLength;
+        Protocol.Serialize(isGameOver, finalBytes, ref index);
 
         // Write final array to output
         outStream.Write(finalBytes, 0, finalLength);
@@ -118,8 +122,16 @@ public class GameStateSerializer
             players[i] = p;
         }
 
+        // Deserialize is game over
+        short isGameOver;
+        index = 0;
+        byte[] isGameOverBytes = new byte[sizeof(short)];
+        inStream.Read(isGameOverBytes, 0, sizeof(short));
+        Protocol.Deserialize(out isGameOver, isGameOverBytes, ref index);
+
         gameState.PlayerOnTurn = playerOnTurn;
         gameState.Players = players;
+        gameState.IsGameOver = isGameOver == 1 ? true : false;
 
         return gameState;
     }

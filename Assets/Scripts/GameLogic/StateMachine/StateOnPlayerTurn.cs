@@ -33,6 +33,11 @@ public class StateOnPlayerTurn : State
         switch (currentState)
         {
             case StateEnum.ON_MOVE:
+                int index = GameStateMachine.Board.FindIndexWherePlayerIs(PlayerOnTurn);
+                if (index + diceThrow.Sum >= 40)
+                {
+                    GameStateMachine.ChangeState(GameStateMachine.StateOnGameOver);
+                }
                 GameStateMachine.Board.MovePlayerTo(playerTurn.Player, diceThrow.Sum);
                 currentState = StateEnum.ON_ACTION;
                 break;

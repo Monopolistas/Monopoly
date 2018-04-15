@@ -8,6 +8,7 @@ public class GameStateMachine : IMonopolyCore
     StateOnPlayerTurn stateOnPlayerTurn;
     StateOnBoardSlotAction stateOnBoardSlotAction;
     StateOnClientPreparation stateOnClientPreparation;
+    StateOnGameOver stateOnGameOver;
 
     State currentState;
 
@@ -23,6 +24,7 @@ public class GameStateMachine : IMonopolyCore
 
     bool isGameStarted;
     bool isClientPrepared;
+    bool isGameOver;
 
     public GameStateMachine()
     {
@@ -42,6 +44,7 @@ public class GameStateMachine : IMonopolyCore
         stateOnPlayerTurn = new StateOnPlayerTurn(this);
         stateOnBoardSlotAction = new StateOnBoardSlotAction(this);
         stateOnClientPreparation = new StateOnClientPreparation(this);
+        stateOnGameOver = new StateOnGameOver(this);
     }
 
     public void ExecuteGameLogic()
@@ -361,6 +364,32 @@ public class GameStateMachine : IMonopolyCore
         set
         {
             currentPlayerIndex = value;
+        }
+    }
+
+    public StateOnGameOver StateOnGameOver
+    {
+        get
+        {
+            return stateOnGameOver;
+        }
+
+        set
+        {
+            stateOnGameOver = value;
+        }
+    }
+
+    public bool IsGameOver
+    {
+        get
+        {
+            return isGameOver;
+        }
+
+        set
+        {
+            isGameOver = value;
         }
     }
 

@@ -2,12 +2,12 @@
 
 public class StateOnGameOver : State
 {
-	public StateOnGameOver(GameStateMachine gameStateMachine) : base(gameStateMachine)
+    public StateOnGameOver(GameStateMachine gameStateMachine) : base(gameStateMachine)
     {
-	}
+    }
 
     public override void ExecuteGameLogic()
     {
-        throw new NotImplementedException();
+        GameStateMachine.IsGameOver = true;
     }
 }

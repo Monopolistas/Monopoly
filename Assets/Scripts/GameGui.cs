@@ -137,9 +137,16 @@ public class GameGui : MonoBehaviour
                     {
                         throwDice.interactable = true;
                     }
+                    if (gameStateMachine.IsGameOver)
+                    {
+                        ChangeState();
+                    }
                 }
                 break;
             case StateEnum.ON_GAME_OVER:
+                join.interactable = false;
+                startGame.interactable = false;
+                throwDice.interactable = false;
                 break;
         }
     }
@@ -182,6 +189,12 @@ public class GameGui : MonoBehaviour
             float offsetY = index * Constants.TILE_BOARD_SIZE;
             x += offsetX;
             y += offsetY;
+        }
+
+        if (gameStateMachine.IsGameOver && gameStateMachine.PlayerOnTurn.Id.Equals(item.Id))
+        {
+            x = Constants.START_X;
+            y = Constants.START_Y;
         }
 
         if (item.PlayerColor.Name.Equals(PlayerColor.BLACK.Name))

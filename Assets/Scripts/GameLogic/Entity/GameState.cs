@@ -9,15 +9,18 @@ public class GameState
 
     Player[] players;
 
+    bool isGameOver;
+
     public GameState()
     {
 
     }
 
-    public GameState(Player[] players, Player playerOnTurn)
+    public GameState(Player[] players, Player playerOnTurn, bool isGameOver)
     {
         this.playerOnTurn = playerOnTurn;
         this.players = players;
+        this.isGameOver = isGameOver;
     }
 
     #region Getters and Setters
@@ -45,6 +48,19 @@ public class GameState
         set
         {
             players = value;
+        }
+    }
+
+    public bool IsGameOver
+    {
+        get
+        {
+            return isGameOver;
+        }
+
+        set
+        {
+            isGameOver = value;
         }
     }
 

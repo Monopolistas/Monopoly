@@ -38,9 +38,9 @@ public class GameStateSerializerTest
             players[index] = p;
             index++;
         }
-        GameState gameState = new GameState(players, gameStateMachine.Database.PlayerDictionary[1]);
+        GameState gameState = new GameState(players, gameStateMachine.Database.PlayerDictionary[1], true);
 
-        int size = 2 + 25 + 2 + (2 * 3) + 25 + 24 + 25;
+        int size = 2 + 25 + 2 + (2 * 3) + 25 + 24 + 25 + 2;
 
         StreamBuffer buffer = new StreamBuffer(size);
         GameStateSerializer.gameStateMachine = gameStateMachine;
@@ -56,6 +56,7 @@ public class GameStateSerializerTest
         Assert.AreEqual("PLAYER 2", newGameState.Players[1].Name);
         Assert.AreEqual(3, newGameState.Players[2].Id);
         Assert.AreEqual("PLAYER 3", newGameState.Players[2].Name);
+        Assert.AreEqual(true, newGameState.IsGameOver);
     }
 
 }
