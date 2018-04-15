@@ -13,18 +13,21 @@ public class GameStateSerializer
     {
         GameState gameState = (GameState)customObject;
 
+        // Serialize playerOnTurn to temp byte
         Player playerOnTurn = gameState.PlayerOnTurn;
 
         int playerOnTurnLength;
         byte[] playerOnTurnBytes;
         PlayerSerializer.CopyToByteArray(playerOnTurn, out playerOnTurnLength, out playerOnTurnBytes);
 
+        // Serialize players to temp byte
         Player[] players = gameState.Players;
 
         int playersLength = 0;
         short[] playersLengthArray = new short[players.Length];
         int index = 0;
 
+        // Calculate size of array of players
         foreach (Player p in players)
         {
             short pLength = (short)PlayerSerializer.Length(p);
@@ -33,6 +36,7 @@ public class GameStateSerializer
             index++;
         }
 
+        // Do serialization of players
         byte[] playersBytes = new byte[playersLength];
 
         index = 0;
@@ -45,6 +49,8 @@ public class GameStateSerializer
             index += length;
         }
 
+        // Write the final array of bytes
+        // Size of playerOnTurn array (short) + playerOnTurn array of bytes + number of players in array (short) + array of sizes of players (short) + total size of array of players
         int finalLength = sizeof(short) + playerOnTurnLength + sizeof(short) + (players.Length * sizeof(short)) + playersLength;
         byte[] finalBytes = new byte[finalLength];
 
@@ -59,6 +65,7 @@ public class GameStateSerializer
         }
         Array.Copy(playersBytes, 0, finalBytes, index, playersLength);
 
+        // Write final array to output
         outStream.Write(finalBytes, 0, finalLength);
 
         return (short)finalLength;
