@@ -13,24 +13,40 @@ public class PlayerSerializer
     {
         Player player = (Player)customObject;
 
+        int length;
+        byte[] bytes;
+        CopyToByteArray(player, out length, out bytes);
+        outStream.Write(bytes, 0, length);
+
+        return (short)length;
+    }
+
+    public static void CopyToByteArray(Player player, out int length, out byte[] bytes)
+    {
+        // Calculate byte array size
         short nameLength = (short)System.Text.Encoding.UTF8.GetBytes(player.Name).Length;
         short colorNameLength = (short)System.Text.Encoding.UTF8.GetBytes(player.PlayerColor.Name).Length;
         short intLength = sizeof(int);
         short shortLength = sizeof(short);
-        int length = intLength + shortLength + nameLength + intLength + shortLength + colorNameLength;
+        length = intLength + shortLength + nameLength + intLength + shortLength + colorNameLength;
 
-        byte[] bytes = new byte[length];
+        // Instantiate byte array
+        bytes = new byte[length];
+
         int index = 0;
+        // Write Id
         Protocol.Serialize(player.Id, bytes, ref index);
+        // Write name size
         Protocol.Serialize(nameLength, bytes, ref index);
+        // Write name
         Array.Copy(System.Text.Encoding.UTF8.GetBytes(player.Name), 0, bytes, index, nameLength);
         index += nameLength;
+        // Write board slot id
         Protocol.Serialize(player.BoardSlot == null ? -1 : player.BoardSlot.Id, bytes, ref index);
+        // Write color name size
         Protocol.Serialize(colorNameLength, bytes, ref index);
+        // Write color name
         Array.Copy(System.Text.Encoding.UTF8.GetBytes(player.PlayerColor.Name), 0, bytes, index, colorNameLength);
-        outStream.Write(bytes, 0, length);
-
-        return (short)length;
     }
 
     public static object Deserialize(StreamBuffer inStream, short length)
@@ -69,6 +85,16 @@ public class PlayerSerializer
         player.PlayerColor = PlayerColor.FindByName(colorName);
 
         return player;
+    }
+
+    public static int Length(Player player)
+    {
+        short nameLength = (short)System.Text.Encoding.UTF8.GetBytes(player.Name).Length;
+        short colorNameLength = (short)System.Text.Encoding.UTF8.GetBytes(player.PlayerColor.Name).Length;
+        short intLength = sizeof(int);
+        short shortLength = sizeof(short);
+        int length = intLength + shortLength + nameLength + intLength + shortLength + colorNameLength;
+        return length;
     }
 
 }
