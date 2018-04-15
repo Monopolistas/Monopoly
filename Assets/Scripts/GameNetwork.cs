@@ -14,8 +14,10 @@ public class GameNetwork : Photon.PunBehaviour
 
     void Start()
     {
+        GameStateSerializer.gameStateMachine = gameController.gameStateMachine;
         PlayerSerializer.gameStateMachine = gameController.gameStateMachine;
         PhotonPeer.RegisterType(typeof(Player), 255, PlayerSerializer.Serialize, PlayerSerializer.Deserialize);
+        PhotonPeer.RegisterType(typeof(GameState), 254, GameStateSerializer.Serialize, GameStateSerializer.Deserialize);
         updateTime = 0;
         gameStateMachine = gameController.gameStateMachine;
     }
