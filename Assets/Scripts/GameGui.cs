@@ -69,15 +69,12 @@ public class GameGui : MonoBehaviour
             case StateEnum.ON_CONNECTED:
                 connectionText.text = "Connected!";
                 playerNameText.text = gameStateMachine.Owner == null ? "" : gameStateMachine.Owner.Name + ":" + PhotonNetwork.player;
-                if (gameStateMachine.Database.PlayerDictionary.Count > 1)
+                if (gameStateMachine.Database.PlayerDictionary.Count > 0)
                 {
                     string names = "";
                     foreach (Player item in gameStateMachine.Database.PlayerDictionary.Values)
                     {
-                        if (!item.Id.Equals(gameStateMachine.Owner.Id))
-                        {
-                            names += item.Name + "\n";
-                        }
+                        names += item.Name + "\n";
                     }
                     otherPlayersNameText.text = names;
                 }
@@ -116,7 +113,26 @@ public class GameGui : MonoBehaviour
                     gameStateMachine.Board.PlayerList != null &&
                     gameStateMachine.Board.PlayerList.Count > 0)
                 {
-                    ChangeState();
+                    if (gameStateMachine.Board.PlayerList.Count > 0)
+                    {
+                        string names = "";
+                        foreach (Player item in gameStateMachine.Board.PlayerList)
+                        {
+                            if (item.Id.Equals(gameStateMachine.PlayerOnTurn.Id))
+                            {
+                                names += "=> " + item.Name + " <=\n";
+                            }
+                            else
+                            {
+                                names += item.Name + "\n";
+                            }
+                        }
+                        otherPlayersNameText.text = names;
+                    }
+                    if (gameStateMachine.Owner.Id.Equals(gameStateMachine.PlayerOnTurn.Id))
+                    {
+                        throwDice.interactable = true;
+                    }
                 }
                 break;
             case StateEnum.ON_GAME_OVER:
