@@ -4,6 +4,9 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using System.IO;
+using Assets.Scripts.GameData;
+using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.StateMachine;
 
 public class GameStateMachineTest
 {
@@ -73,12 +76,12 @@ public class GameStateMachineTest
     [Test]
     public void AddLocalPlayerTest()
     {
-        Assert.AreEqual(Player.PLAYER_1.Name, gameStateMachine.Database.PlayerDictionary[1].Name);
-        Assert.AreEqual(Player.PLAYER_2.Name, gameStateMachine.Database.PlayerDictionary[2].Name);
-        Assert.AreEqual(Player.PLAYER_3.Name, gameStateMachine.Database.PlayerDictionary[3].Name);
-        Assert.AreEqual(PlayerColor.BLACK.Name, gameStateMachine.Database.PlayerDictionary[1].PlayerColor.Name);
-        Assert.AreEqual(PlayerColor.BLUE.Name, gameStateMachine.Database.PlayerDictionary[2].PlayerColor.Name);
-        Assert.AreEqual(PlayerColor.GREEN.Name, gameStateMachine.Database.PlayerDictionary[3].PlayerColor.Name);
+        Assert.AreEqual(Player.Player1.Name, gameStateMachine.Database.PlayerDictionary[1].Name);
+        Assert.AreEqual(Player.Player2.Name, gameStateMachine.Database.PlayerDictionary[2].Name);
+        Assert.AreEqual(Player.Player3.Name, gameStateMachine.Database.PlayerDictionary[3].Name);
+        Assert.AreEqual(PlayerColor.Black.Name, gameStateMachine.Database.PlayerDictionary[1].PlayerColor.Name);
+        Assert.AreEqual(PlayerColor.Blue.Name, gameStateMachine.Database.PlayerDictionary[2].PlayerColor.Name);
+        Assert.AreEqual(PlayerColor.Green.Name, gameStateMachine.Database.PlayerDictionary[3].PlayerColor.Name);
         Assert.AreEqual(3, gameStateMachine.Database.PlayerQueue.Count);
         Assert.AreEqual(3, gameStateMachine.Database.PlayerColorQueue.Count);
         Assert.AreEqual(3, gameStateMachine.Database.PlayerDictionary.Count);

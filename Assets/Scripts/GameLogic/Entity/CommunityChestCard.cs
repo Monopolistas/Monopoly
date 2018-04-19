@@ -1,121 +1,25 @@
-﻿using System;
-
-public class CommunityChestCard : Card
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    string text;
-    int value;
-    TransactionType transactionType;
-    CardActionType cardActionType;
-    BoardSlot boardSlot;
-    int boardSlotId;
-    int valuePerHouse;
-    int valuePerHotel;
-
-    #region Getters and Setters
-
-    public string Text
+    public class CommunityChestCard : Card
     {
-        get
-        {
-            return text;
-        }
+        #region Getters and Setters
 
-        set
-        {
-            text = value;
-        }
+        public string Text { get; set; }
+
+        public int Value { get; set; }
+
+        public TransactionType TransactionType { get; set; }
+
+        public CardActionType CardActionType { get; set; }
+
+        public BoardSlot BoardSlot { get; set; }
+
+        public int ValuePerHouse { get; set; }
+
+        public int ValuePerHotel { get; set; }
+
+        public int BoardSlotId { get; set; }
+
+        #endregion
     }
-
-    public int Value
-    {
-        get
-        {
-            return value;
-        }
-
-        set
-        {
-            this.value = value;
-        }
-    }
-
-    public TransactionType TransactionType
-    {
-        get
-        {
-            return transactionType;
-        }
-
-        set
-        {
-            transactionType = value;
-        }
-    }
-
-    public CardActionType CardActionType
-    {
-        get
-        {
-            return cardActionType;
-        }
-
-        set
-        {
-            cardActionType = value;
-        }
-    }
-
-    public BoardSlot BoardSlot
-    {
-        get
-        {
-            return boardSlot;
-        }
-
-        set
-        {
-            boardSlot = value;
-        }
-    }
-
-    public int ValuePerHouse
-    {
-        get
-        {
-            return valuePerHouse;
-        }
-
-        set
-        {
-            valuePerHouse = value;
-        }
-    }
-
-    public int ValuePerHotel
-    {
-        get
-        {
-            return valuePerHotel;
-        }
-
-        set
-        {
-            valuePerHotel = value;
-        }
-    }
-
-    public int BoardSlotId
-    {
-        get
-        {
-            return boardSlotId;
-        }
-
-        set
-        {
-            boardSlotId = value;
-        }
-    }
-
-    #endregion
 }

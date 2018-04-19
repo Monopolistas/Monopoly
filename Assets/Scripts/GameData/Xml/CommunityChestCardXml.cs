@@ -1,46 +1,77 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
-using UnityEngine;
+using Assets.Scripts.GameLogic.Entity;
 
-public class CommunityChestCardXml
+namespace Assets.Scripts.GameData.Xml
 {
-    static XmlDocument doc;
-    static List<CommunityChestCard> communityChestCards;
-
-    public static List<CommunityChestCard> Deserialize(string xml)
+    public class CommunityChestCardXml
     {
-        doc = new XmlDocument();
-        doc.LoadXml(xml);
-        XmlNode mainNode = doc.SelectSingleNode("community-chest-cards");
-        XmlNodeList communityChestCardNodes = mainNode.SelectNodes("community-chest-card");
-        communityChestCards = new List<CommunityChestCard>();
+        private static XmlDocument _doc;
+        private static List<CommunityChestCard> _communityChestCards;
 
-        foreach (XmlNode item in communityChestCardNodes)
+        public static List<CommunityChestCard> Deserialize(string xml)
         {
-            CommunityChestCard ccc = new CommunityChestCard();
+            _doc = new XmlDocument();
+            _doc.LoadXml(xml);
+            XmlNode mainNode = _doc.SelectSingleNode("community-chest-cards");
+            if (mainNode != null)
+            {
+                XmlNodeList communityChestCardNodes = mainNode.SelectNodes("community-chest-card");
+                _communityChestCards = new List<CommunityChestCard>();
 
-            string id = item.Attributes.GetNamedItem("id").Value;
-            string text = item.ChildNodes.Item(0).InnerText;
-            string value = item.ChildNodes.Item(1).InnerText;
-            string transaction = item.ChildNodes.Item(2).InnerText;
-            string cardAction = item.ChildNodes.Item(3).InnerText;
-            string boardSlot = item.ChildNodes.Item(4).InnerText;
-            string valuePerHouse = item.ChildNodes.Item(5).InnerText;
-            string valuePerHotel = item.ChildNodes.Item(6).InnerText;
+                if (communityChestCardNodes != null)
+                {
+                    foreach (XmlNode item in communityChestCardNodes)
+                    {
+                        CommunityChestCard ccc = new CommunityChestCard();
 
-            ccc.Id = int.Parse(id);
-            ccc.Text = text;
-            ccc.Value = int.Parse(value);
-            ccc.TransactionType = TransactionType.FindByCode(transaction);
-            ccc.CardActionType = CardActionType.FindByCode(cardAction);
-            ccc.BoardSlotId = int.Parse(id);
-            ccc.ValuePerHouse = int.Parse(valuePerHouse);
-            ccc.ValuePerHotel = int.Parse(valuePerHotel);
-            ccc.CardType = CardType.COMMUNITY_CHEST;
-            communityChestCards.Add(ccc);
+                        if (item.Attributes != null)
+                        {
+                            string id = item.Attributes.GetNamedItem("id").Value;
+                            string text = item.ChildNodes.Item(0)?.InnerText;
+                            string value = item.ChildNodes.Item(1)?.InnerText;
+                            string transaction = item.ChildNodes.Item(2)?.InnerText;
+                            string cardAction = item.ChildNodes.Item(3)?.InnerText;
+                            string boardSlot = item.ChildNodes.Item(4)?.InnerText;
+                            string valuePerHouse = item.ChildNodes.Item(5)?.InnerText;
+                            string valuePerHotel = item.ChildNodes.Item(6)?.InnerText;
+
+                            ccc.Id = int.Parse(id);
+                            ccc.Text = text;
+                            if (value != null)
+                            {
+                                ccc.Value = int.Parse(value);
+                            }
+
+                            if (transaction != null)
+                            {
+                                ccc.TransactionType = TransactionType.FindByCode(int.Parse(transaction));
+                            }
+
+                            ccc.CardActionType = CardActionType.FindByCode(cardAction);
+                            if (boardSlot != null)
+                            {
+                                ccc.BoardSlotId = int.Parse(boardSlot);
+                            }
+
+                            if (valuePerHouse != null)
+                            {
+                                ccc.ValuePerHouse = int.Parse(valuePerHouse);
+                            }
+
+                            if (valuePerHotel != null)
+                            {
+                                ccc.ValuePerHotel = int.Parse(valuePerHotel);
+                            }
+                        }
+
+                        ccc.CardType = CardType.CommunityChest;
+                        _communityChestCards.Add(ccc);
+                    }
+                }
+            }
+
+            return _communityChestCards;
         }
-
-        return communityChestCards;
     }
 }

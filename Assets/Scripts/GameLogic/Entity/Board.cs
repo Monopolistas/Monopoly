@@ -1,131 +1,70 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class Board
+namespace Assets.Scripts.GameLogic.Entity
 {
-
-    List<Player> playerList;
-    List<BoardSlot> boardSlotList;
-    Queue<ChanceCard> chanceCardQueue;
-    Queue<CommunityChestCard> communityChestCardQueue;
-    Bank bank;
-
-    public Board()
+    public class Board
     {
-        this.playerList = new List<Player>();
-        this.boardSlotList = new List<BoardSlot>();
-        this.chanceCardQueue = new Queue<ChanceCard>();
-        this.communityChestCardQueue = new Queue<CommunityChestCard>();
-        this.bank = new Bank();
-    }
-
-    public void MovePlayerTo(Player player, int steps)
-    {
-        int fromIndex = FindIndexWherePlayerIs(player);
-        int toIndex = FindNextIndexWherePlayerWillBe(fromIndex, steps);
-
-        boardSlotList[fromIndex].PlayerList.Remove(player);
-        player.BoardSlot = boardSlotList[toIndex];
-        boardSlotList[toIndex].PlayerList.Add(player);
-    }
-
-    int FindNextIndexWherePlayerWillBe(int index, int steps)
-    {
-        int j = index;
-
-        for (int i = 0; i < steps; i++)
+        public Board()
         {
-            if (j >= boardSlotList.Count)
+            PlayerList = new List<Player>();
+            BoardSlotList = new List<BoardSlot>();
+            ChanceCardQueue = new Queue<ChanceCard>();
+            CommunityChestCardQueue = new Queue<CommunityChestCard>();
+            Bank = new Bank();
+        }
+
+        public void MovePlayerTo(Player player, int steps)
+        {
+            int fromIndex = FindIndexWherePlayerIs(player);
+            int toIndex = FindNextIndexWherePlayerWillBe(fromIndex, steps);
+
+            BoardSlotList[fromIndex].PlayerList.Remove(player);
+            player.BoardSlot = BoardSlotList[toIndex];
+            BoardSlotList[toIndex].PlayerList.Add(player);
+        }
+
+        private int FindNextIndexWherePlayerWillBe(int index, int steps)
+        {
+            int j = index;
+
+            for (int i = 0; i < steps; i++)
             {
-                j = 0;
+                if (j >= BoardSlotList.Count)
+                {
+                    j = 0;
+                }
+                j++;
             }
-            j++;
+
+            return j;
         }
 
-        return j;
-    }
-
-    public int FindIndexWherePlayerIs(Player player)
-    {
-        int index = 0;
-        foreach (BoardSlot item in boardSlotList)
+        public int FindIndexWherePlayerIs(Player player)
         {
-            if (item.Id.Equals(player.BoardSlot.Id))
+            int index = 0;
+            foreach (BoardSlot item in BoardSlotList)
             {
-                break;
+                if (item.Id.Equals(player.BoardSlot.Id))
+                {
+                    break;
+                }
+                index++;
             }
-            index++;
+            return index;
         }
-        return index;
+
+        #region Getters and Setters
+
+        public List<Player> PlayerList { get; set; }
+
+        public List<BoardSlot> BoardSlotList { get; set; }
+
+        public Queue<ChanceCard> ChanceCardQueue { get; set; }
+
+        public Queue<CommunityChestCard> CommunityChestCardQueue { get; set; }
+
+        public Bank Bank { get; set; }
+
+        #endregion
     }
-
-    #region Getters and Setters
-
-    public List<Player> PlayerList
-    {
-        get
-        {
-            return playerList;
-        }
-
-        set
-        {
-            playerList = value;
-        }
-    }
-
-    public List<BoardSlot> BoardSlotList
-    {
-        get
-        {
-            return boardSlotList;
-        }
-
-        set
-        {
-            boardSlotList = value;
-        }
-    }
-
-    public Queue<ChanceCard> ChanceCardQueue
-    {
-        get
-        {
-            return chanceCardQueue;
-        }
-
-        set
-        {
-            chanceCardQueue = value;
-        }
-    }
-
-    public Queue<CommunityChestCard> CommunityChestCardQueue
-    {
-        get
-        {
-            return communityChestCardQueue;
-        }
-
-        set
-        {
-            communityChestCardQueue = value;
-        }
-    }
-
-    public Bank Bank
-    {
-        get
-        {
-            return bank;
-        }
-
-        set
-        {
-            bank = value;
-        }
-    }
-
-    #endregion
 }

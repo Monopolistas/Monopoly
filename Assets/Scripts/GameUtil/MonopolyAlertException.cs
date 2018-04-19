@@ -1,24 +1,14 @@
 ﻿using System;
 
-public class MonopolyAlertException : Exception
+namespace Assets.Scripts.GameUtil
 {
-    string monopolyMessage;
-
-    public MonopolyAlertException(string message) : base()
+    public class MonopolyAlertException : Exception
     {
-        this.monopolyMessage = message;
-    }
-
-    public string MonopolyMessage
-    {
-        get
+        public MonopolyAlertException(string message)
         {
-            return monopolyMessage;
+            MonopolyMessage = message;
         }
 
-        set
-        {
-            monopolyMessage = value;
-        }
+        public string MonopolyMessage { get; set; }
     }
 }

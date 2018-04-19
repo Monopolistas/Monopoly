@@ -1,82 +1,63 @@
 ﻿using System.Collections.Generic;
 
-public class GroupColor
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly GroupColor PURPLE = new GroupColor(1, "PURPLE", "#A020F0");
-    public static readonly GroupColor LIGHT_BLUE = new GroupColor(2, "LIGHT BLUE", "#ADD8E6");
-    public static readonly GroupColor PINK = new GroupColor(3, "PINK", "#FF69B4");
-    public static readonly GroupColor ORANGE = new GroupColor(4, "ORANGE", "#FFA500");
-    public static readonly GroupColor RED = new GroupColor(5, "RED", "#FF0000");
-    public static readonly GroupColor YELLOW = new GroupColor(6, "YELLOW", "#FFFF00");
-    public static readonly GroupColor GREEN = new GroupColor(7, "GREEN", "#008000");
-    public static readonly GroupColor DARK_BLUE = new GroupColor(8, "DARK BLUE", "#000080");
-
-    private readonly int code;
-    private readonly string name;
-    private readonly string hexValue;
-
-    public GroupColor(int code, string name, string hexValue)
+    public class GroupColor
     {
-        this.code = code;
-        this.name = name;
-        this.hexValue = hexValue;
-    }
+        public static readonly GroupColor Purple = new GroupColor(1, "PURPLE", "#A020F0");
+        public static readonly GroupColor LightBlue = new GroupColor(2, "LIGHT BLUE", "#ADD8E6");
+        public static readonly GroupColor Pink = new GroupColor(3, "PINK", "#FF69B4");
+        public static readonly GroupColor Orange = new GroupColor(4, "ORANGE", "#FFA500");
+        public static readonly GroupColor Red = new GroupColor(5, "RED", "#FF0000");
+        public static readonly GroupColor Yellow = new GroupColor(6, "YELLOW", "#FFFF00");
+        public static readonly GroupColor Green = new GroupColor(7, "GREEN", "#008000");
+        public static readonly GroupColor DarkBlue = new GroupColor(8, "DARK BLUE", "#000080");
 
-    public static IEnumerable<GroupColor> Values
-    {
-        get
+        public GroupColor(int code, string name, string hexValue)
         {
-            yield return PURPLE;
-            yield return LIGHT_BLUE;
-            yield return PINK;
-            yield return ORANGE;
-            yield return RED;
-            yield return YELLOW;
-            yield return GREEN;
-            yield return DARK_BLUE;
+            Code = code;
+            Name = name;
+            HexValue = hexValue;
         }
-    }
 
-    public static GroupColor FindByName(string name)
-    {
-        GroupColor type = null;
-        foreach (GroupColor item in Values)
+        public static IEnumerable<GroupColor> Values
         {
-            if (name.Equals(item.name))
+            get
             {
-                type = item;
+                yield return Purple;
+                yield return LightBlue;
+                yield return Pink;
+                yield return Orange;
+                yield return Red;
+                yield return Yellow;
+                yield return Green;
+                yield return DarkBlue;
             }
         }
-        return type;
-    }
 
-    public int Code
-    {
-        get
+        public static GroupColor FindByName(string name)
         {
-            return this.code;
+            GroupColor type = null;
+            foreach (GroupColor item in Values)
+            {
+                if (name.Equals(item.Name))
+                {
+                    type = item;
+                }
+            }
+            return type;
         }
-    }
 
-    public string Name
-    {
-        get
+        public int Code { get; }
+
+        public string Name { get; }
+
+        public string HexValue { get; }
+
+        public override string ToString()
         {
-            return this.name;
+            return Name;
         }
-    }
 
-    public string HexValue
-    {
-        get
-        {
-            return this.hexValue;
-        }
     }
-
-    public override string ToString()
-    {
-        return this.name;
-    }
-
 }

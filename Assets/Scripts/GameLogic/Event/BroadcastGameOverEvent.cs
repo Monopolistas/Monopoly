@@ -1,24 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using Assets.Scripts.GameLogic.StateMachine;
 
-public class BroadcastGameOverEvent : NetworkEvent
+namespace Assets.Scripts.GameLogic.Event
 {
-    public BroadcastGameOverEvent()
+    public class BroadcastGameOverEvent : NetworkEvent
     {
-    }
+        public BroadcastGameOverEvent()
+        {
+        }
 
-    public BroadcastGameOverEvent(int code) : base(code)
-    {
-    }
+        public BroadcastGameOverEvent(int code) : base(code)
+        {
+        }
 
-    public override void Broadcast(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
-    }
+        public override void Broadcast(GameStateMachine gameStateMachine)
+        {
+            throw new NotImplementedException();
+        }
 
-    public override void Execute(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
+        public override void Execute(GameStateMachine gameStateMachine)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

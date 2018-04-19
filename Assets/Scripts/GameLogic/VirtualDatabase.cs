@@ -1,189 +1,182 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Assets.Scripts.GameLogic.Entity;
 
-public class VirtualDatabase
+namespace Assets.Scripts.GameLogic
 {
-    // Immutable collections
-    Dictionary<int, Card> cardDictionary;
-
-    Dictionary<int, BoardSlot> boardSlotDictionary;
-
-    Dictionary<int, Lot> lotDictionary;
-
-    Queue<Player> playerQueue;
-
-    Queue<PlayerColor> playerColorQueue;
-
-    List<TitleDeedCard> titleDeedCardList;
-
-    List<ChanceCard> chanceCardList;
-
-    List<CommunityChestCard> communityChestCardList;
-
-    List<RailroadCard> railroadCardList;
-
-    List<UtilityCard> utilityCardList;
-
-    // Mutable
-    Dictionary<int, Player> playerDictionary;
-
-    public VirtualDatabase()
+    public class VirtualDatabase
     {
-        this.cardDictionary = new Dictionary<int, Card>();
-        this.playerDictionary = new Dictionary<int, Player>();
-        this.boardSlotDictionary = new Dictionary<int, BoardSlot>();
-        this.lotDictionary = new Dictionary<int, Lot>();
-        this.playerQueue = new Queue<Player>(Player.Values);
-        this.playerColorQueue = new Queue<PlayerColor>(PlayerColor.Values);
-        this.titleDeedCardList = new List<TitleDeedCard>();
-        this.chanceCardList = new List<ChanceCard>();
-        this.communityChestCardList = new List<CommunityChestCard>();
-        this.railroadCardList = new List<RailroadCard>();
-        this.utilityCardList = new List<UtilityCard>();
+        // Immutable collections
+        private Dictionary<int, Card> _cardDictionary;
+        private Dictionary<int, BoardSlot> _boardSlotDictionary;
+        private Dictionary<int, Lot> _lotDictionary;
+        private Queue<Player> _playerQueue;
+        private Queue<PlayerColor> _playerColorQueue;
+        private List<TitleDeedCard> _titleDeedCardList;
+        private List<ChanceCard> _chanceCardList;
+        private List<CommunityChestCard> _communityChestCardList;
+        private List<RailroadCard> _railroadCardList;
+        private List<UtilityCard> _utilityCardList;
+
+        // Mutable
+        private Dictionary<int, Player> _playerDictionary;
+
+        public VirtualDatabase()
+        {
+            _cardDictionary = new Dictionary<int, Card>();
+            _playerDictionary = new Dictionary<int, Player>();
+            _boardSlotDictionary = new Dictionary<int, BoardSlot>();
+            _lotDictionary = new Dictionary<int, Lot>();
+            _playerQueue = new Queue<Player>(Player.Values);
+            _playerColorQueue = new Queue<PlayerColor>(PlayerColor.Values);
+            _titleDeedCardList = new List<TitleDeedCard>();
+            _chanceCardList = new List<ChanceCard>();
+            _communityChestCardList = new List<CommunityChestCard>();
+            _railroadCardList = new List<RailroadCard>();
+            _utilityCardList = new List<UtilityCard>();
+        }
+
+        #region Getters and Setters
+
+        public Queue<Player> PlayerQueue
+        {
+            get
+            {
+                return _playerQueue;
+            }
+            set
+            {
+                _playerQueue = value;
+            }
+        }
+
+        public Queue<PlayerColor> PlayerColorQueue
+        {
+            get
+            {
+                return _playerColorQueue;
+            }
+            set
+            {
+                _playerColorQueue = value;
+            }
+        }
+
+        public Dictionary<int, Player> PlayerDictionary
+        {
+            get
+            {
+                return _playerDictionary;
+            }
+            set
+            {
+                _playerDictionary = value;
+            }
+        }
+
+        public Dictionary<int, Card> CardDictionary
+        {
+            get
+            {
+                return _cardDictionary;
+            }
+
+            set
+            {
+                _cardDictionary = value;
+            }
+        }
+
+        public Dictionary<int, BoardSlot> BoardSlotDictionary
+        {
+            get
+            {
+                return _boardSlotDictionary;
+            }
+
+            set
+            {
+                _boardSlotDictionary = value;
+            }
+        }
+
+        public Dictionary<int, Lot> LotDictionary
+        {
+            get
+            {
+                return _lotDictionary;
+            }
+
+            set
+            {
+                _lotDictionary = value;
+            }
+        }
+
+        public List<TitleDeedCard> TitleDeedCardList
+        {
+            get
+            {
+                return _titleDeedCardList;
+            }
+
+            set
+            {
+                _titleDeedCardList = value;
+            }
+        }
+
+        public List<ChanceCard> ChanceCardList
+        {
+            get
+            {
+                return _chanceCardList;
+            }
+
+            set
+            {
+                _chanceCardList = value;
+            }
+        }
+
+        public List<CommunityChestCard> CommunityChestCardList
+        {
+            get
+            {
+                return _communityChestCardList;
+            }
+
+            set
+            {
+                _communityChestCardList = value;
+            }
+        }
+
+        public List<RailroadCard> RailroadCardList
+        {
+            get
+            {
+                return _railroadCardList;
+            }
+
+            set
+            {
+                _railroadCardList = value;
+            }
+        }
+
+        public List<UtilityCard> UtilityCardList
+        {
+            get
+            {
+                return _utilityCardList;
+            }
+
+            set
+            {
+                _utilityCardList = value;
+            }
+        }
+
+        #endregion
     }
-
-    #region Getters and Setters
-
-    public Queue<Player> PlayerQueue
-    {
-        get
-        {
-            return playerQueue;
-        }
-        set
-        {
-            playerQueue = value;
-        }
-    }
-
-    public Queue<PlayerColor> PlayerColorQueue
-    {
-        get
-        {
-            return playerColorQueue;
-        }
-        set
-        {
-            playerColorQueue = value;
-        }
-    }
-
-    public Dictionary<int, Player> PlayerDictionary
-    {
-        get
-        {
-            return playerDictionary;
-        }
-        set
-        {
-            playerDictionary = value;
-        }
-    }
-
-    public Dictionary<int, Card> CardDictionary
-    {
-        get
-        {
-            return cardDictionary;
-        }
-
-        set
-        {
-            cardDictionary = value;
-        }
-    }
-
-    public Dictionary<int, BoardSlot> BoardSlotDictionary
-    {
-        get
-        {
-            return boardSlotDictionary;
-        }
-
-        set
-        {
-            boardSlotDictionary = value;
-        }
-    }
-
-    public Dictionary<int, Lot> LotDictionary
-    {
-        get
-        {
-            return lotDictionary;
-        }
-
-        set
-        {
-            lotDictionary = value;
-        }
-    }
-
-    public List<TitleDeedCard> TitleDeedCardList
-    {
-        get
-        {
-            return titleDeedCardList;
-        }
-
-        set
-        {
-            titleDeedCardList = value;
-        }
-    }
-
-    public List<ChanceCard> ChanceCardList
-    {
-        get
-        {
-            return chanceCardList;
-        }
-
-        set
-        {
-            chanceCardList = value;
-        }
-    }
-
-    public List<CommunityChestCard> CommunityChestCardList
-    {
-        get
-        {
-            return communityChestCardList;
-        }
-
-        set
-        {
-            communityChestCardList = value;
-        }
-    }
-
-    public List<RailroadCard> RailroadCardList
-    {
-        get
-        {
-            return railroadCardList;
-        }
-
-        set
-        {
-            railroadCardList = value;
-        }
-    }
-
-    public List<UtilityCard> UtilityCardList
-    {
-        get
-        {
-            return utilityCardList;
-        }
-
-        set
-        {
-            utilityCardList = value;
-        }
-    }
-
-    #endregion
 }

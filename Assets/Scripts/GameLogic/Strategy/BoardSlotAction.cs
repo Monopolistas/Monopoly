@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public abstract class BoardSlotAction
+﻿namespace Assets.Scripts.GameLogic.Strategy
 {
-    public BoardSlotAction()
+    public abstract class BoardSlotAction
     {
+        public abstract void ExecuteAction();
     }
-
-    public abstract void ExecuteAction();
 }

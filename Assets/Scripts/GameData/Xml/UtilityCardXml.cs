@@ -1,42 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
+using Assets.Scripts.GameLogic.Entity;
 using UnityEngine;
 
-public class UtilityCardXml : MonoBehaviour
+namespace Assets.Scripts.GameData.Xml
 {
-    static XmlDocument doc;
-    static List<UtilityCard> utilityCards;
-
-    public static List<UtilityCard> Deserialize(string xml)
+    public class UtilityCardXml : MonoBehaviour
     {
-        doc = new XmlDocument();
-        doc.LoadXml(xml);
-        XmlNode mainNode = doc.SelectSingleNode("utility-cards");
-        XmlNodeList utilityCardNodes = mainNode.SelectNodes("utility-card");
-        utilityCards = new List<UtilityCard>();
+        private static XmlDocument _doc;
+        private static List<UtilityCard> _utilityCards;
 
-        foreach (XmlNode item in utilityCardNodes)
+        public static List<UtilityCard> Deserialize(string xml)
         {
-            UtilityCard uc = new UtilityCard();
+            _doc = new XmlDocument();
+            _doc.LoadXml(xml);
+            XmlNode mainNode = _doc.SelectSingleNode("utility-cards");
+            if (mainNode != null)
+            {
+                XmlNodeList utilityCardNodes = mainNode.SelectNodes("utility-card");
+                _utilityCards = new List<UtilityCard>();
 
-            string id = item.Attributes.GetNamedItem("id").Value;
-            string name = item.ChildNodes.Item(0).InnerText;
-            string price = item.ChildNodes.Item(1).InnerText;
-            string rentWithOne = item.ChildNodes.Item(2).InnerText;
-            string rentWithTwo = item.ChildNodes.Item(3).InnerText;
-            string mortgage = item.ChildNodes.Item(4).InnerText;
+                if (utilityCardNodes != null)
+                    foreach (XmlNode item in utilityCardNodes)
+                    {
+                        UtilityCard uc = new UtilityCard();
 
-            uc.Id = int.Parse(id);
-            uc.Name = name;
-            uc.Price = int.Parse(price);
-            uc.MultiplierWithOne = int.Parse(rentWithOne);
-            uc.MultiplierWithTwo = int.Parse(rentWithTwo);
-            uc.Mortgage = int.Parse(mortgage);
+                        if (item.Attributes != null)
+                        {
+                            string id = item.Attributes.GetNamedItem("id").Value;
+                            string name = item.ChildNodes.Item(0)?.InnerText;
+                            string price = item.ChildNodes.Item(1)?.InnerText;
+                            string rentWithOne = item.ChildNodes.Item(2)?.InnerText;
+                            string rentWithTwo = item.ChildNodes.Item(3)?.InnerText;
+                            string mortgage = item.ChildNodes.Item(4)?.InnerText;
 
-            utilityCards.Add(uc);
+                            uc.Id = int.Parse(id);
+                            uc.Name = name;
+                            if (price != null) uc.Price = int.Parse(price);
+                            if (rentWithOne != null) uc.MultiplierWithOne = int.Parse(rentWithOne);
+                            if (rentWithTwo != null) uc.MultiplierWithTwo = int.Parse(rentWithTwo);
+                            if (mortgage != null) uc.Mortgage = int.Parse(mortgage);
+                        }
+
+                        _utilityCards.Add(uc);
+                    }
+            }
+
+            return _utilityCards;
         }
-
-        return utilityCards;
     }
 }

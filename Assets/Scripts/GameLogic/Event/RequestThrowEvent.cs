@@ -1,25 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using Assets.Scripts.GameLogic.StateMachine;
 
-public class RequestThrowEvent : NetworkEvent
+namespace Assets.Scripts.GameLogic.Event
 {
-
-    public RequestThrowEvent()
+    public class RequestThrowEvent : NetworkEvent
     {
-    }
 
-    public RequestThrowEvent(int code) : base(code)
-    {
-    }
+        public RequestThrowEvent()
+        {
+        }
 
-    public override void Broadcast(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
-    }
+        public RequestThrowEvent(int code) : base(code)
+        {
+        }
 
-    public override void Execute(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
+        public override void Broadcast(GameStateMachine gameStateMachine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Execute(GameStateMachine gameStateMachine)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,398 +1,228 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameUtil;
 
-public class GameStateMachine : IMonopolyCore
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-
-    StateOnStart stateOnStart;
-    StateOnPreparation stateOnPreparation;
-    StateOnPlayerTurn stateOnPlayerTurn;
-    StateOnBoardSlotAction stateOnBoardSlotAction;
-    StateOnClientPreparation stateOnClientPreparation;
-    StateOnGameOver stateOnGameOver;
-
-    State currentState;
-
-    Board board;
-
-    Player playerOnTurn;
-
-    VirtualDatabase virtualDatabase;
-
-    Player owner;
-
-    int currentPlayerIndex;
-
-    bool isGameStarted;
-    bool isClientPrepared;
-    bool isGameOver;
-
-    public GameStateMachine()
+    public class GameStateMachine : IMonopolyCore
     {
-        board = new Board();
+        private StateOnStart _stateOnStart;
 
-        InitializeStates();
-
-        virtualDatabase = new VirtualDatabase();
-
-        this.currentState = stateOnStart;
-    }
-
-    void InitializeStates()
-    {
-        stateOnStart = new StateOnStart(this);
-        stateOnPreparation = new StateOnPreparation(this);
-        stateOnPlayerTurn = new StateOnPlayerTurn(this);
-        stateOnBoardSlotAction = new StateOnBoardSlotAction(this);
-        stateOnClientPreparation = new StateOnClientPreparation(this);
-        stateOnGameOver = new StateOnGameOver(this);
-    }
-
-    public void ExecuteGameLogic()
-    {
-        this.currentState.ExecuteGameLogic();
-    }
-
-    #region Machine commands
-
-    public void ChangeState(State state)
-    {
-        this.currentState = state;
-    }
-
-    public void ChangeToStateOnPlayerTurn()
-    {
-        StateOnPlayerTurn.PlayerOnTurn = playerOnTurn;
-        StateOnPlayerTurn.PlayerTurn = new PlayerTurn();
-        StateOnPlayerTurn.PlayerTurn.Player = playerOnTurn;
-        StateOnPlayerTurn.Reset();
-        this.currentState = StateOnPlayerTurn;
-    }
-
-    public void ChangeToStateOnBoardSlotAction()
-    {
-        StateOnBoardSlotAction.StateBefore = this.currentState;
-        StateOnBoardSlotAction.BoardSlot = playerOnTurn.BoardSlot;
-        this.currentState = StateOnBoardSlotAction;
-    }
-
-    public void ThrowDice(int playerId)
-    {
-        ThrowDice(playerId, 0, 0);
-    }
-
-    public void ThrowDice(int playerId, int die1, int die2)
-    {
-        if (CheckCanThrowDice(playerId))
+        public GameStateMachine()
         {
-            ((StateOnPlayerTurn)currentState).ThrowDice(die1, die2);
-        }
-        else
-        {
-            throw new MonopolyAlertException("Player can't throw dice. Wait player's turn.");
-        }
-    }
+            Board = new Board();
 
-    public void EndTurn()
-    {
-        currentPlayerIndex++;
+            InitializeStates();
 
-        if (currentPlayerIndex > Board.PlayerList.Count - 1)
-        {
-            currentPlayerIndex = 0;
+            Database = new VirtualDatabase();
+
+            CurrentState = _stateOnStart;
         }
 
-        playerOnTurn = Board.PlayerList[currentPlayerIndex];
-
-        ChangeToStateOnPlayerTurn();
-    }
-
-    public Player AddLocalPlayer(int id)
-    {
-        // Instantiate local player on master and clients
-        Player player = new Player();
-        player.Id = id;
-        player.Name = virtualDatabase.PlayerQueue.Dequeue().Name;
-        player.PlayerColor = virtualDatabase.PlayerColorQueue.Dequeue();
-        virtualDatabase.PlayerDictionary.Add(id, player);
-        owner = player;
-        return player;
-    }
-
-    public void FillBoardWithPlayers()
-    {
-        foreach (Player item in Database.PlayerDictionary.Values)
+        private void InitializeStates()
         {
-            Board.PlayerList.Add(item);
+            _stateOnStart = new StateOnStart(this);
+            StateOnPreparation = new StateOnPreparation(this);
+            StateOnPlayerTurn = new StateOnPlayerTurn(this);
+            StateOnBoardSlotAction = new StateOnBoardSlotAction(this);
+            StateOnClientPreparation = new StateOnClientPreparation(this);
+            StateOnGameOver = new StateOnGameOver(this);
         }
-    }
 
-    public void FillBoardWithBoardSlots()
-    {
-        foreach (BoardSlot item in Database.BoardSlotDictionary.Values)
+        public void ExecuteGameLogic()
         {
-            Board.BoardSlotList.Add(item);
+            CurrentState.ExecuteGameLogic();
         }
-    }
 
-    public void FillBankWithLotCards()
-    {
-        foreach (LotCard item in Database.TitleDeedCardList)
+        #region Machine commands
+
+        public void ChangeState(State state)
         {
-            Board.Bank.LotCardList.Add(item);
+            CurrentState = state;
         }
-        foreach (LotCard item in Database.RailroadCardList)
+
+        public void ChangeToStateOnPlayerTurn()
         {
-            Board.Bank.LotCardList.Add(item);
+            StateOnPlayerTurn.PlayerOnTurn = PlayerOnTurn;
+            StateOnPlayerTurn.PlayerTurn = new PlayerTurn();
+            StateOnPlayerTurn.PlayerTurn.Player = PlayerOnTurn;
+            StateOnPlayerTurn.Reset();
+            CurrentState = StateOnPlayerTurn;
         }
-        foreach (LotCard item in Database.UtilityCardList)
+
+        public void ChangeToStateOnBoardSlotAction()
         {
-            Board.Bank.LotCardList.Add(item);
+            StateOnBoardSlotAction.StateBefore = CurrentState;
+            StateOnBoardSlotAction.BoardSlot = PlayerOnTurn.BoardSlot;
+            CurrentState = StateOnBoardSlotAction;
         }
-    }
 
-    public void FillBankWithBuildings()
-    {
-        for (int i = 0; i < Constants.INITIAL_NUMBER_OF_HOUSES; i++)
+        public void ThrowDice(int playerId)
         {
-            Building house = new Building(BuildingType.HOUSE);
-            Board.Bank.BuildingList.Add(house);
+            ThrowDice(playerId, 0, 0);
         }
-        for (int i = 0; i < Constants.INITIAL_NUMBER_OF_HOTELS; i++)
+
+        public void ThrowDice(int playerId, int die1, int die2)
         {
-            Building hotel = new Building(BuildingType.HOTEL);
-            Board.Bank.BuildingList.Add(hotel);
-        }
-    }
-
-    #endregion
-
-    #region Check methods
-
-    public bool CheckInState(string stateName)
-    {
-        return this.currentState.GetType().Name.Equals(stateName);
-    }
-
-    public bool CheckCanThrowDice(int playerId)
-    {
-        return (playerOnTurn.Id == playerId && currentState is StateOnPlayerTurn);
-    }
-
-    public int GetPlayerPositionOnBoard(int playerId)
-    {
-        return board.FindIndexWherePlayerIs(virtualDatabase.PlayerDictionary[playerId]);
-    }
-
-    public int GetNumberOfHousesWithBank()
-    {
-        int counter = 0;
-        foreach (Building building in board.Bank.BuildingList)
-        {
-            if (building.BuildingType.Equals(BuildingType.HOUSE))
+            if (CheckCanThrowDice(playerId))
             {
-                counter++;
+                ((StateOnPlayerTurn)CurrentState).ThrowDice(die1, die2);
+            }
+            else
+            {
+                throw new MonopolyAlertException("Player can't throw dice. Wait player's turn.");
             }
         }
-        return counter;
-    }
 
-    public int GetNumberOfHotelsWithBank()
-    {
-        int counter = 0;
-        foreach (Building building in board.Bank.BuildingList)
+        public void EndTurn()
         {
-            if (building.BuildingType.Equals(BuildingType.HOTEL))
+            CurrentPlayerIndex++;
+
+            if (CurrentPlayerIndex > Board.PlayerList.Count - 1)
             {
-                counter++;
+                CurrentPlayerIndex = 0;
+            }
+
+            PlayerOnTurn = Board.PlayerList[CurrentPlayerIndex];
+
+            ChangeToStateOnPlayerTurn();
+        }
+
+        public Player AddLocalPlayer(int id)
+        {
+            // Instantiate local player on master and clients
+            Player player = new Player();
+            player.Id = id;
+            player.Name = Database.PlayerQueue.Dequeue().Name;
+            player.PlayerColor = Database.PlayerColorQueue.Dequeue();
+            Database.PlayerDictionary.Add(id, player);
+            Owner = player;
+            return player;
+        }
+
+        public void FillBoardWithPlayers()
+        {
+            foreach (Player item in Database.PlayerDictionary.Values)
+            {
+                Board.PlayerList.Add(item);
             }
         }
-        return counter;
+
+        public void FillBoardWithBoardSlots()
+        {
+            foreach (BoardSlot item in Database.BoardSlotDictionary.Values)
+            {
+                Board.BoardSlotList.Add(item);
+            }
+        }
+
+        public void FillBankWithLotCards()
+        {
+            foreach (LotCard item in Database.TitleDeedCardList)
+            {
+                Board.Bank.LotCardList.Add(item);
+            }
+            foreach (LotCard item in Database.RailroadCardList)
+            {
+                Board.Bank.LotCardList.Add(item);
+            }
+            foreach (LotCard item in Database.UtilityCardList)
+            {
+                Board.Bank.LotCardList.Add(item);
+            }
+        }
+
+        public void FillBankWithBuildings()
+        {
+            for (int i = 0; i < Constants.InitialNumberOfHouses; i++)
+            {
+                Building house = new Building(BuildingType.House);
+                Board.Bank.BuildingList.Add(house);
+            }
+            for (int i = 0; i < Constants.InitialNumberOfHotels; i++)
+            {
+                Building hotel = new Building(BuildingType.Hotel);
+                Board.Bank.BuildingList.Add(hotel);
+            }
+        }
+
+        #endregion
+
+        #region Check methods
+
+        public bool CheckInState(string stateName)
+        {
+            return CurrentState.GetType().Name.Equals(stateName);
+        }
+
+        public bool CheckCanThrowDice(int playerId)
+        {
+            return (PlayerOnTurn.Id == playerId && CurrentState is StateOnPlayerTurn);
+        }
+
+        public int GetPlayerPositionOnBoard(int playerId)
+        {
+            return Board.FindIndexWherePlayerIs(Database.PlayerDictionary[playerId]);
+        }
+
+        public int GetNumberOfHousesWithBank()
+        {
+            int counter = 0;
+            foreach (Building building in Board.Bank.BuildingList)
+            {
+                if (building.BuildingType.Equals(BuildingType.House))
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        public int GetNumberOfHotelsWithBank()
+        {
+            int counter = 0;
+            foreach (Building building in Board.Bank.BuildingList)
+            {
+                if (building.BuildingType.Equals(BuildingType.Hotel))
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
+        #endregion
+
+        #region Getters and Setters
+
+        public VirtualDatabase Database { get; set; }
+
+        public Player PlayerOnTurn { get; set; }
+
+        public Board Board { get; set; }
+
+        public State CurrentState { get; set; }
+
+        public StateOnPreparation StateOnPreparation { get; set; }
+
+        public StateOnPlayerTurn StateOnPlayerTurn { get; set; }
+
+        public StateOnBoardSlotAction StateOnBoardSlotAction { get; set; }
+
+        public Player Owner { get; set; }
+
+        public bool IsGameStarted { get; set; }
+
+        public StateOnClientPreparation StateOnClientPreparation { get; set; }
+
+        public bool IsClientPrepared { get; set; }
+
+        public int CurrentPlayerIndex { get; set; }
+
+        public StateOnGameOver StateOnGameOver { get; set; }
+
+        public bool IsGameOver { get; set; }
+
+        #endregion
+
     }
-
-    #endregion
-
-    #region Getters and Setters
-
-    public VirtualDatabase Database
-    {
-        get
-        {
-            return this.virtualDatabase;
-        }
-        set
-        {
-            virtualDatabase = value;
-        }
-    }
-
-    public Player PlayerOnTurn
-    {
-        get
-        {
-            return playerOnTurn;
-        }
-
-        set
-        {
-            playerOnTurn = value;
-        }
-    }
-
-    public Board Board
-    {
-        get
-        {
-            return board;
-        }
-
-        set
-        {
-            board = value;
-        }
-    }
-
-    public State CurrentState
-    {
-        get
-        {
-            return currentState;
-        }
-
-        set
-        {
-            currentState = value;
-        }
-    }
-
-    public StateOnPreparation StateOnPreparation
-    {
-        get
-        {
-            return stateOnPreparation;
-        }
-
-        set
-        {
-            stateOnPreparation = value;
-        }
-    }
-
-    public StateOnPlayerTurn StateOnPlayerTurn
-    {
-        get
-        {
-            return stateOnPlayerTurn;
-        }
-
-        set
-        {
-            stateOnPlayerTurn = value;
-        }
-    }
-
-    public StateOnBoardSlotAction StateOnBoardSlotAction
-    {
-        get
-        {
-            return stateOnBoardSlotAction;
-        }
-
-        set
-        {
-            stateOnBoardSlotAction = value;
-        }
-    }
-
-    public Player Owner
-    {
-        get
-        {
-            return owner;
-        }
-        set
-        {
-            this.owner = value;
-        }
-    }
-
-    public bool IsGameStarted
-    {
-        get
-        {
-            return isGameStarted;
-        }
-
-        set
-        {
-            isGameStarted = value;
-        }
-    }
-
-    public StateOnClientPreparation StateOnClientPreparation
-    {
-        get
-        {
-            return stateOnClientPreparation;
-        }
-
-        set
-        {
-            stateOnClientPreparation = value;
-        }
-    }
-
-    public bool IsClientPrepared
-    {
-        get
-        {
-            return isClientPrepared;
-        }
-
-        set
-        {
-            isClientPrepared = value;
-        }
-    }
-
-    public int CurrentPlayerIndex
-    {
-        get
-        {
-            return currentPlayerIndex;
-        }
-
-        set
-        {
-            currentPlayerIndex = value;
-        }
-    }
-
-    public StateOnGameOver StateOnGameOver
-    {
-        get
-        {
-            return stateOnGameOver;
-        }
-
-        set
-        {
-            stateOnGameOver = value;
-        }
-    }
-
-    public bool IsGameOver
-    {
-        get
-        {
-            return isGameOver;
-        }
-
-        set
-        {
-            isGameOver = value;
-        }
-    }
-
-    #endregion
-
 }

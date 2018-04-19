@@ -1,47 +1,11 @@
-﻿using System;
-
-public class Card
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    private int id;
-    private CardType cardType;
-    private Player owner;
-
-    public int Id
+    public class Card
     {
-        get
-        {
-            return id;
-        }
+        public int Id { get; set; }
 
-        set
-        {
-            id = value;
-        }
-    }
+        public CardType CardType { get; set; }
 
-    public CardType CardType
-    {
-        get
-        {
-            return cardType;
-        }
-
-        set
-        {
-            cardType = value;
-        }
-    }
-
-    public Player Owner
-    {
-        get
-        {
-            return owner;
-        }
-
-        set
-        {
-            owner = value;
-        }
+        public Player Owner { get; set; }
     }
 }

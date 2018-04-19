@@ -1,54 +1,41 @@
 ﻿using System.Collections.Generic;
 
-public class CardType
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly CardType TITLE_DEED = new CardType("TD", "TITLE DEED");
-    public static readonly CardType CHANCE = new CardType("CH", "CHANCE");
-    public static readonly CardType COMMUNITY_CHEST = new CardType("CC", "COMMUNITY CHEST");
-    public static readonly CardType RAILROAD = new CardType("RR", "RAILROAD");
-    public static readonly CardType UTILITY = new CardType("UT", "UTILITY");
-
-    private string id;
-
-    private string name;
-
-    public CardType(string id, string name)
+    public class CardType
     {
-        this.id = id;
-        this.name = name;
-    }
+        public static readonly CardType TitleDeed = new CardType("TD", "TITLE DEED");
+        public static readonly CardType Chance = new CardType("CH", "CHANCE");
+        public static readonly CardType CommunityChest = new CardType("CC", "COMMUNITY CHEST");
+        public static readonly CardType Railroad = new CardType("RR", "RAILROAD");
+        public static readonly CardType Utility = new CardType("UT", "UTILITY");
 
-    public static IEnumerable<CardType> Values
-    {
-        get
+        public CardType(string id, string name)
         {
-            yield return TITLE_DEED;
-            yield return CHANCE;
-            yield return COMMUNITY_CHEST;
-            yield return RAILROAD;
-            yield return UTILITY;
+            Id = id;
+            Name = name;
         }
-    }
 
-    public string Name
-    {
-        get
+        public static IEnumerable<CardType> Values
         {
-            return this.name;
+            get
+            {
+                yield return TitleDeed;
+                yield return Chance;
+                yield return CommunityChest;
+                yield return Railroad;
+                yield return Utility;
+            }
         }
-    }
 
-    public string Id
-    {
-        get
+        public string Name { get; }
+
+        public string Id { get; }
+
+        public override string ToString()
         {
-            return this.id;
+            return Name;
         }
-    }
 
-    public override string ToString()
-    {
-        return this.name;
     }
-
 }

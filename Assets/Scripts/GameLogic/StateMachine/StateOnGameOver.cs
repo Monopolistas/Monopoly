@@ -1,13 +1,14 @@
-﻿using System;
-
-public class StateOnGameOver : State
+﻿namespace Assets.Scripts.GameLogic.StateMachine
 {
-    public StateOnGameOver(GameStateMachine gameStateMachine) : base(gameStateMachine)
+    public class StateOnGameOver : State
     {
-    }
+        public StateOnGameOver(GameStateMachine gameStateMachine) : base(gameStateMachine)
+        {
+        }
 
-    public override void ExecuteGameLogic()
-    {
-        GameStateMachine.IsGameOver = true;
+        public override void ExecuteGameLogic()
+        {
+            GameStateMachine.IsGameOver = true;
+        }
     }
 }

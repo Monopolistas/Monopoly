@@ -1,8 +1,6 @@
-﻿using System;
-
-public class Cash
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-	public Cash()
-	{
-	}
+    public class Cash
+    {
+    }
 }

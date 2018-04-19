@@ -1,8 +1,6 @@
-﻿using System;
-
-public class LotGroup
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-	public LotGroup()
-	{
-	}
+    public class LotGroup
+    {
+    }
 }

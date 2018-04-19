@@ -4,6 +4,10 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using System.IO;
+using Assets.Scripts.GameData;
+using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.StateMachine;
+using Assets.Scripts.GameUtil;
 
 public class StateOnPreparationTest
 {
@@ -18,9 +22,9 @@ public class StateOnPreparationTest
 
         resourcesLoader.LoadXmlData();
 
-        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.BLACK));
-        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.WHITE));
-        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.RED));
+        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.Black));
+        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.White));
+        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.Red));
         resourcesLoader.GameStateMachine = gameStateMachine;
         resourcesLoader.FillDatabase();
         gameStateMachine.ChangeState(new StateOnPreparation(gameStateMachine));
@@ -42,14 +46,14 @@ public class StateOnPreparationTest
 
         foreach (Player player in gameStateMachine.Board.PlayerList)
         {
-            Assert.AreEqual(Constants.INITIAL_CASH, player.Cash);
-            playersCash += Constants.INITIAL_CASH;
+            Assert.AreEqual(Constants.InitialCash, player.Cash);
+            playersCash += Constants.InitialCash;
         }
 
-        Assert.AreEqual(Constants.BANK_INITIAL_CASH - playersCash, gameStateMachine.Board.Bank.Cash);
+        Assert.AreEqual(Constants.BankInitialCash - playersCash, gameStateMachine.Board.Bank.Cash);
         Assert.AreEqual(3, gameStateMachine.Board.BoardSlotList[0].PlayerList.Count);
-        Assert.AreEqual(Constants.INITIAL_NUMBER_OF_HOUSES, gameStateMachine.GetNumberOfHousesWithBank());
-        Assert.AreEqual(Constants.INITIAL_NUMBER_OF_HOTELS, gameStateMachine.GetNumberOfHotelsWithBank());
+        Assert.AreEqual(Constants.InitialNumberOfHouses, gameStateMachine.GetNumberOfHousesWithBank());
+        Assert.AreEqual(Constants.InitialNumberOfHotels, gameStateMachine.GetNumberOfHotelsWithBank());
 
         Assert.IsTrue(gameStateMachine.CheckInState("StateOnPlayerTurn"));
     }

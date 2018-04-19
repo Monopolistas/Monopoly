@@ -1,47 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class PlayerTurn
+namespace Assets.Scripts.GameLogic.Entity
 {
-    List<DiceThrow> diceThrowList;
-    Player player;
-
-    public PlayerTurn()
+    public class PlayerTurn
     {
-        this.diceThrowList = new List<DiceThrow>();
-    }
-
-    public void AddDiceThrow(DiceThrow diceThrow)
-    {
-        this.diceThrowList.Add(diceThrow);
-    }
-
-    public bool isThirdThrow()
-    {
-        return (this.diceThrowList.Count >= 3);
-    }
-
-    public Player Player
-    {
-        get
+        public PlayerTurn()
         {
-            return this.player;
+            DiceThrowList = new List<DiceThrow>();
         }
-        set
-        {
-            this.player = value;
-        }
-    }
 
-    public List<DiceThrow> DiceThrowList
-    {
-        get
+        public void AddDiceThrow(DiceThrow diceThrow)
         {
-            return this.diceThrowList;
+            DiceThrowList.Add(diceThrow);
         }
-        set
+
+        public bool IsThirdThrow()
         {
-            this.diceThrowList = value;
+            return (DiceThrowList.Count >= 3);
         }
+
+        public Player Player { get; set; }
+
+        public List<DiceThrow> DiceThrowList { get; set; }
     }
 }

@@ -1,13 +1,16 @@
 ﻿using System;
 
-public class StateOnPlayerBankrupt : State
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-	public StateOnPlayerBankrupt(GameStateMachine gameStateMachine) : base(gameStateMachine)
+    public class StateOnPlayerBankrupt : State
     {
-	}
+        public StateOnPlayerBankrupt(GameStateMachine gameStateMachine) : base(gameStateMachine)
+        {
+        }
 
-    public override void ExecuteGameLogic()
-    {
-        throw new NotImplementedException();
+        public override void ExecuteGameLogic()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,59 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.StateMachine;
 using UnityEngine;
 
-public class BoardView : MonoBehaviour
+namespace Assets.Scripts.GameView
 {
-
-    GameStateMachine gameStateMachine;
-
-    public GameController gameController;
-
-    bool playersCreated = false;
-
-    // Use this for initialization
-    void Start()
+    public class BoardView : MonoBehaviour
     {
-    }
+        private GameStateMachine _gameStateMachine;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (gameStateMachine != null && gameStateMachine.Board.PlayerList.Count > 0 && !playersCreated)
+        public GameController GameController;
+        private bool _playersCreated;
+
+        // ReSharper disable once UnusedMember.Local
+        private void Start()
         {
-            for (int index = 0; index < gameStateMachine.Board.PlayerList.Count; index++)
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        private void Update()
+        {
+            if (_gameStateMachine != null && _gameStateMachine.Board.PlayerList.Count > 0 && !_playersCreated)
             {
-                Player player = gameStateMachine.Board.PlayerList[index];
-                playersCreated = true;
-                if (player.PlayerColor.Name.Equals(PlayerColor.BLACK.Name))
+                for (int index = 0; index < _gameStateMachine.Board.PlayerList.Count; index++)
                 {
-                    GameObject.Instantiate(Resources.Load("Prefab/black"));
-                }
-                if (player.PlayerColor.Name.Equals(PlayerColor.WHITE.Name))
-                {
-                    GameObject.Instantiate(Resources.Load("Prefab/white"));
-                }
-                if (player.PlayerColor.Name.Equals(PlayerColor.RED.Name))
-                {
-                    GameObject.Instantiate(Resources.Load("Prefab/red"));
-                }
-                if (player.PlayerColor.Name.Equals(PlayerColor.GREEN.Name))
-                {
-                    GameObject.Instantiate(Resources.Load("Prefab/green"));
-                }
-                if (player.PlayerColor.Name.Equals(PlayerColor.BLUE.Name))
-                {
-                    GameObject.Instantiate(Resources.Load("Prefab/blue"));
-                }
-                if (player.PlayerColor.Name.Equals(PlayerColor.YELLOW.Name))
-                {
-                    GameObject.Instantiate(Resources.Load("Prefab/yellow"));
+                    Player player = _gameStateMachine.Board.PlayerList[index];
+                    _playersCreated = true;
+                    if (player.PlayerColor.Name.Equals(PlayerColor.Black.Name))
+                    {
+                        Instantiate(Resources.Load("Prefab/black"));
+                    }
+                    if (player.PlayerColor.Name.Equals(PlayerColor.White.Name))
+                    {
+                        Instantiate(Resources.Load("Prefab/white"));
+                    }
+                    if (player.PlayerColor.Name.Equals(PlayerColor.Red.Name))
+                    {
+                        Instantiate(Resources.Load("Prefab/red"));
+                    }
+                    if (player.PlayerColor.Name.Equals(PlayerColor.Green.Name))
+                    {
+                        Instantiate(Resources.Load("Prefab/green"));
+                    }
+                    if (player.PlayerColor.Name.Equals(PlayerColor.Blue.Name))
+                    {
+                        Instantiate(Resources.Load("Prefab/blue"));
+                    }
+                    if (player.PlayerColor.Name.Equals(PlayerColor.Yellow.Name))
+                    {
+                        Instantiate(Resources.Load("Prefab/yellow"));
+                    }
                 }
             }
-        }
-        else
-        {
-            gameStateMachine = gameController.gameStateMachine;
+            else
+            {
+                _gameStateMachine = GameController.GameStateMachine;
+            }
         }
     }
 }

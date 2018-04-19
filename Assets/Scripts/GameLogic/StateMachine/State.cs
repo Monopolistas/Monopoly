@@ -1,55 +1,22 @@
-﻿public abstract class State
+﻿using Assets.Scripts.GameLogic.Entity;
+
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-
-    Board board;
-
-    GameStateMachine gameStateMachine;
-
-    Player playerOnTurn;
-
-    public abstract void ExecuteGameLogic();
-
-    public State(GameStateMachine gameStateMachine)
+    public abstract class State
     {
-        this.gameStateMachine = gameStateMachine;
-        this.board = gameStateMachine.Board;
-        this.playerOnTurn = gameStateMachine.PlayerOnTurn;
-    }
+        public abstract void ExecuteGameLogic();
 
-    public Board Board
-    {
-        get
+        protected State(GameStateMachine gameStateMachine)
         {
-            return this.board;
+            this.GameStateMachine = gameStateMachine;
+            Board = gameStateMachine.Board;
+            PlayerOnTurn = gameStateMachine.PlayerOnTurn;
         }
-        set
-        {
-            this.board = value;
-        }
-    }
 
-    public GameStateMachine GameStateMachine
-    {
-        get
-        {
-            return this.gameStateMachine;
-        }
-        set
-        {
-            this.gameStateMachine = value;
-        }
-    }
+        public Board Board { get; set; }
 
-    public Player PlayerOnTurn
-    {
-        get
-        {
-            return this.playerOnTurn;
-        }
-        set
-        {
-            this.playerOnTurn = value;
-        }
-    }
+        public GameStateMachine GameStateMachine { get; set; }
 
+        public Player PlayerOnTurn { get; set; }
+    }
 }

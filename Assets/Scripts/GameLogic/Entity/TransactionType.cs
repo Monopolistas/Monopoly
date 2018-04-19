@@ -1,68 +1,46 @@
 ﻿using System.Collections.Generic;
 
-public class TransactionType
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly TransactionType BUY = new TransactionType(1, "BUY");
-    public static readonly TransactionType SELL = new TransactionType(2, "SELL");
-    public static readonly TransactionType CREDIT = new TransactionType(3, "CREDIT");
-    public static readonly TransactionType DEBT = new TransactionType(4, "DEBT");
-
-    int code;
-    string name;
-
-	public TransactionType(int code, string name)
-	{
-        this.code = code;
-        this.name = name;
-	}
-
-    public static IEnumerable<TransactionType> Values
+    public class TransactionType
     {
-        get
+        public static readonly TransactionType Buy = new TransactionType(1, "BUY");
+        public static readonly TransactionType Sell = new TransactionType(2, "SELL");
+        public static readonly TransactionType Credit = new TransactionType(3, "CREDIT");
+        public static readonly TransactionType Debt = new TransactionType(4, "DEBT");
+
+        public TransactionType(int code, string name)
         {
-            yield return BUY;
-            yield return SELL;
-            yield return CREDIT;
-            yield return DEBT;
+            Code = code;
+            Name = name;
         }
-    }
 
-    public static TransactionType FindByCode(string code)
-    {
-        TransactionType type = null;
-        foreach (TransactionType item in Values)
+        public static IEnumerable<TransactionType> Values
         {
-            if (code.Equals(item.code))
+            get
             {
-                type = item;
+                yield return Buy;
+                yield return Sell;
+                yield return Credit;
+                yield return Debt;
             }
         }
-        return type;
-    }
 
-    public int Code
-    {
-        get
+        public static TransactionType FindByCode(int code)
         {
-            return code;
+            TransactionType type = null;
+            foreach (TransactionType item in Values)
+            {
+                if (code.Equals(item.Code))
+                {
+                    type = item;
+                }
+            }
+            return type;
         }
 
-        set
-        {
-            code = value;
-        }
-    }
+        public int Code { get; set; }
 
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-
-        set
-        {
-            name = value;
-        }
+        public string Name { get; set; }
     }
 }

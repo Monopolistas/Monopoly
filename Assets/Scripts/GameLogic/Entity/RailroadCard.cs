@@ -1,65 +1,17 @@
-﻿using System;
-
-public class RailroadCard : LotCard
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    int rent;
-    int twoRailroadsRent;
-    int threeRailroadsRent;
-    int fourRailroadsRent;
-
-    #region Getters and Setters 
-
-    public int Rent
+    public class RailroadCard : LotCard
     {
-        get
-        {
-            return rent;
-        }
+        #region Getters and Setters 
 
-        set
-        {
-            rent = value;
-        }
+        public int Rent { get; set; }
+
+        public int TwoRailroadsRent { get; set; }
+
+        public int ThreeRailroadsRent { get; set; }
+
+        public int FourRailroadsRent { get; set; }
+
+        #endregion
     }
-
-    public int TwoRailroadsRent
-    {
-        get
-        {
-            return twoRailroadsRent;
-        }
-
-        set
-        {
-            twoRailroadsRent = value;
-        }
-    }
-
-    public int ThreeRailroadsRent
-    {
-        get
-        {
-            return threeRailroadsRent;
-        }
-
-        set
-        {
-            threeRailroadsRent = value;
-        }
-    }
-
-    public int FourRailroadsRent
-    {
-        get
-        {
-            return fourRailroadsRent;
-        }
-
-        set
-        {
-            fourRailroadsRent = value;
-        }
-    }
-
-    #endregion
 }

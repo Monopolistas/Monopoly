@@ -1,38 +1,14 @@
-﻿using System;
-
-public class Building
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    BuildingType buildingType;
-    Lot lot;
-
-    public Building(BuildingType buildingType)
+    public class Building
     {
-        this.buildingType = buildingType;
-    }
-
-    public BuildingType BuildingType
-    {
-        get
+        public Building(BuildingType buildingType)
         {
-            return buildingType;
+            BuildingType = buildingType;
         }
 
-        set
-        {
-            buildingType = value;
-        }
-    }
+        public BuildingType BuildingType { get; set; }
 
-    public Lot Lot
-    {
-        get
-        {
-            return lot;
-        }
-
-        set
-        {
-            lot = value;
-        }
+        public Lot Lot { get; set; }
     }
 }

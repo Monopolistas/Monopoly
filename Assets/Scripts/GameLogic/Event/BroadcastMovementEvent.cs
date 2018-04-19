@@ -1,25 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using Assets.Scripts.GameLogic.StateMachine;
 
-public class BroadcastMovementEvent : NetworkEvent
+namespace Assets.Scripts.GameLogic.Event
 {
-
-    public BroadcastMovementEvent()
+    public class BroadcastMovementEvent : NetworkEvent
     {
-    }
 
-    public BroadcastMovementEvent(int code) : base(code)
-    {
-    }
+        public BroadcastMovementEvent()
+        {
+        }
 
-    public override void Broadcast(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
-    }
+        public BroadcastMovementEvent(int code) : base(code)
+        {
+        }
 
-    public override void Execute(GameStateMachine gameStateMachine)
-    {
-        throw new System.NotImplementedException();
+        public override void Broadcast(GameStateMachine gameStateMachine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Execute(GameStateMachine gameStateMachine)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

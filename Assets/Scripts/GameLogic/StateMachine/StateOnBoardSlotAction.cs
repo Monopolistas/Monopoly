@@ -1,108 +1,87 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.Strategy;
+using Assets.Scripts.GameLogic.Strategy.BoardSlotActions;
 
-public class StateOnBoardSlotAction : State
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-    public enum StateEnum
+    public class StateOnBoardSlotAction : State
     {
-        ON_START = 1,
-        ON_ACTION = 2
-    }
-
-    State stateBefore;
-    BoardSlot boardSlot;
-    BoardSlotAction boardSlotAction; // "Strategy Pattern" was used to implement actions
-    StateEnum currentState;
-
-    public StateOnBoardSlotAction(GameStateMachine gameStateMachine) : base(gameStateMachine)
-    {
-        Reset();
-    }
-
-    public void Reset()
-    {
-        currentState = StateEnum.ON_START;
-    }
-
-    public void GenerateBoardSlotAction(BoardSlotType boardSlotType)
-    {
-        if (BoardSlotType.CHANCE.Equals(boardSlotType))
+        public enum StateEnum
         {
-            boardSlotAction = new BoardSlotActionChance();
-        }
-        if (BoardSlotType.COMMUNITY_CHEST.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionCommunityChest();
-        }
-        if (BoardSlotType.GO.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionGo();
-        }
-        if (BoardSlotType.GO_TO_JAIL.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionGoToJail();
-        }
-        if (BoardSlotType.JAIL.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionJail();
-        }
-        if (BoardSlotType.LOT.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionLot();
-        }
-        if (BoardSlotType.RAILROAD.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionRailroad();
-        }
-        if (BoardSlotType.TAX.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionTax();
-        }
-        if (BoardSlotType.UTILITY.Equals(boardSlotType))
-        {
-            boardSlotAction = new BoardSlotActionUtility();
-        }
-    }
-
-    public override void ExecuteGameLogic()
-    {
-        switch (currentState)
-        {
-            case StateEnum.ON_START:
-                currentState = StateEnum.ON_ACTION;
-                break;
-            case StateEnum.ON_ACTION:
-                GenerateBoardSlotAction(BoardSlotType.CHANCE);
-                boardSlotAction.ExecuteAction();
-                GameStateMachine.EndTurn();
-                break;
-        }
-    }
-
-    public State StateBefore
-    {
-        get
-        {
-            return stateBefore;
+            OnStart = 1,
+            OnAction = 2
         }
 
-        set
-        {
-            stateBefore = value;
-        }
-    }
+        private BoardSlotAction _boardSlotAction; // "Strategy Pattern" was used to implement actions
+        private StateEnum _currentState;
 
-    public BoardSlot BoardSlot
-    {
-        get
+        public StateOnBoardSlotAction(GameStateMachine gameStateMachine) : base(gameStateMachine)
         {
-            return boardSlot;
+            Reset();
         }
 
-        set
+        public void Reset()
         {
-            boardSlot = value;
+            _currentState = StateEnum.OnStart;
         }
+
+        public void GenerateBoardSlotAction(BoardSlotType boardSlotType)
+        {
+            if (BoardSlotType.Chance.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionChance();
+            }
+            if (BoardSlotType.CommunityChest.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionCommunityChest();
+            }
+            if (BoardSlotType.Go.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionGo();
+            }
+            if (BoardSlotType.GoToJail.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionGoToJail();
+            }
+            if (BoardSlotType.Jail.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionJail();
+            }
+            if (BoardSlotType.Lot.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionLot();
+            }
+            if (BoardSlotType.Railroad.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionRailroad();
+            }
+            if (BoardSlotType.Tax.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionTax();
+            }
+            if (BoardSlotType.Utility.Equals(boardSlotType))
+            {
+                _boardSlotAction = new BoardSlotActionUtility();
+            }
+        }
+
+        public override void ExecuteGameLogic()
+        {
+            switch (_currentState)
+            {
+                case StateEnum.OnStart:
+                    _currentState = StateEnum.OnAction;
+                    break;
+                case StateEnum.OnAction:
+                    GenerateBoardSlotAction(BoardSlotType.Chance);
+                    _boardSlotAction.ExecuteAction();
+                    GameStateMachine.EndTurn();
+                    break;
+            }
+        }
+
+        public State StateBefore { get; set; }
+
+        public BoardSlot BoardSlot { get; set; }
     }
 }

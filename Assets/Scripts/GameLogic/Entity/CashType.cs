@@ -1,73 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class CashType
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly CashType ONE = new CashType(1, "ONE");
-    public static readonly CashType FIVE = new CashType(5, "FIVE");
-    public static readonly CashType TEN = new CashType(10, "TEN");
-    public static readonly CashType FIFTY = new CashType(50, "FIFTY");
-    public static readonly CashType ONE_HUNDRED = new CashType(100, "ONE HUNDRED");
-    public static readonly CashType FIVE_HUNDRED = new CashType(500, "FIVE HUNDRED");
-
-    int value;
-    string name;
-
-    public CashType(int value, string name)
+    public class CashType
     {
-        this.value = value;
-        this.name = name;
-    }
+        public static readonly CashType One = new CashType(1, "ONE");
+        public static readonly CashType Five = new CashType(5, "FIVE");
+        public static readonly CashType Ten = new CashType(10, "TEN");
+        public static readonly CashType Fifty = new CashType(50, "FIFTY");
+        public static readonly CashType OneHundred = new CashType(100, "ONE HUNDRED");
+        public static readonly CashType FiveHundred = new CashType(500, "FIVE HUNDRED");
 
-    public static IEnumerable<CashType> Values
-    {
-        get
+        public CashType(int value, string name)
         {
-            yield return ONE;
-            yield return FIVE;
-            yield return TEN;
-            yield return FIFTY;
-            yield return ONE_HUNDRED;
-            yield return FIVE_HUNDRED;
+            Value = value;
+            Name = name;
         }
-    }
 
-    public static CashType FindByValue(int value)
-    {
-        foreach (CashType item in Values)
+        public static IEnumerable<CashType> Values
         {
-            if (item.value.Equals(value))
+            get
             {
-                return item;
+                yield return One;
+                yield return Five;
+                yield return Ten;
+                yield return Fifty;
+                yield return OneHundred;
+                yield return FiveHundred;
             }
         }
 
-        return null;
-    }
-
-    public int Value
-    {
-        get
+        public static CashType FindByValue(int value)
         {
-            return value;
+            foreach (CashType item in Values)
+            {
+                if (item.Value.Equals(value))
+                {
+                    return item;
+                }
+            }
+
+            return null;
         }
 
-        set
-        {
-            this.value = value;
-        }
-    }
+        public int Value { get; set; }
 
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-
-        set
-        {
-            name = value;
-        }
+        public string Name { get; set; }
     }
 }

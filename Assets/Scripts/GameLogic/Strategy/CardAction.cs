@@ -1,14 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public abstract class CardAction
+﻿namespace Assets.Scripts.GameLogic.Strategy
 {
-
-    public CardAction()
+    public abstract class CardAction
     {
-
+        public abstract void ExecuteAction();
     }
-
-    public abstract void ExecuteAction();
 }

@@ -1,8 +1,6 @@
-﻿using System;
-
-public class Auction
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-	public Auction()
-	{
-	}
+    public class Auction
+    {
+    }
 }

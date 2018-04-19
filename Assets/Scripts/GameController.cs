@@ -1,22 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.GameLogic.StateMachine;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace Assets.Scripts
 {
-
-    public GameStateMachine gameStateMachine;
-
-    // Use this before any start runs
-    void Awake()
+    public class GameController : MonoBehaviour
     {
-        gameStateMachine = new GameStateMachine();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        gameStateMachine.ExecuteGameLogic();
-    }
+        public GameStateMachine GameStateMachine;
 
+        // ReSharper disable once UnusedMember.Local
+        private void Awake()
+        {
+            GameStateMachine = new GameStateMachine();
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        private void Update()
+        {
+            GameStateMachine.ExecuteGameLogic();
+        }
+
+    }
 }

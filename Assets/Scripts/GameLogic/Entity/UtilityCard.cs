@@ -1,37 +1,13 @@
-﻿using System;
-
-public class UtilityCard : LotCard
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    int multiplierWithOne;
-    int multiplierWithTwo;
-
-    #region Getters and Setters
-
-    public int MultiplierWithOne
+    public class UtilityCard : LotCard
     {
-        get
-        {
-            return multiplierWithOne;
-        }
+        #region Getters and Setters
 
-        set
-        {
-            multiplierWithOne = value;
-        }
+        public int MultiplierWithOne { get; set; }
+
+        public int MultiplierWithTwo { get; set; }
+
+        #endregion
     }
-
-    public int MultiplierWithTwo
-    {
-        get
-        {
-            return multiplierWithTwo;
-        }
-
-        set
-        {
-            multiplierWithTwo = value;
-        }
-    }
-
-    #endregion
 }

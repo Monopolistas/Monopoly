@@ -1,37 +1,9 @@
-﻿using System;
-
-public class Mortgage
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    int value;
-    Lot lot;
-
-	public Mortgage()
-	{
-	}
-
-    public int Value
+    public class Mortgage
     {
-        get
-        {
-            return value;
-        }
+        public int Value { get; set; }
 
-        set
-        {
-            this.value = value;
-        }
-    }
-
-    public Lot Lot
-    {
-        get
-        {
-            return lot;
-        }
-
-        set
-        {
-            lot = value;
-        }
+        public Lot Lot { get; set; }
     }
 }

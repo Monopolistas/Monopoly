@@ -1,112 +1,77 @@
 ﻿
 
-using UnityEngine;
+using Assets.Scripts.GameLogic.Entity;
 
-public class StateOnPlayerTurn : State
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-
-    public enum StateEnum
+    public class StateOnPlayerTurn : State
     {
-        ON_START = 1,
-        ON_MOVE = 2,
-        ON_ACTION = 3
-    }
 
-    PlayerTurn playerTurn;
-    DiceThrow diceThrow;
-
-    StateEnum currentState;
-
-    public StateOnPlayerTurn(GameStateMachine gameStateMachine) : base(gameStateMachine)
-    {
-        this.diceThrow = new DiceThrow();
-        Reset();
-    }
-
-    public void Reset()
-    {
-        this.currentState = StateEnum.ON_START;
-    }
-
-    public override void ExecuteGameLogic()
-    {
-        switch (currentState)
+        public enum StateEnum
         {
-            case StateEnum.ON_MOVE:
-                int index = GameStateMachine.Board.FindIndexWherePlayerIs(PlayerOnTurn);
-                if (index + diceThrow.Sum >= 40)
-                {
-                    GameStateMachine.ChangeState(GameStateMachine.StateOnGameOver);
-                }
-                GameStateMachine.Board.MovePlayerTo(playerTurn.Player, diceThrow.Sum);
-                currentState = StateEnum.ON_ACTION;
-                break;
-            case StateEnum.ON_ACTION:
-                GameStateMachine.ChangeToStateOnBoardSlotAction();
-                break;
-        }
-    }
-
-    public void ThrowDice()
-    {
-        ThrowDice(0, 0);
-    }
-
-    public void ThrowDice(int die1, int die2)
-    {
-        if (die1 == 0 && die2 == 0)
-        {
-            diceThrow.Throw();
-        }
-        else
-        {
-            diceThrow.Result[0] = die1;
-            diceThrow.Result[1] = die2;
-            diceThrow.IsThrown = true;
-        }
-        if (diceThrow.isDouble())
-        {
-            playerTurn.AddDiceThrow(diceThrow);
-        }
-        this.currentState = StateEnum.ON_MOVE;
-    }
-
-    public StateEnum CurrentState
-    {
-        get
-        {
-            return currentState;
+            OnStart = 1,
+            OnMove = 2,
+            OnAction = 3
         }
 
-        set
+        public StateOnPlayerTurn(GameStateMachine gameStateMachine) : base(gameStateMachine)
         {
-            currentState = value;
-        }
-    }
-
-    public DiceThrow DiceThrow
-    {
-        get
-        {
-            return diceThrow;
+            DiceThrow = new DiceThrow();
+            Reset();
         }
 
-        set
+        public void Reset()
         {
-            diceThrow = value;
-        }
-    }
-
-    public PlayerTurn PlayerTurn
-    {
-        get
-        {
-            return playerTurn;
+            CurrentState = StateEnum.OnStart;
         }
 
-        set
+        public override void ExecuteGameLogic()
         {
-            playerTurn = value;
+            switch (CurrentState)
+            {
+                case StateEnum.OnMove:
+                    int index = GameStateMachine.Board.FindIndexWherePlayerIs(PlayerOnTurn);
+                    if (index + DiceThrow.Sum >= 40)
+                    {
+                        GameStateMachine.ChangeState(GameStateMachine.StateOnGameOver);
+                    }
+                    GameStateMachine.Board.MovePlayerTo(PlayerTurn.Player, DiceThrow.Sum);
+                    CurrentState = StateEnum.OnAction;
+                    break;
+                case StateEnum.OnAction:
+                    GameStateMachine.ChangeToStateOnBoardSlotAction();
+                    break;
+            }
         }
+
+        public void ThrowDice()
+        {
+            ThrowDice(0, 0);
+        }
+
+        public void ThrowDice(int die1, int die2)
+        {
+            if (die1 == 0 && die2 == 0)
+            {
+                DiceThrow.Throw();
+            }
+            else
+            {
+                DiceThrow.Result[0] = die1;
+                DiceThrow.Result[1] = die2;
+                DiceThrow.IsThrown = true;
+            }
+            if (DiceThrow.IsDouble())
+            {
+                PlayerTurn.AddDiceThrow(DiceThrow);
+            }
+            CurrentState = StateEnum.OnMove;
+        }
+
+        public StateEnum CurrentState { get; set; }
+
+        public DiceThrow DiceThrow { get; set; }
+
+        public PlayerTurn PlayerTurn { get; set; }
     }
 }

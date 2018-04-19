@@ -1,13 +1,16 @@
 ﻿using System;
 
-public class StateOnCardAction : State
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-    public StateOnCardAction(GameStateMachine gameStateMachine) : base(gameStateMachine)
+    public class StateOnCardAction : State
     {
-    }
+        public StateOnCardAction(GameStateMachine gameStateMachine) : base(gameStateMachine)
+        {
+        }
 
-    public override void ExecuteGameLogic()
-    {
-        throw new NotImplementedException();
+        public override void ExecuteGameLogic()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

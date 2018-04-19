@@ -1,97 +1,49 @@
-﻿using System;
-
-public class Transaction
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    TransactionType transactionType;
-    Person from;
-    Person to;
-    int value;
-
-	public Transaction(TransactionType transactionType, Person from, Person to, int value)
-	{
-        this.transactionType = transactionType;
-        this.from = from;
-        this.to = to;
-        this.value = value;
-	}
-
-    public void ExecuteTransaction()
+    public class Transaction
     {
-        if (TransactionType.CREDIT.Code.Equals(transactionType.Code))
+        public Transaction(TransactionType transactionType, Person from, Person to, int value)
         {
-            from.Cash -= value;
-            to.Cash += value;
+            TransactionType = transactionType;
+            From = from;
+            To = to;
+            Value = value;
         }
-        if (TransactionType.DEBT.Code.Equals(transactionType.Code))
+
+        public void ExecuteTransaction()
         {
-            from.Cash += value;
-            to.Cash -= value;
+            if (TransactionType.Credit.Code.Equals(TransactionType.Code))
+            {
+                From.Cash -= Value;
+                To.Cash += Value;
+            }
+            if (TransactionType.Debt.Code.Equals(TransactionType.Code))
+            {
+                From.Cash += Value;
+                To.Cash -= Value;
+            }
+            if (TransactionType.Buy.Code.Equals(TransactionType.Code))
+            {
+                From.Cash -= Value;
+                To.Cash += Value;
+            }
+            if (TransactionType.Sell.Code.Equals(TransactionType.Code))
+            {
+                From.Cash += Value;
+                To.Cash -= Value;
+            }
         }
-        if (TransactionType.BUY.Code.Equals(transactionType.Code))
-        {
-            from.Cash -= value;
-            to.Cash += value;
-        }
-        if (TransactionType.SELL.Code.Equals(transactionType.Code))
-        {
-            from.Cash += value;
-            to.Cash -= value;
-        }
+
+        #region Getters and Setters
+
+        public TransactionType TransactionType { get; set; }
+
+        public Person From { get; set; }
+
+        public Person To { get; set; }
+
+        public int Value { get; set; }
+
+        #endregion
     }
-
-    #region Getters and Setters
-
-    public TransactionType TransactionType
-    {
-        get
-        {
-            return transactionType;
-        }
-
-        set
-        {
-            transactionType = value;
-        }
-    }
-
-    public Person From
-    {
-        get
-        {
-            return from;
-        }
-
-        set
-        {
-            from = value;
-        }
-    }
-
-    public Person To
-    {
-        get
-        {
-            return to;
-        }
-
-        set
-        {
-            to = value;
-        }
-    }
-
-    public int Value
-    {
-        get
-        {
-            return value;
-        }
-
-        set
-        {
-            this.value = value;
-        }
-    }
-
-    #endregion
 }

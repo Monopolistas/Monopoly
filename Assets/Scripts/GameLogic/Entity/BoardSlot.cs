@@ -1,67 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class BoardSlot
+namespace Assets.Scripts.GameLogic.Entity
 {
-
-    private int id;
-    private BoardSlotType boardSlotType;
-    private int lotId;
-    private List<Player> playerList;
-
-    public BoardSlot()
+    public class BoardSlot
     {
-        playerList = new List<Player>();
-    }
+        public BoardSlot()
+        {
+            PlayerList = new List<Player>();
+        }
 
-    #region Getters and Setters
+        #region Getters and Setters
 
-    public BoardSlotType BoardSlotType
-    {
-        get
-        {
-            return this.boardSlotType;
-        }
-        set
-        {
-            this.boardSlotType = value;
-        }
-    }
+        public BoardSlotType BoardSlotType { get; set; }
 
-    public int Id
-    {
-        get
-        {
-            return this.id;
-        }
-        set
-        {
-            this.id = value;
-        }
-    }
+        public int Id { get; set; }
 
-    public int LotId
-    {
-        get
-        {
-            return this.lotId;
-        }
-        set
-        {
-            this.lotId = value;
-        }
-    }
+        public int LotId { get; set; }
 
-    public List<Player> PlayerList
-    {
-        get
-        {
-            return this.playerList;
-        }
-        set
-        {
-            this.playerList = value;
-        }
+        public List<Player> PlayerList { get; set; }
+
+        #endregion
     }
-    #endregion
 }

@@ -5,6 +5,10 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Assets.Scripts.GameData;
+using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.StateMachine;
+using Assets.Scripts.GameUtil;
 
 public class StateOnPlayerTurnTest
 {
@@ -36,9 +40,9 @@ public class StateOnPlayerTurnTest
 
         resourcesLoader.LoadXmlData();
 
-        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.BLACK));
-        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.WHITE));
-        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.RED));
+        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.Black));
+        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.White));
+        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.Red));
         resourcesLoader.GameStateMachine = gameStateMachine;
         resourcesLoader.FillDatabase();
 
@@ -56,7 +60,7 @@ public class StateOnPlayerTurnTest
     {
         gameStateMachine.ThrowDice(idPlayerOnTurn);
 
-        Assert.AreEqual(StateOnPlayerTurn.StateEnum.ON_MOVE, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
+        Assert.AreEqual(StateOnPlayerTurn.StateEnum.OnMove, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
         Assert.NotNull(((StateOnPlayerTurn)gameStateMachine.CurrentState).DiceThrow);
     }
 
@@ -65,7 +69,7 @@ public class StateOnPlayerTurnTest
     {
         gameStateMachine.ThrowDice(idPlayerOnTurn, 5, 5);
 
-        Assert.AreEqual(StateOnPlayerTurn.StateEnum.ON_MOVE, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
+        Assert.AreEqual(StateOnPlayerTurn.StateEnum.OnMove, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
         Assert.NotNull(((StateOnPlayerTurn)gameStateMachine.CurrentState).PlayerTurn);
         Assert.AreEqual(1, ((StateOnPlayerTurn)gameStateMachine.CurrentState).PlayerTurn.DiceThrowList.Count);
 

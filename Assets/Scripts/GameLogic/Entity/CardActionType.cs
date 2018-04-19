@@ -1,66 +1,52 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-public class CardActionType
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly CardActionType GOTO = new CardActionType("GT", "GOTO");
-    public static readonly CardActionType TRANSACTION = new CardActionType("TR", "TRANSACTION");
-    public static readonly CardActionType JAIL_FREE = new CardActionType("JF", "JAIL FREE");
-    public static readonly CardActionType ALL_PLAYERS_TRANSACTION = new CardActionType("AP", "ALL PLAYERS TRANSACTION");
-    public static readonly CardActionType ALL_BUILDINGS_TRANSACTION = new CardActionType("AB", "ALL BUILDINGS TRANSACTION");
-    public static readonly CardActionType GO_TO_JAIL = new CardActionType("GJ", "GO TO JAIL");
-    public static readonly CardActionType GO_TO_NEAREST = new CardActionType("GN", "GO TO NEAREST");
-
-    private readonly string code;
-    private readonly string name;
-
-    public CardActionType(string code, string name)
+    public class CardActionType
     {
-        this.code = code;
-        this.name = name;
-    }
+        public static readonly CardActionType Goto = new CardActionType("GT", "GOTO");
+        public static readonly CardActionType Transaction = new CardActionType("TR", "TRANSACTION");
+        public static readonly CardActionType JailFree = new CardActionType("JF", "JAIL FREE");
+        public static readonly CardActionType AllPlayersTransaction = new CardActionType("AP", "ALL PLAYERS TRANSACTION");
+        public static readonly CardActionType AllBuildingsTransaction = new CardActionType("AB", "ALL BUILDINGS TRANSACTION");
+        public static readonly CardActionType GoToJail = new CardActionType("GJ", "GO TO JAIL");
+        public static readonly CardActionType GoToNearest = new CardActionType("GN", "GO TO NEAREST");
 
-    public static IEnumerable<CardActionType> Values
-    {
-        get
+        public CardActionType(string code, string name)
         {
-            yield return GOTO;
-            yield return TRANSACTION;
-            yield return JAIL_FREE;
-            yield return ALL_PLAYERS_TRANSACTION;
-            yield return ALL_BUILDINGS_TRANSACTION;
-            yield return GO_TO_JAIL;
-            yield return GO_TO_NEAREST;
+            Code = code;
+            Name = name;
         }
-    }
 
-    public static CardActionType FindByCode(string code)
-    {
-        CardActionType type = null;
-        foreach (CardActionType item in Values)
+        public static IEnumerable<CardActionType> Values
         {
-            if (code.Equals(item.code))
+            get
             {
-                type = item;
+                yield return Goto;
+                yield return Transaction;
+                yield return JailFree;
+                yield return AllPlayersTransaction;
+                yield return AllBuildingsTransaction;
+                yield return GoToJail;
+                yield return GoToNearest;
             }
         }
-        return type;
-    }
 
-    public string Code
-    {
-        get
+        public static CardActionType FindByCode(string code)
         {
-            return this.code;
+            CardActionType type = null;
+            foreach (CardActionType item in Values)
+            {
+                if (code.Equals(item.Code))
+                {
+                    type = item;
+                }
+            }
+            return type;
         }
-    }
 
-    public string Name
-    {
-        get
-        {
-            return this.name;
-        }
-    }
+        public string Code { get; }
 
+        public string Name { get; }
+    }
 }

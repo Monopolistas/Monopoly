@@ -1,24 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.GameData;
 using UnityEngine;
 
-public class GameDatabase : MonoBehaviour
+namespace Assets.Scripts
 {
-
-    ResourcesLoader resourcesLoader;
-
-    public GameController gameController;
-
-    // Use this for initialization
-    void Start()
+    public class GameDatabase : MonoBehaviour
     {
-        resourcesLoader = new ResourcesLoader();
+        private ResourcesLoader _resourcesLoader;
 
-        resourcesLoader.GameStateMachine = gameController.gameStateMachine;
+        public GameController GameController;
 
-        resourcesLoader.LoadXmlDataFromUnity();
+        // ReSharper disable once UnusedMember.Local
+        private void Start()
+        {
+            _resourcesLoader = new ResourcesLoader
+            {
+                GameStateMachine = GameController.GameStateMachine
+            };
 
-        resourcesLoader.FillDatabase();
+            _resourcesLoader.LoadXmlDataFromUnity();
+
+            _resourcesLoader.FillDatabase();
+        }
+
     }
-
 }

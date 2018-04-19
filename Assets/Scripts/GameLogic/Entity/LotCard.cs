@@ -1,65 +1,17 @@
-﻿using System;
-
-public class LotCard : Card
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    string name;
-    Lot lot;
-    int mortgage;
-    int price;
-
-    #region Getters and Setters
-
-    public string Name
+    public class LotCard : Card
     {
-        get
-        {
-            return name;
-        }
+        #region Getters and Setters
 
-        set
-        {
-            name = value;
-        }
+        public string Name { get; set; }
+
+        public Lot Lot { get; set; }
+
+        public int Mortgage { get; set; }
+
+        public int Price { get; set; }
+
+        #endregion
     }
-
-    public Lot Lot
-    {
-        get
-        {
-            return lot;
-        }
-
-        set
-        {
-            lot = value;
-        }
-    }
-
-    public int Mortgage
-    {
-        get
-        {
-            return mortgage;
-        }
-
-        set
-        {
-            mortgage = value;
-        }
-    }
-
-    public int Price
-    {
-        get
-        {
-            return price;
-        }
-
-        set
-        {
-            price = value;
-        }
-    }
-
-    #endregion
 }

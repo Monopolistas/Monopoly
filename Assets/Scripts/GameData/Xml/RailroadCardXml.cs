@@ -1,47 +1,57 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
-using UnityEngine;
+using Assets.Scripts.GameLogic.Entity;
 
-public class RailroadCardXml
+namespace Assets.Scripts.GameData.Xml
 {
-    static XmlDocument doc;
-    static List<RailroadCard> railroadCards;
-
-    public static List<RailroadCard> Deserialize(string xml)
+    public class RailroadCardXml
     {
-        doc = new XmlDocument();
-        doc.LoadXml(xml);
-        XmlNode mainNode = doc.SelectSingleNode("railroad-cards");
-        XmlNodeList railroadCardNodes = mainNode.SelectNodes("railroad-card");
-        railroadCards = new List<RailroadCard>();
+        private static XmlDocument _doc;
+        private static List<RailroadCard> _railroadCards;
 
-        foreach (XmlNode item in railroadCardNodes)
+        public static List<RailroadCard> Deserialize(string xml)
         {
-            RailroadCard rc = new RailroadCard();
+            _doc = new XmlDocument();
+            _doc.LoadXml(xml);
+            XmlNode mainNode = _doc.SelectSingleNode("railroad-cards");
+            if (mainNode != null)
+            {
+                XmlNodeList railroadCardNodes = mainNode.SelectNodes("railroad-card");
+                _railroadCards = new List<RailroadCard>();
 
-            string id = item.Attributes.GetNamedItem("id").Value;
-            string name = item.ChildNodes.Item(0).InnerText;
-            string price = item.ChildNodes.Item(1).InnerText;
-            string rent = item.ChildNodes.Item(2).InnerText;
-            string rentWithTwo = item.ChildNodes.Item(3).InnerText;
-            string rentWithThree = item.ChildNodes.Item(4).InnerText;
-            string rentWithFour = item.ChildNodes.Item(5).InnerText;
-            string mortgage = item.ChildNodes.Item(6).InnerText;
+                if (railroadCardNodes != null)
+                    foreach (XmlNode item in railroadCardNodes)
+                    {
+                        RailroadCard rc = new RailroadCard();
 
-            rc.Id = int.Parse(id);
-            rc.Name = name;
-            rc.Price = int.Parse(price);
-            rc.Rent = int.Parse(rent);
-            rc.TwoRailroadsRent = int.Parse(rentWithTwo);
-            rc.ThreeRailroadsRent = int.Parse(rentWithThree);
-            rc.FourRailroadsRent = int.Parse(rentWithFour);
-            rc.Mortgage = int.Parse(mortgage);
-            rc.CardType = CardType.RAILROAD;
+                        if (item.Attributes != null)
+                        {
+                            string id = item.Attributes.GetNamedItem("id").Value;
+                            string name = item.ChildNodes.Item(0)?.InnerText;
+                            string price = item.ChildNodes.Item(1)?.InnerText;
+                            string rent = item.ChildNodes.Item(2)?.InnerText;
+                            string rentWithTwo = item.ChildNodes.Item(3)?.InnerText;
+                            string rentWithThree = item.ChildNodes.Item(4)?.InnerText;
+                            string rentWithFour = item.ChildNodes.Item(5)?.InnerText;
+                            string mortgage = item.ChildNodes.Item(6)?.InnerText;
 
-            railroadCards.Add(rc);
+                            rc.Id = int.Parse(id);
+                            rc.Name = name;
+                            if (price != null) rc.Price = int.Parse(price);
+                            if (rent != null) rc.Rent = int.Parse(rent);
+                            if (rentWithTwo != null) rc.TwoRailroadsRent = int.Parse(rentWithTwo);
+                            if (rentWithThree != null) rc.ThreeRailroadsRent = int.Parse(rentWithThree);
+                            if (rentWithFour != null) rc.FourRailroadsRent = int.Parse(rentWithFour);
+                            if (mortgage != null) rc.Mortgage = int.Parse(mortgage);
+                        }
+
+                        rc.CardType = CardType.Railroad;
+
+                        _railroadCards.Add(rc);
+                    }
+            }
+
+            return _railroadCards;
         }
-
-        return railroadCards;
     }
 }

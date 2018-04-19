@@ -1,32 +1,23 @@
 ﻿using System;
 
-public class Die
+namespace Assets.Scripts.GameLogic.Entity
 {
-    int sides;
-
-    int result;
-
-    public Die()
+    public class Die
     {
-        this.sides = 6;
-    }
+        private int _sides;
 
-    public void Throw()
-    {
-        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
-
-        result = (random.Next(sides) + 1);
-    }
-
-    public int Result
-    {
-        get
+        public Die()
         {
-            return this.result;
+            _sides = 6;
         }
-        set
+
+        public void Throw()
         {
-            this.result = value;
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+
+            Result = (random.Next(_sides) + 1);
         }
+
+        public int Result { get; set; }
     }
 }

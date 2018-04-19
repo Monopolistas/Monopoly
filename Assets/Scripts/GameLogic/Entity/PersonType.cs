@@ -1,64 +1,42 @@
 ﻿using System.Collections.Generic;
 
-public class PersonType
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly PersonType PLAYER = new PersonType(1, "PLAYER");
-    public static readonly PersonType BANK = new PersonType(2, "BANK");
-
-    int code;
-    string name;
-
-    public PersonType(int code, string name)
-	{
-        this.code = code;
-        this.name = name;
-	}
-
-    public static IEnumerable<PersonType> Values
+    public class PersonType
     {
-        get
+        public static readonly PersonType Player = new PersonType(1, "PLAYER");
+        public static readonly PersonType Bank = new PersonType(2, "BANK");
+
+        public PersonType(int code, string name)
         {
-            yield return PLAYER;
-            yield return BANK;
+            Code = code;
+            Name = name;
         }
-    }
 
-    public static PersonType FindByCode(string code)
-    {
-        PersonType type = null;
-        foreach (PersonType item in Values)
+        public static IEnumerable<PersonType> Values
         {
-            if (code.Equals(item.code))
+            get
             {
-                type = item;
+                yield return Player;
+                yield return Bank;
             }
         }
-        return type;
-    }
 
-    public int Code
-    {
-        get
+        public static PersonType FindByCode(string code)
         {
-            return code;
+            PersonType type = null;
+            foreach (PersonType item in Values)
+            {
+                if (code.Equals(item.Code))
+                {
+                    type = item;
+                }
+            }
+            return type;
         }
 
-        set
-        {
-            code = value;
-        }
-    }
+        public int Code { get; set; }
 
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-
-        set
-        {
-            name = value;
-        }
+        public string Name { get; set; }
     }
 }

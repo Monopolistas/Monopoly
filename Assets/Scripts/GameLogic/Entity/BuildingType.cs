@@ -1,77 +1,55 @@
 ﻿using System.Collections.Generic;
 
-public class BuildingType
+namespace Assets.Scripts.GameLogic.Entity
 {
-    public static readonly BuildingType HOUSE = new BuildingType(1, "HOUSE");
-    public static readonly BuildingType HOTEL = new BuildingType(2, "HOTEL");
-
-    int code;
-    string name;
-
-    public BuildingType(int code, string name)
+    public class BuildingType
     {
-        this.code = code;
-        this.name = name;
-    }
+        public static readonly BuildingType House = new BuildingType(1, "HOUSE");
+        public static readonly BuildingType Hotel = new BuildingType(2, "HOTEL");
 
-    public static IEnumerable<BuildingType> Values
-    {
-        get
+        public BuildingType(int code, string name)
         {
-            yield return HOUSE;
-            yield return HOTEL;
+            Code = code;
+            Name = name;
         }
-    }
 
-    public static BuildingType FindByCode(int code)
-    {
-        BuildingType type = null;
-        foreach (BuildingType item in Values)
+        public static IEnumerable<BuildingType> Values
         {
-            if (code.Equals(item.code))
+            get
             {
-                type = item;
+                yield return House;
+                yield return Hotel;
             }
         }
-        return type;
-    }
 
-    public int Code
-    {
-        get
+        public static BuildingType FindByCode(int code)
         {
-            return code;
+            BuildingType type = null;
+            foreach (BuildingType item in Values)
+            {
+                if (code.Equals(item.Code))
+                {
+                    type = item;
+                }
+            }
+            return type;
         }
 
-        set
-        {
-            code = value;
-        }
-    }
+        public int Code { get; }
 
-    public string Name
-    {
-        get
+        public string Name { get; set; }
+
+        public override bool Equals(object obj)
         {
-            return name;
+            var type = obj as BuildingType;
+            return type != null &&
+                   Code == type.Code;
         }
 
-        set
+        public override int GetHashCode()
         {
-            name = value;
+            return -1021610220 + Code.GetHashCode();
         }
-    }
 
-    public override bool Equals(object obj)
-    {
-        var type = obj as BuildingType;
-        return type != null &&
-               code == type.code;
     }
-
-    public override int GetHashCode()
-    {
-        return -1021610220 + code.GetHashCode();
-    }
-
 }

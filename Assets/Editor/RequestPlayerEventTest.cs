@@ -4,6 +4,10 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using System.IO;
+using Assets.Scripts.GameData;
+using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.Event;
+using Assets.Scripts.GameLogic.StateMachine;
 
 public class RequestPlayerEventTest
 {

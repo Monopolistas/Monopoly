@@ -1,34 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.StateMachine;
 
-public class BroadcastGameStateEvent : NetworkEvent
+namespace Assets.Scripts.GameLogic.Event
 {
-
-    public BroadcastGameStateEvent()
+    public class BroadcastGameStateEvent : NetworkEvent
     {
-    }
 
-    public BroadcastGameStateEvent(int code) : base(code)
-    {
-    }
-
-    public override void Broadcast(GameStateMachine gameStateMachine)
-    {
-    }
-
-    public override void Execute(GameStateMachine gameStateMachine)
-    {
-        if (!IsMasterClient)
+        public BroadcastGameStateEvent()
         {
-            GameState gameState = (GameState)Content;
+        }
 
-            gameStateMachine.Board.PlayerList = new List<Player>(gameState.Players);
-            gameStateMachine.PlayerOnTurn = gameState.PlayerOnTurn;
+        public BroadcastGameStateEvent(int code) : base(code)
+        {
+        }
 
-            if (!gameStateMachine.IsClientPrepared)
+        public override void Broadcast(GameStateMachine gameStateMachine)
+        {
+        }
+
+        public override void Execute(GameStateMachine gameStateMachine)
+        {
+            if (!IsMasterClient)
             {
-                gameStateMachine.ChangeState(gameStateMachine.StateOnClientPreparation);
+                GameState gameState = (GameState)Content;
+
+                gameStateMachine.Board.PlayerList = new List<Player>(gameState.Players);
+                gameStateMachine.PlayerOnTurn = gameState.PlayerOnTurn;
+
+                if (!gameStateMachine.IsClientPrepared)
+                {
+                    gameStateMachine.ChangeState(gameStateMachine.StateOnClientPreparation);
+                }
             }
         }
     }

@@ -1,13 +1,16 @@
 ﻿using System;
 
-public class StateOnBuyFreeLot : State
+namespace Assets.Scripts.GameLogic.StateMachine
 {
-	public StateOnBuyFreeLot(GameStateMachine gameStateMachine) : base(gameStateMachine)
-	{
-	}
-
-    public override void ExecuteGameLogic()
+    public class StateOnBuyFreeLot : State
     {
-        throw new NotImplementedException();
+        public StateOnBuyFreeLot(GameStateMachine gameStateMachine) : base(gameStateMachine)
+        {
+        }
+
+        public override void ExecuteGameLogic()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

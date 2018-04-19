@@ -1,44 +1,23 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.GameUtil;
 
-public class Bank : Person
+namespace Assets.Scripts.GameLogic.Entity
 {
-    List<Building> buildingList;
-    List<LotCard> lotCardList;
-
-    public Bank()
+    public class Bank : Person
     {
-        Cash = Constants.BANK_INITIAL_CASH;
-        buildingList = new List<Building>();
-        lotCardList = new List<LotCard>();
+        public Bank()
+        {
+            Cash = Constants.BankInitialCash;
+            BuildingList = new List<Building>();
+            LotCardList = new List<LotCard>();
+        }
+
+        #region Getters and Setters
+
+        public List<Building> BuildingList { get; set; }
+
+        public List<LotCard> LotCardList { get; set; }
+
+        #endregion
     }
-
-    #region Getters and Setters
-
-    public List<Building> BuildingList
-    {
-        get
-        {
-            return buildingList;
-        }
-
-        set
-        {
-            buildingList = value;
-        }
-    }
-
-    public List<LotCard> LotCardList
-    {
-        get
-        {
-            return lotCardList;
-        }
-
-        set
-        {
-            lotCardList = value;
-        }
-    }
-
-    #endregion
 }

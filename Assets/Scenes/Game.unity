@@ -1077,8 +1077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83f6ddfe37cc414186258bb535d11d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameGui: {fileID: 1797391253}
-  gameController: {fileID: 1577009514}
+  GameGui: {fileID: 1797391253}
+  GameController: {fileID: 1577009514}
 --- !u!1 &1282613286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,21 +1509,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fe7a0a6fc46fc4b903708573745852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 1577009514}
-  gameNetwork: {fileID: 1275601478}
-  join: {fileID: 1347395293}
-  startGame: {fileID: 865886258}
-  quit: {fileID: 1322363404}
-  throwDice: {fileID: 1094796911}
-  connectionText: {fileID: 273284630}
-  playerNameText: {fileID: 2014737496}
-  otherPlayersNameText: {fileID: 50366833}
-  black: {fileID: 1263263253516706, guid: ec4535b9bbf0ec347b7575a5df8f3edd, type: 2}
-  blue: {fileID: 1780427715646764, guid: 757cb53bf4351d847b8e16a0f59f73a6, type: 2}
-  green: {fileID: 1056659110913632, guid: 1d50475664bf6e24a8725d454b665687, type: 2}
-  red: {fileID: 1463133420638586, guid: 555ef03351481f34aa6fe1f080b12e70, type: 2}
-  white: {fileID: 1621788886690114, guid: e4989c9246a5e2545bc7ad8dbeb7c04e, type: 2}
-  yellow: {fileID: 1262010058699140, guid: 968a999c0cad7e447bfac379ebe0dd3e, type: 2}
+  GameController: {fileID: 1577009514}
+  GameNetwork: {fileID: 1275601478}
+  Join: {fileID: 1347395293}
+  StartGame: {fileID: 865886258}
+  Quit: {fileID: 1322363404}
+  ThrowDice: {fileID: 1094796911}
+  ConnectionText: {fileID: 273284630}
+  PlayerNameText: {fileID: 2014737496}
+  OtherPlayersNameText: {fileID: 50366833}
+  Black: {fileID: 1263263253516706, guid: ec4535b9bbf0ec347b7575a5df8f3edd, type: 2}
+  Blue: {fileID: 1780427715646764, guid: 757cb53bf4351d847b8e16a0f59f73a6, type: 2}
+  Green: {fileID: 1056659110913632, guid: 1d50475664bf6e24a8725d454b665687, type: 2}
+  Red: {fileID: 1463133420638586, guid: 555ef03351481f34aa6fe1f080b12e70, type: 2}
+  White: {fileID: 1621788886690114, guid: e4989c9246a5e2545bc7ad8dbeb7c04e, type: 2}
+  Yellow: {fileID: 1262010058699140, guid: 968a999c0cad7e447bfac379ebe0dd3e, type: 2}
 --- !u!1 &1835392323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,4 +1749,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734a8a1b62f4491488e130a0118b0b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 1577009514}
+  GameController: {fileID: 1577009514}

@@ -1,37 +1,13 @@
-﻿using System;
-
-public class Person
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    PersonType personType;
-    int cash;
-
-    #region Getters and Setters
-
-    public PersonType PersonType
+    public class Person
     {
-        get
-        {
-            return personType;
-        }
+        #region Getters and Setters
 
-        set
-        {
-            personType = value;
-        }
+        public PersonType PersonType { get; set; }
+
+        public int Cash { get; set; }
+
+        #endregion
     }
-
-    public int Cash
-    {
-        get
-        {
-            return cash;
-        }
-
-        set
-        {
-            cash = value;
-        }
-    }
-
-    #endregion
 }

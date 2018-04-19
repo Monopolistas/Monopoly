@@ -1,51 +1,90 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
-using UnityEngine;
+using Assets.Scripts.GameLogic.Entity;
 
-public class ChanceCardXml
+namespace Assets.Scripts.GameData.Xml
 {
-    static XmlDocument doc;
-    static List<ChanceCard> chanceCards;
-
-    public static List<ChanceCard> Deserialize(string xml)
+    public class ChanceCardXml
     {
-        doc = new XmlDocument();
-        doc.LoadXml(xml);
-        XmlNode mainNode = doc.SelectSingleNode("chance-cards");
-        XmlNodeList chanceCardNodes = mainNode.SelectNodes("chance-card");
-        chanceCards = new List<ChanceCard>();
+        private static XmlDocument _doc;
+        private static List<ChanceCard> _chanceCards;
 
-        foreach (XmlNode item in chanceCardNodes)
+        public static List<ChanceCard> Deserialize(string xml)
         {
-            ChanceCard cc = new ChanceCard();
+            _doc = new XmlDocument();
+            _doc.LoadXml(xml);
+            XmlNode mainNode = _doc.SelectSingleNode("chance-cards");
+            if (mainNode != null)
+            {
+                XmlNodeList chanceCardNodes = mainNode.SelectNodes("chance-card");
+                _chanceCards = new List<ChanceCard>();
 
-            string id = item.Attributes.GetNamedItem("id").Value;
-            string text = item.ChildNodes.Item(0).InnerText;
-            string value = item.ChildNodes.Item(1).InnerText;
-            string transaction = item.ChildNodes.Item(2).InnerText;
-            string cardAction = item.ChildNodes.Item(3).InnerText;
-            string boardSlot = item.ChildNodes.Item(4).InnerText;
-            string multiplier = item.ChildNodes.Item(5).InnerText;
-            string boardSlotType = item.ChildNodes.Item(6).InnerText;
-            string valuePerHouse = item.ChildNodes.Item(7).InnerText;
-            string valuePerHotel = item.ChildNodes.Item(8).InnerText;
+                if (chanceCardNodes != null)
+                {
+                    foreach (XmlNode item in chanceCardNodes)
+                    {
+                        ChanceCard cc = new ChanceCard();
 
-            cc.Id = int.Parse(id);
-            cc.Text = text;
-            cc.Value = int.Parse(value);
-            cc.TransactionType = TransactionType.FindByCode(transaction);
-            cc.CardActionType = CardActionType.FindByCode(cardAction);
-            cc.BoardSlotId = int.Parse(boardSlot);
-            cc.Multiplier = int.Parse(multiplier);
-            cc.BoardSlotType = BoardSlotType.FindByCode(int.Parse(boardSlotType));
-            cc.ValuePerHouse = int.Parse(valuePerHouse);
-            cc.ValuePerHotel = int.Parse(valuePerHotel);
-            cc.CardType = CardType.CHANCE;
+                        if (item.Attributes != null)
+                        {
+                            string id = item.Attributes.GetNamedItem("id").Value;
+                            string text = item.ChildNodes.Item(0)?.InnerText;
+                            string value = item.ChildNodes.Item(1)?.InnerText;
+                            string transaction = item.ChildNodes.Item(2)?.InnerText;
+                            string cardAction = item.ChildNodes.Item(3)?.InnerText;
+                            string boardSlot = item.ChildNodes.Item(4)?.InnerText;
+                            string multiplier = item.ChildNodes.Item(5)?.InnerText;
+                            string boardSlotType = item.ChildNodes.Item(6)?.InnerText;
+                            string valuePerHouse = item.ChildNodes.Item(7)?.InnerText;
+                            string valuePerHotel = item.ChildNodes.Item(8)?.InnerText;
 
-            chanceCards.Add(cc);
+                            cc.Id = int.Parse(id);
+                            cc.Text = text;
+                            if (value != null)
+                            {
+                                cc.Value = int.Parse(value);
+                            }
+
+                            if (transaction != null)
+                            {
+                                cc.TransactionType = TransactionType.FindByCode(int.Parse(transaction));
+                            }
+
+                            cc.CardActionType = CardActionType.FindByCode(cardAction);
+                            if (boardSlot != null)
+                            {
+                                cc.BoardSlotId = int.Parse(boardSlot);
+                            }
+
+                            if (multiplier != null)
+                            {
+                                cc.Multiplier = int.Parse(multiplier);
+                            }
+
+                            if (boardSlotType != null)
+                            {
+                                cc.BoardSlotType = BoardSlotType.FindByCode(int.Parse(boardSlotType));
+                            }
+
+                            if (valuePerHouse != null)
+                            {
+                                cc.ValuePerHouse = int.Parse(valuePerHouse);
+                            }
+
+                            if (valuePerHotel != null)
+                            {
+                                cc.ValuePerHotel = int.Parse(valuePerHotel);
+                            }
+                        }
+
+                        cc.CardType = CardType.Chance;
+
+                        _chanceCards.Add(cc);
+                    }
+                }
+            }
+
+            return _chanceCards;
         }
-
-        return chanceCards;
     }
 }

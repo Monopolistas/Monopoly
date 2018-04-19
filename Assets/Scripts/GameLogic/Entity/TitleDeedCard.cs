@@ -1,121 +1,25 @@
-﻿using System;
-
-public class TitleDeedCard : LotCard
+﻿namespace Assets.Scripts.GameLogic.Entity
 {
-    int buildingPrice;
-    int rent;
-    int oneHouseRent;
-    int twoHousesRent;
-    int threeHousesRent;
-    int fourHousesRent;
-    int hotelRent;
-    GroupColor groupColor;
-
-    #region Getters and Setters
-
-    public int BuildingPrice
+    public class TitleDeedCard : LotCard
     {
-        get
-        {
-            return buildingPrice;
-        }
+        #region Getters and Setters
 
-        set
-        {
-            buildingPrice = value;
-        }
+        public int BuildingPrice { get; set; }
+
+        public int Rent { get; set; }
+
+        public int OneHouseRent { get; set; }
+
+        public int TwoHousesRent { get; set; }
+
+        public int ThreeHousesRent { get; set; }
+
+        public int FourHousesRent { get; set; }
+
+        public int HotelRent { get; set; }
+
+        public GroupColor GroupColor { get; set; }
+
+        #endregion
     }
-
-    public int Rent
-    {
-        get
-        {
-            return rent;
-        }
-
-        set
-        {
-            rent = value;
-        }
-    }
-
-    public int OneHouseRent
-    {
-        get
-        {
-            return oneHouseRent;
-        }
-
-        set
-        {
-            oneHouseRent = value;
-        }
-    }
-
-    public int TwoHousesRent
-    {
-        get
-        {
-            return twoHousesRent;
-        }
-
-        set
-        {
-            twoHousesRent = value;
-        }
-    }
-
-    public int ThreeHousesRent
-    {
-        get
-        {
-            return threeHousesRent;
-        }
-
-        set
-        {
-            threeHousesRent = value;
-        }
-    }
-
-    public int FourHousesRent
-    {
-        get
-        {
-            return fourHousesRent;
-        }
-
-        set
-        {
-            fourHousesRent = value;
-        }
-    }
-
-    public int HotelRent
-    {
-        get
-        {
-            return hotelRent;
-        }
-
-        set
-        {
-            hotelRent = value;
-        }
-    }
-
-    public GroupColor GroupColor
-    {
-        get
-        {
-            return groupColor;
-        }
-
-        set
-        {
-            groupColor = value;
-        }
-    }
-
-    #endregion
 }

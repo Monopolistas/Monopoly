@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class ShuffleList<T>
+namespace Assets.Scripts.GameUtil
 {
-    public static List<T> Shuffle(List<T> list)
+    public class ShuffleList<T>
     {
-        // Sattolo's algorithm for shuffle
-        System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
-        for (int i = list.Count; i-- > 1;)
+        public static List<T> Shuffle(List<T> list)
         {
-            int j = random.Next(i);
-            var tmp = list[i];
-            list[i] = list[j];
-            list[j] = tmp;
+            // Sattolo's algorithm for shuffle
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            for (int i = list.Count; i-- > 1;)
+            {
+                int j = random.Next(i);
+                var tmp = list[i];
+                list[i] = list[j];
+                list[j] = tmp;
+            }
+            return list;
         }
-        return list;
     }
 }

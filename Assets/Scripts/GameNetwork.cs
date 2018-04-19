@@ -1,137 +1,154 @@
-﻿using ExitGames.Client.Photon;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.GameLogic.Entity;
+using Assets.Scripts.GameLogic.Event;
+using Assets.Scripts.GameLogic.StateMachine;
+using Assets.Scripts.GameUtil;
+using Assets.Scripts.Network;
+using ExitGames.Client.Photon;
+using Photon;
 using UnityEngine;
 
-public class GameNetwork : Photon.PunBehaviour
+namespace Assets.Scripts
 {
-    public GameGui gameGui;
-    public GameController gameController;
-
-    GameStateMachine gameStateMachine;
-
-    float updateTime;
-
-    void Start()
+    public class GameNetwork : PunBehaviour
     {
-        GameStateSerializer.gameStateMachine = gameController.gameStateMachine;
-        PlayerSerializer.gameStateMachine = gameController.gameStateMachine;
-        PhotonPeer.RegisterType(typeof(Player), 255, PlayerSerializer.Serialize, PlayerSerializer.Deserialize);
-        PhotonPeer.RegisterType(typeof(GameState), 254, GameStateSerializer.Serialize, GameStateSerializer.Deserialize);
-        updateTime = 0;
-        gameStateMachine = gameController.gameStateMachine;
-    }
+        public GameGui GameGui;
+        public GameController GameController;
+        private GameStateMachine _gameStateMachine;
+        private float _updateTime;
 
-    void Update()
-    {
-        // Update clients every 2 secs
-        if (gameStateMachine.IsGameStarted)
+        // ReSharper disable once UnusedMember.Local
+        private void Start()
         {
-            updateTime += Time.deltaTime;
-            if (updateTime > Constants.UPDATE_TIME)
+            GameStateSerializer.GameStateMachine = GameController.GameStateMachine;
+            PlayerSerializer.GameStateMachine = GameController.GameStateMachine;
+            PhotonPeer.RegisterType(typeof(Player), 255, PlayerSerializer.Serialize, PlayerSerializer.Deserialize);
+            PhotonPeer.RegisterType(typeof(GameState), 254, GameStateSerializer.Serialize, GameStateSerializer.Deserialize);
+            _updateTime = 0;
+            _gameStateMachine = GameController.GameStateMachine;
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        private void Update()
+        {
+            // Update clients every 2 secs
+            if (_gameStateMachine.IsGameStarted)
             {
-                BroadcastGameState();
-                updateTime = 0;
+                _updateTime += Time.deltaTime;
+                if (_updateTime > Constants.UpdateTime)
+                {
+                    BroadcastGameState();
+                    _updateTime = 0;
+                }
             }
         }
-    }
 
-    public void JoinGame()
-    {
-        PhotonNetwork.ConnectUsingSettings(Constants.MONOPOLY_VERSION);
-    }
-
-    public GameState CreateGameState(GameStateMachine gameStateMachine)
-    {
-        GameState gameState = new GameState();
-        gameState.PlayerOnTurn = gameStateMachine.PlayerOnTurn;
-        gameState.Players = gameStateMachine.Board.PlayerList.ToArray();
-        return gameState;
-    }
-
-    public void BroadcastGameState()
-    {
-        if (PhotonNetwork.isMasterClient)
+        public void JoinGame()
         {
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
-            raiseEventOptions.Receivers = ReceiverGroup.Others;
-            PhotonNetwork.RaiseEvent(NetworkEvent.BROADCAST_GAME_STATE.CodeToByte(), CreateGameState(gameStateMachine), true, raiseEventOptions);
-        }
-    }
-
-    public override void OnJoinedLobby()
-    {
-        OnConnectedToMaster(); // this way, it does not matter if we join a lobby or not
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = Constants.MAX_PLAYERS;
-        PhotonNetwork.JoinOrCreateRoom(Constants.ROOM_NAME, roomOptions, TypedLobby.Default);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        gameStateMachine = gameController.gameStateMachine;
-
-        // Dequeue current joined players
-        // Since this method is called once in the client at join phase, we dequeue already joined players
-        int length = PhotonNetwork.countOfPlayers - 1;
-        for (int i = 0; i < length; i++)
-        {
-            gameStateMachine.Database.PlayerQueue.Dequeue();
-            gameStateMachine.Database.PlayerColorQueue.Dequeue();
+            PhotonNetwork.ConnectUsingSettings(Constants.MonopolyVersion);
         }
 
-        // It is meant to change the state of Gui from ON_CONNECTING to ON_CONNECTED
-        gameGui.ChangeState();
-
-        if (!PhotonNetwork.isMasterClient)
+        public GameState CreateGameState(GameStateMachine gameStateMachine)
         {
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
-            raiseEventOptions.Receivers = ReceiverGroup.MasterClient;
-            PhotonNetwork.RaiseEvent(NetworkEvent.REQUEST_PLAYER.CodeToByte(), null, true, raiseEventOptions);
-        }
-        else
-        {
-            gameStateMachine.AddLocalPlayer(PhotonNetwork.player.ID);
-        }
-    }
-
-    // setup our OnEvent as callback:
-    void OnEnable()
-    {
-        PhotonNetwork.OnEventCall += this.OnEvent;
-    }
-
-    void OnDisable()
-    {
-        PhotonNetwork.OnEventCall -= this.OnEvent;
-    }
-
-    // handle custom events:
-    void OnEvent(byte eventcode, object content, int senderid)
-    {
-        NetworkEvent networkEvent = NetworkEvent.Instantiate(eventcode);
-        networkEvent.IsMasterClient = PhotonNetwork.isMasterClient;
-        networkEvent.Content = content;
-        networkEvent.SenderId = senderid;
-        networkEvent.Execute(gameStateMachine);
-        networkEvent.Broadcast(gameStateMachine);
-    }
-
-    public GameStateMachine GameStateMachine
-    {
-        get
-        {
-            return gameStateMachine;
+            GameState gameState = new GameState
+            {
+                PlayerOnTurn = gameStateMachine.PlayerOnTurn,
+                Players = gameStateMachine.Board.PlayerList.ToArray()
+            };
+            return gameState;
         }
 
-        set
+        public void BroadcastGameState()
         {
-            gameStateMachine = value;
+            if (PhotonNetwork.isMasterClient)
+            {
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+                {
+                    Receivers = ReceiverGroup.Others
+                };
+                PhotonNetwork.RaiseEvent(NetworkEvent.BroadcastGameState.CodeToByte(), CreateGameState(_gameStateMachine), true, raiseEventOptions);
+            }
         }
-    }
 
+        public override void OnJoinedLobby()
+        {
+            OnConnectedToMaster(); // this way, it does not matter if we join a lobby or not
+        }
+
+        public override void OnConnectedToMaster()
+        {
+            RoomOptions roomOptions = new RoomOptions
+            {
+                MaxPlayers = Constants.MaxPlayers
+            };
+            PhotonNetwork.JoinOrCreateRoom(Constants.RoomName, roomOptions, TypedLobby.Default);
+        }
+
+        public override void OnJoinedRoom()
+        {
+            _gameStateMachine = GameController.GameStateMachine;
+
+            // Dequeue current joined players
+            // Since this method is called once in the client at join phase, we dequeue already joined players
+            int length = PhotonNetwork.countOfPlayers - 1;
+            for (int i = 0; i < length; i++)
+            {
+                _gameStateMachine.Database.PlayerQueue.Dequeue();
+                _gameStateMachine.Database.PlayerColorQueue.Dequeue();
+            }
+
+            // It is meant to change the state of Gui from ON_CONNECTING to ON_CONNECTED
+            GameGui.ChangeState();
+
+            if (!PhotonNetwork.isMasterClient)
+            {
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+                {
+                    Receivers = ReceiverGroup.MasterClient
+                };
+                PhotonNetwork.RaiseEvent(NetworkEvent.RequestPlayer.CodeToByte(), null, true, raiseEventOptions);
+            }
+            else
+            {
+                _gameStateMachine.AddLocalPlayer(PhotonNetwork.player.ID);
+            }
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        private void OnEnable()
+        {
+            PhotonNetwork.OnEventCall += OnEvent;
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        private void OnDisable()
+        {
+            // ReSharper disable once DelegateSubtraction
+            PhotonNetwork.OnEventCall -= OnEvent;
+        }
+
+        // handle custom events:
+        private void OnEvent(byte eventcode, object content, int senderid)
+        {
+            NetworkEvent networkEvent = NetworkEvent.Instantiate(eventcode);
+            networkEvent.IsMasterClient = PhotonNetwork.isMasterClient;
+            networkEvent.Content = content;
+            networkEvent.SenderId = senderid;
+            networkEvent.Execute(_gameStateMachine);
+            networkEvent.Broadcast(_gameStateMachine);
+        }
+
+        public GameStateMachine GameStateMachine
+        {
+            get
+            {
+                return _gameStateMachine;
+            }
+
+            set
+            {
+                _gameStateMachine = value;
+            }
+        }
+
+    }
 }
