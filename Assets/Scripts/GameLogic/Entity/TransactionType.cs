@@ -26,12 +26,12 @@ namespace Assets.Scripts.GameLogic.Entity
             }
         }
 
-        public static TransactionType FindByCode(int code)
+        public static TransactionType FindByName(string name)
         {
             TransactionType type = null;
             foreach (TransactionType item in Values)
             {
-                if (code.Equals(item.Code))
+                if (name.Equals(item.Name))
                 {
                     type = item;
                 }

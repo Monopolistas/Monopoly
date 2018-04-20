@@ -9,9 +9,8 @@ namespace Assets.Editor
 {
     public class GameStateSerializerTest
     {
-
-        GameStateMachine _gameStateMachine;
-        ResourcesLoader _resourcesLoader;
+        private GameStateMachine _gameStateMachine;
+        private ResourcesLoader _resourcesLoader;
 
         [SetUp]
         public void SetUp()

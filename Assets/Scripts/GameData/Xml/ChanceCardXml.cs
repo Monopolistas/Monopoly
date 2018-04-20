@@ -45,10 +45,7 @@ namespace Assets.Scripts.GameData.Xml
                                 cc.Value = int.Parse(value);
                             }
 
-                            if (transaction != null)
-                            {
-                                cc.TransactionType = TransactionType.FindByCode(int.Parse(transaction));
-                            }
+                            cc.TransactionType = TransactionType.FindByName(transaction);
 
                             cc.CardActionType = CardActionType.FindByCode(cardAction);
                             if (boardSlot != null)

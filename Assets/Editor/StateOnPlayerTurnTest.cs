@@ -1,99 +1,95 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEngine.TestTools;
-using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using Assets.Scripts.GameData;
+﻿using Assets.Scripts.GameData;
 using Assets.Scripts.GameLogic.Entity;
 using Assets.Scripts.GameLogic.StateMachine;
 using Assets.Scripts.GameUtil;
+using NUnit.Framework;
 
-public class StateOnPlayerTurnTest
+namespace Assets.Editor
 {
-
-    GameStateMachine gameStateMachine;
-    ResourcesLoader resourcesLoader;
-
-    int idPlayerOnTurn;
-    int idNoPlayerOnTurn;
-
-    int GetNoPlayerInTurnId(int id)
+    public class StateOnPlayerTurnTest
     {
-        foreach (Player player in gameStateMachine.Board.PlayerList)
+        private GameStateMachine _gameStateMachine;
+        private ResourcesLoader _resourcesLoader;
+
+        private int _idPlayerOnTurn;
+        private int _idNoPlayerOnTurn;
+
+        private int GetNoPlayerInTurnId(int id)
         {
-            if (!player.Id.Equals(idPlayerOnTurn))
+            foreach (Player player in _gameStateMachine.Board.PlayerList)
             {
-                idNoPlayerOnTurn = player.Id;
-                break;
+                if (!player.Id.Equals(_idPlayerOnTurn))
+                {
+                    _idNoPlayerOnTurn = player.Id;
+                    break;
+                }
             }
+            return _idNoPlayerOnTurn;
         }
-        return idNoPlayerOnTurn;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _gameStateMachine = new GameStateMachine();
+            _resourcesLoader = new ResourcesLoader();
+
+            _resourcesLoader.LoadXmlData();
+
+            _gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.Black));
+            _gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.White));
+            _gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.Red));
+            _resourcesLoader.GameStateMachine = _gameStateMachine;
+            _resourcesLoader.FillDatabase();
+
+            _gameStateMachine.ChangeState(new StateOnPreparation(_gameStateMachine));
+
+            // Execute onPreparation and enters OnPlayerTurn
+            _gameStateMachine.ExecuteGameLogic();
+
+            _idPlayerOnTurn = _gameStateMachine.PlayerOnTurn.Id;
+            _idNoPlayerOnTurn = GetNoPlayerInTurnId(_idPlayerOnTurn);
+        }
+
+        [Test]
+        public void ThrowDiceTest()
+        {
+            _gameStateMachine.ThrowDice(_idPlayerOnTurn);
+
+            Assert.AreEqual(StateOnPlayerTurn.StateEnum.OnMove, ((StateOnPlayerTurn)_gameStateMachine.CurrentState).CurrentState);
+            Assert.NotNull(((StateOnPlayerTurn)_gameStateMachine.CurrentState).DiceThrow);
+        }
+
+        [Test]
+        public void ThrowDiceDoubleTest()
+        {
+            _gameStateMachine.ThrowDice(_idPlayerOnTurn, 5, 5);
+
+            Assert.AreEqual(StateOnPlayerTurn.StateEnum.OnMove, ((StateOnPlayerTurn)_gameStateMachine.CurrentState).CurrentState);
+            Assert.NotNull(((StateOnPlayerTurn)_gameStateMachine.CurrentState).PlayerTurn);
+            Assert.AreEqual(1, ((StateOnPlayerTurn)_gameStateMachine.CurrentState).PlayerTurn.DiceThrowList.Count);
+
+            // TODO: test if the player keeps playing
+        }
+
+        [Test]
+        public void ThrowDiceNoPlayerOnTurnTest()
+        {
+            Assert.Throws<MonopolyAlertException>(delegate { _gameStateMachine.ThrowDice(_idNoPlayerOnTurn); });
+        }
+
+        [Test]
+        public void ExecuteGameLogicAfterDiceThrownTest()
+        {
+            _gameStateMachine.ThrowDice(_idPlayerOnTurn, 3, 5);
+
+            _gameStateMachine.ExecuteGameLogic();
+
+            Assert.AreEqual(8, _gameStateMachine.GetPlayerPositionOnBoard(_idPlayerOnTurn));
+
+            _gameStateMachine.ExecuteGameLogic();
+
+            Assert.IsTrue(_gameStateMachine.CheckInState("StateOnBoardSlotAction"));
+        }
+
     }
-
-    [SetUp]
-    public void SetUp()
-    {
-        gameStateMachine = new GameStateMachine();
-        resourcesLoader = new ResourcesLoader();
-
-        resourcesLoader.LoadXmlData();
-
-        gameStateMachine.Database.PlayerDictionary.Add(1, new Player(1, "Player1", PlayerColor.Black));
-        gameStateMachine.Database.PlayerDictionary.Add(2, new Player(2, "Player2", PlayerColor.White));
-        gameStateMachine.Database.PlayerDictionary.Add(3, new Player(3, "Player3", PlayerColor.Red));
-        resourcesLoader.GameStateMachine = gameStateMachine;
-        resourcesLoader.FillDatabase();
-
-        gameStateMachine.ChangeState(new StateOnPreparation(gameStateMachine));
-
-        // Execute onPreparation and enters OnPlayerTurn
-        gameStateMachine.ExecuteGameLogic();
-
-        idPlayerOnTurn = gameStateMachine.PlayerOnTurn.Id;
-        idNoPlayerOnTurn = GetNoPlayerInTurnId(idPlayerOnTurn);
-    }
-
-    [Test]
-    public void ThrowDiceTest()
-    {
-        gameStateMachine.ThrowDice(idPlayerOnTurn);
-
-        Assert.AreEqual(StateOnPlayerTurn.StateEnum.OnMove, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
-        Assert.NotNull(((StateOnPlayerTurn)gameStateMachine.CurrentState).DiceThrow);
-    }
-
-    [Test]
-    public void ThrowDiceDoubleTest()
-    {
-        gameStateMachine.ThrowDice(idPlayerOnTurn, 5, 5);
-
-        Assert.AreEqual(StateOnPlayerTurn.StateEnum.OnMove, ((StateOnPlayerTurn)gameStateMachine.CurrentState).CurrentState);
-        Assert.NotNull(((StateOnPlayerTurn)gameStateMachine.CurrentState).PlayerTurn);
-        Assert.AreEqual(1, ((StateOnPlayerTurn)gameStateMachine.CurrentState).PlayerTurn.DiceThrowList.Count);
-
-        // TODO: test if the player keeps playing
-    }
-
-    [Test]
-    public void ThrowDiceNoPlayerOnTurnTest()
-    {
-        Assert.Throws<MonopolyAlertException>(delegate { gameStateMachine.ThrowDice(idNoPlayerOnTurn); });
-    }
-
-    [Test]
-    public void ExecuteGameLogicAfterDiceThrownTest()
-    {
-        gameStateMachine.ThrowDice(idPlayerOnTurn, 3, 5);
-
-        gameStateMachine.ExecuteGameLogic();
-
-        Assert.AreEqual(8, gameStateMachine.GetPlayerPositionOnBoard(idPlayerOnTurn));
-
-        gameStateMachine.ExecuteGameLogic();
-
-        Assert.IsTrue(gameStateMachine.CheckInState("StateOnBoardSlotAction"));
-    }
-
 }
